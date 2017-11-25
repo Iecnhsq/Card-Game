@@ -1,0 +1,41 @@
+body{
+    background-image: url(Image/fon.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+.forma_1{
+    float: left;
+    background-color: rgba(84,82,71,.5);
+    color: white;
+    padding: 10px;
+    margin: 10px;
+}
+.forma_2{
+    float: left;
+    background-color: rgba(84,82,71,.5);
+    color: white;
+    padding: 10px;
+    margin: 10px;
+}
+input{
+    padding: 6px;
+    margin: 2px;
+    border: 1px #52500d solid;
+}
+.field{
+    clear:both;
+    text-align:right;
+    line-height:35px;
+}
+label {
+    float:left;
+    padding-right:10px;
+}
+.main {
+    float:left
+}
+input[type="submit"] {
+    background-color: #545247;
+    color: ghostwhite;
+}
