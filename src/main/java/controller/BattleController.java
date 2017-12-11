@@ -49,42 +49,10 @@ public class BattleController {
             //начало нового хода, можно потом поменять чтобы было как в хс
             String endOfTurn = req.getParameter("end");
             if (endOfTurn != null) {
-                if (b.p1.getLogin().equals(login)) {
-                    b.p1ActiveCards.clear();
-                    b.atackCardP1 = null;
-                    b.p1MadeTurn = true;
-                    b.p1HeroPowerSelected = false;
-                    b.p1Attacked = false;
-                }
-                if (b.p2.getLogin().equals(login)) {
-                    b.p2ActiveCards.clear();
-                    b.atackCardP2 = null;
-                    b.p2MadeTurn = true;
-                    b.p2HeroPowerSelected = false;
-                    b.p2Attacked = false;
-                }
+                bs.endTurn(b, login);
             }
             if (b.p1MadeTurn && b.p2MadeTurn) {
-                b.p1MadeTurn = false;
-                b.p2MadeTurn = false;
-                b.turn++;
-                if (b.turn < 10) {
-                    b.manaP1 = b.turn;
-                    b.manaP2 = b.turn;
-                } else {
-                    b.manaP1 = 10;
-                    b.manaP2 = 10;
-                }
-                if (!b.deckP1.isEmpty()) {
-                    b.onHandP1.add(bs.add1CardToP1Hand(b));
-                    b.onHandP2.add(bs.add1CardToP2Hand(b));
-                }
-                for (Card c : b.onTableP1) {
-                    b.p1ActiveCards.put(c.getId(), c);
-                }
-                for (Card c : b.onTableP2) {
-                    b.p2ActiveCards.put(c.getId(), c);
-                }
+                bs.beginNewTurn(b);
             }
 
             String idString = req.getParameter("id");
