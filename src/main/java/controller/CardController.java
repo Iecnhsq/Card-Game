@@ -7,6 +7,7 @@ import entity.Card;
 import entity.Deck;
 import entity.User;
 import holders.OnlineHolder;
+import holders.UserHolder;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -32,15 +33,18 @@ public class CardController {
     private MainService mserv;
     @Autowired
     private OnlineHolder oh;
+    @Autowired
+    private UserHolder uh;
 
     @RequestMapping("/card.html")
     public ModelAndView card(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ModelAndView model = new ModelAndView("card");
-        List<Card> allCards = cdao.getCards();
+        List<Card> allCards = cdao.getCards("BasicCard");
         String login = ((String) req.getSession().getAttribute("login"));
-        User u = udao.getUserByLogin(login);
+        User u = uh.getUser();
         // в случае если на нашу страницу перешел не зарегестрированый пользиватель его оправляем на мейн страницу.       
         if (login != null) {
+            System.out.println("in login");
             //выводим количество игроков онлайн на экран.
             int Online = oh.size();
             String pOnline = "No Players online";
@@ -50,48 +54,74 @@ public class CardController {
             model.addObject("pOnline", pOnline);
             model.addObject("user", u);
             // берем айди карты
-            String id = req.getParameter("id");
+            String idString = req.getParameter("id");
             Set<Card> cards;
-//          если у пользывателя в базе пустое поле card то приводим его к типу Deck.class что бы можно было его обрабарывать в наше json.
-            // иначе добавляем в наш колоду выбраных карт карты которые уже были выбраны ранее.            
-            cards = mserv.getUserCards(login, model);
-            // в случаее если мы не выбрали не одной карты и перезапустили страницу, возвращаем ее без изменений.
-            if (id == null) {
-                return model;
-                // иначе приводим наш параметер id к типу int, и если он равен нулю очищаем список выбраных карт.
-            } else {
+            String idClass = req.getParameter("idclass");
+            String classNameJoin = u.getClasss();
+            req.getSession().setAttribute("cardClass", cdao.getCards(classNameJoin));
+            req.getSession().setAttribute("heroClass", classNameJoin);
+            boolean newClass = false;
+            if (idClass != null) {
+                newClass = true;
+                req.getSession().setAttribute("heroClass", idClass);
+                req.getSession().setAttribute("cardClass", cdao.getCards(idClass));
+                u.setClasss(idClass);
+                uh.set(u);
+                udao.updateUser(u);
+            }
 
-                int idInt = Integer.parseInt(id);
-                if (idInt == 0) {
+            String CardClassName = u.getClasss();
+//            req.setAttribute("cardClass", className);
+            cards = mserv.getUserCards(model, CardClassName);
+            if (newClass) {
+                cards.clear();
+            }
+            if (idString != null) {
+                System.out.println("in id string");
+                int id = Integer.parseInt(idString);
+                if (id == 0) {
                     cards.clear();
                     //если больше 0 добавляем выбраную карту в список выбраных карт.
-                } else if (idInt > 0) {
-                    cserv.addCard(cards, idInt);
+                } else if (id > 0) {
+                    cards.add(cserv.addCard(CardClassName, id));
 //                  если меньше 0 то удаляем из списка выбраных карт.
-                } else if (idInt < 0) {
-                    cserv.removeCard(cards, idInt);
+                    System.out.println(cards.size());
+                } else if (id < 0) {
+                    cserv.removeCard(cards, id);
                 }
-
                 // если количество выбраных карт превышает 10 карт возврашаемся обратно на card.html без изменений
                 if (cards.size() > 10) {
                     resp.sendRedirect("card.html");
-                    //иначе добавляем карту
-                } else {
-                    Deck deck = new Deck();
-                    //запускаем цыкл для переноса значений из cards в deck.deck
-                    cards.forEach((c) -> {
-                        deck.deck.add(c.getId());
-                    });
-                    // приводим сет Id выбраных карт к типу стринг через json, и обновляем значение поля card у пользивателя в БД,
-                    //дальше выводим мрдель но экран.
-                    String userCards = new Gson().toJson(deck);
-                    u.setCards(userCards);
-                    udao.updateUser(u);
-                    model.addObject("cards", allCards);
-                    model.addObject("card", cards);
-                    return model;
+                    return null;
                 }
+
+//                req.getSession().setAttribute("cards", cards);
             }
+            Deck deck = new Deck();
+            //запускаем цыкл для переноса значений из cards в deck.deck
+            cards.forEach((c) -> {
+                deck.deck.add(c.getId());
+            });
+            String userCards = new Gson().toJson(deck);
+            if (newClass) {
+                u.setClasss(idClass);
+
+            } else {
+                u.setClasss(classNameJoin);
+            }
+            u.setCards(userCards);
+            uh.set(u);
+            if (req.getParameter("getCards") != null) {
+                udao.updateUser(u);
+                resp.sendRedirect("main.html");
+                return null;
+            }
+            model.addObject("allCards", allCards);
+            model.addObject("deckCards", cards);
+            for (int j = 0; j <= 10; j++) {
+                model.addObject("level" + j + "Cards", cserv.getCardsByLvl(allCards, j));
+            }
+            return model;
         } else {
             resp.sendRedirect("login.html");
         }

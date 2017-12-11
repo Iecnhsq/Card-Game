@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import dao.CardDAO;
 import entity.Card;
 import entity.Deck;
+import holders.UserHolder;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -15,13 +16,19 @@ public class BattleService {
 
     @Autowired
     private CardDAO cdao;
+    @Autowired
+    private UserHolder uh;
 
     public List<Card> setDeckP1(Battle b) {
         //раздаем карты 1му игроку 
         List<Card> l = new CopyOnWriteArrayList<>();
         Deck d = new Gson().fromJson(b.p1.getCards(), Deck.class);
         d.deck.forEach((i) -> {
-            l.add(cdao.getCardById(i));
+            if (i < 1000000) {
+                l.add(cdao.getCardById(i, "BasicCard"));
+            } else {
+                l.add(cdao.getCardById(i, b.p1.getClasss()));
+            }
         });
         return l;
     }
@@ -34,7 +41,11 @@ public class BattleService {
         // проходим по списку id наших карт из колоды
         d.deck.forEach((i) -> {
             // добавляем в наш список карты из колоды
-            l.add(cdao.getCardById(i));
+            if (i < 1000000) {
+                l.add(cdao.getCardById(i, "BasicCard"));
+            } else {
+                l.add(cdao.getCardById(i, b.p2.getClasss()));
+            }
         });
         return l;
     }
@@ -65,13 +76,6 @@ public class BattleService {
         return l;
     }
 
-    public void p1Turn(Battle b, ModelAndView model, HttpServletRequest req) {
-        //готовая логика хода
-    }
-
-    public void p2Turn(Battle b, ModelAndView model, HttpServletRequest req) {
-        //готовая логика хода
-    }
 
     public Card add1CardToP1Hand(Battle b) {
         if (b.deckP1.size() > 0) {
@@ -101,4 +105,107 @@ public class BattleService {
 
     }
 
+    
+    public void p1CreatureAttack(Battle b, int id) {
+        if (!b.onTableP2.checkTaunt()) {
+            for (Card c : b.onTableP2) {
+                attackProcessP1Creature(b, c, id);
+            }
+        } else {
+            for (Card c : b.onTableP2.getTauntCards()) {
+                attackProcessP1Creature(b, c, id);
+            }
+        }
+    }
+
+    public void p2CreatureAttack(Battle b, int id) {
+        if (!b.onTableP1.checkTaunt()) {
+            for (Card c : b.onTableP1) {
+                attackProcessP2Creature(b, c, id);
+            }
+        } else {
+            for (Card c : b.onTableP1.getTauntCards()) {
+                attackProcessP2Creature(b, c, id);
+            }
+        }
+    }
+
+    private void attackProcessP1Creature(Battle b,Card c, int id) {
+        if (c.getId() == -id && b.atackCardP1 != null) {
+            if (!c.getShield() && !b.atackCardP1.getShield()) {
+                b.p1points = addPoint(c.getHealth(), b.atackCardP1.getDamage(), b.p1points);
+                b.p2points = addPoint(b.atackCardP1.getHealth(), c.getDamage(), b.p2points);
+                c.setHealth(c.getHealth() - b.atackCardP1.getDamage());
+                b.atackCardP1.setHealth(b.atackCardP1.getHealth() - c.getDamage());
+                if (c.getHealth() <= 0) {
+                    b.onTableP2.remove(c);
+                }
+                if (b.atackCardP1.getHealth() <= 0) {
+                    b.onTableP1.remove(b.atackCardP1);
+                }
+                b.p1ActiveCards.remove(b.atackCardP1.getId());
+                b.atackCardP1 = null;
+            } else if (c.getShield() && !b.atackCardP1.getShield()) {
+                c.setShield(false);
+                b.p2points = addPoint(b.atackCardP1.getHealth(), c.getDamage(), b.p2points);
+                b.atackCardP1.setHealth(b.atackCardP1.getHealth() - c.getDamage());
+                if (b.atackCardP1.getHealth() <= 0) {
+                    b.onTableP1.remove(b.atackCardP1);
+                }
+                b.p1ActiveCards.remove(b.atackCardP1.getId());
+                b.atackCardP1 = null;
+            } else if (!c.getShield() && b.atackCardP1.getShield()) {
+                b.atackCardP1.setShield(false);
+                b.p1points = addPoint(c.getHealth(), b.atackCardP1.getDamage(), b.p1points);
+                c.setHealth(c.getHealth() - b.atackCardP1.getDamage());
+                if (c.getHealth() <= 0) {
+                    b.onTableP2.remove(c);
+                }
+                b.p1ActiveCards.remove(b.atackCardP1.getId());
+                b.atackCardP1 = null;
+            } else {
+                b.atackCardP1.setShield(false);
+                c.setShield(false);
+            }
+        }
+    }
+    private void attackProcessP2Creature(Battle b,Card c,int id){
+         if (c.getId() == -id && b.atackCardP2 != null) {
+            if (!c.getShield() && !b.atackCardP2.getShield()) {
+                b.p2points = addPoint(c.getHealth(), b.atackCardP2.getDamage(), b.p2points);
+                b.p1points = addPoint(b.atackCardP2.getHealth(), c.getDamage(), b.p1points);
+                c.setHealth(c.getHealth() - b.atackCardP2.getDamage());
+                b.atackCardP2.setHealth(b.atackCardP2.getHealth() - c.getDamage());
+                if (c.getHealth() <= 0) {
+                    b.onTableP1.remove(c);
+                }
+                if (b.atackCardP2.getHealth() <= 0) {
+                    b.onTableP2.remove(b.atackCardP2);
+                }
+                b.p2ActiveCards.remove(b.atackCardP2.getId());
+                b.atackCardP2 = null;
+            } else if (c.getShield() && !b.atackCardP2.getShield()) {
+                c.setShield(false);
+                b.p1points = addPoint(b.atackCardP2.getHealth(), c.getDamage(), b.p1points);
+                b.atackCardP2.setHealth(b.atackCardP2.getHealth() - c.getDamage());
+                if (b.atackCardP2.getHealth() <= 0) {
+                    b.onTableP2.remove(b.atackCardP2);
+                }
+                b.p2ActiveCards.remove(b.atackCardP2.getId());
+                b.atackCardP2 = null;
+            } else if (!c.getShield() && b.atackCardP2.getShield()) {
+                b.atackCardP2.setShield(false);
+                b.p2points = addPoint(c.getHealth(), b.atackCardP2.getDamage(), b.p2points);
+                c.setHealth(c.getHealth() - b.atackCardP2.getDamage());
+                if (c.getHealth() <= 0) {
+                    b.onTableP1.remove(c);
+                }
+                b.p2ActiveCards.remove(b.atackCardP2.getId());
+                b.atackCardP2 = null;
+            } else {
+                b.atackCardP2.setShield(false);
+                c.setShield(false);
+            }
+        }
+    }
 }

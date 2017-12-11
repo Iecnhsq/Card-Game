@@ -3,6 +3,7 @@ package controller;
 import dao.UserDAO;
 import entity.User;
 import holders.OnlineHolder;
+import holders.UserHolder;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,8 @@ public class LoginController {
     private UserDAO udao;
     @Autowired
     private OnlineHolder oh;
+    @Autowired
+    private UserHolder uh;
 
     @RequestMapping(value = "/login.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView login(HttpServletRequest req, HttpServletResponse resp) {
@@ -36,6 +39,8 @@ public class LoginController {
                 } else {
                     req.getSession().setAttribute("login", login);
                     oh.put(u.getLogin(), u);
+                    uh.set(u);
+                    
                     try {
                         resp.sendRedirect("/CardGame/main.html");
                     } catch (IOException ex) {

@@ -18,32 +18,12 @@ public class ClassController {
         if (idClass == null) {
             resp.sendRedirect("/CardGame/main.html");
         } else {
-            if (idClass.equals("dk")) {
-                model.addObject("DK", true);
-                return model;
-            }
-            if (idClass.equals("dh")) {
-                model.addObject("DH", true);
-                return model;
-            }
-            if (idClass.equals("dr")) {
-                model.addObject("DR", true);
-                return model;
-            }
             if (idClass.equals("hu")) {
                 model.addObject("HU", true);
                 return model;
             }
             if (idClass.equals("ma")) {
                 model.addObject("MA", true);
-                return model;
-            }
-            if (idClass.equals("mo")) {
-                model.addObject("MO", true);
-                return model;
-            }
-            if (idClass.equals("pa")) {
-                model.addObject("PA", true);
                 return model;
             }
             if (idClass.equals("pr")) {
@@ -56,10 +36,6 @@ public class ClassController {
             }
             if (idClass.equals("sh")) {
                 model.addObject("SH", true);
-                return model;
-            }
-            if (idClass.equals("wl")) {
-                model.addObject("WL", true);
                 return model;
             }
             if (idClass.equals("wr")) {

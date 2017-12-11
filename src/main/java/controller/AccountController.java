@@ -2,6 +2,7 @@ package controller;
 
 import dao.UserDAO;
 import entity.User;
+import holders.UserHolder;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,8 @@ public class AccountController {
     private UserDAO udao;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private UserHolder uh;
 
     @RequestMapping(value = "/account.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView account(HttpServletRequest req, HttpServletResponse resp) {
@@ -31,23 +34,7 @@ public class AccountController {
             }
             return null;
         } else {
-            User user = udao.getUserByLogin(login);
-
-            if (user.getClasss().equals("deathknight")) {
-                req.getSession().setAttribute("dk", true);
-            } else {
-                req.getSession().setAttribute("dk", false);
-            }
-            if (user.getClasss().equals("demonhunter")) {
-                req.getSession().setAttribute("dh", true);
-            } else {
-                req.getSession().setAttribute("dh", false);
-            }
-            if (user.getClasss().equals("druid")) {
-                req.getSession().setAttribute("dr", true);
-            } else {
-                req.getSession().setAttribute("dr", false);
-            }
+            User user = uh.getUser();
             if (user.getClasss().equals("hunter")) {
                 req.getSession().setAttribute("hu", true);
             } else {
@@ -57,16 +44,6 @@ public class AccountController {
                 req.getSession().setAttribute("ma", true);
             } else {
                 req.getSession().setAttribute("ma", false);
-            }
-            if (user.getClasss().equals("monk")) {
-                req.getSession().setAttribute("mo", true);
-            } else {
-                req.getSession().setAttribute("mo", false);
-            }
-            if (user.getClasss().equals("paladin")) {
-                req.getSession().setAttribute("pa", true);
-            } else {
-                req.getSession().setAttribute("pa", false);
             }
             if (user.getClasss().equals("priest")) {
                 req.getSession().setAttribute("pr", true);
@@ -82,11 +59,6 @@ public class AccountController {
                 req.getSession().setAttribute("sh", true);
             } else {
                 req.getSession().setAttribute("sh", false);
-            }
-            if (user.getClasss().equals("warlock")) {
-                req.getSession().setAttribute("wl", true);
-            } else {
-                req.getSession().setAttribute("wl", false);
             }
             if (user.getClasss().equals("warrior")) {
                 req.getSession().setAttribute("wr", true);
@@ -159,6 +131,7 @@ public class AccountController {
 //System.out.println(mailNow + "++++++++++++++++");
                             //
                             // меняем юзера в дб
+                            uh.set(user);
                             udao.updateUser(user);
                             // переходим обратно в мейн
                             resp.sendRedirect("/CardGame/main.html");

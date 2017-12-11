@@ -2,6 +2,8 @@ package service;
 
 import dao.CardDAO;
 import entity.Card;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,22 +12,17 @@ public class CardService {
     @Autowired
     private CardDAO cdao;
 
-    public void addCard(Set<Card> cards, Integer idInt) {
-//        CardDAO cdao = ((CardDAO) SpringContextHolder.getContext().getBean("cdao"));
-        boolean alreadyInDeck = false;
-        if (cards.size() > 0) {
-            for (Card s : cards) {
-                if (s.getId() == idInt) {
-                    alreadyInDeck = true;
-                    break;
-                }
-            }
-            if (!alreadyInDeck) {
-                cards.add(cdao.getCardById(idInt));
-            }
+    public Card addCard(String cardClass, Integer idInt) {
+
+        if (cardClass == null||idInt<1000000) {
+            System.out.println("you get card id="+idInt+"");
+            return cdao.getCardById(idInt, "BasicCard");
         } else {
-            cards.add(cdao.getCardById(idInt));
+            System.out.println("you get card id="+idInt+"");
+            return cdao.getCardById(idInt, cardClass);
         }
+        
+
     }
 
     public void removeCard(Set<Card> cards, Integer idInt) {
@@ -35,6 +32,16 @@ public class CardService {
                 break;
             }
         }
+    }
+
+    public List<Card> getCardsByLvl(List<Card> cards, int lvl) {
+        List<Card> levelList = new LinkedList<>();
+        cards.forEach((c) -> {
+            if (c.getLevel() == lvl) {
+                levelList.add(c);
+            }
+        });
+        return levelList;
     }
 //
 //    public static ModelAndView gsonNote(User u, List<Card> allCards, Set<Card> cards) {

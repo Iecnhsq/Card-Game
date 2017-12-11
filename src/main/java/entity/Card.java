@@ -1,14 +1,12 @@
 package entity;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-@Table(name = "cg_card")
-public class Card implements Serializable {
-
+@MappedSuperclass
+public abstract class Card implements Serializable{
+    
     @Id
     private int id;
     private int level;
@@ -21,24 +19,6 @@ public class Card implements Serializable {
     private Boolean charge;
     private Boolean poison;
     private String name;
-    
-
-    public Card() {
-    }
-
-    public Card(int id, int level, String type, int damage, int health, Boolean taunt, Boolean imun, Boolean shield, Boolean charge, Boolean poison, String name) {
-        this.id = id;
-        this.level = level;
-        this.type = type;
-        this.damage = damage;
-        this.health = health;
-        this.taunt = taunt;
-        this.imun = imun;
-        this.shield = shield;
-        this.charge = charge;
-        this.poison = poison;
-        this.name = name;
-    }
 
     public int getId() {
         return id;
@@ -127,9 +107,4 @@ public class Card implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-
-
-    
-
 }

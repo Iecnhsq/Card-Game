@@ -1,11 +1,8 @@
 package controller;
 
-import dao.NewsDAO;
 import dao.UserDAO;
-import entity.News;
 import entity.User;
 import java.io.IOException;
-import java.util.List;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,23 +21,7 @@ public class MainMenuController {
     private JavaMailSender mailSender;
     @Autowired
     private UserDAO udao;
-    @Autowired
-    private NewsDAO ndao;
-
-    @RequestMapping("/about.html")
-    public ModelAndView mMCAbout(HttpServletRequest req, HttpServletResponse resp) {
-        ModelAndView model = new ModelAndView("about");
-        return model;
-    }
-
-    @RequestMapping("/news.html")
-    public ModelAndView mMCNews(HttpServletRequest req, HttpServletResponse resp) {
-        ModelAndView model = new ModelAndView("news");
-        List<News> allNews = ndao.getNews();
-        model.addObject("allnews", allNews);
-        return model;
-    }
-
+    
     @RequestMapping(value = "/support.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView mMCsupport(HttpServletRequest req, HttpServletResponse resp) {
         String err = req.getParameter("err");

@@ -9,9 +9,10 @@ public class FinishService {
     @Autowired
     private UserDAO udao;
 
-    public void updatePoints(User player, int pointsGained) {
+    public int updatePoints(User player, int pointsGained) {
         player.setPoints(player.getPoints() + pointsGained);
         udao.updateUser(player);
+        return pointsGained;
     }
 
     public void lvlUp(User u, int point) {

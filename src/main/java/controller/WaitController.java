@@ -1,11 +1,11 @@
 package controller;
 
 import battle.Battle;
-import dao.UserDAO;
 import entity.Card;
 import entity.User;
 import holders.BattlesHolder;
 import holders.OnlineHolder;
+import holders.UserHolder;
 import holders.WaitHolder;
 import java.io.IOException;
 import java.util.Random;
@@ -22,8 +22,7 @@ import service.WaitService;
 @Controller
 public class WaitController {
 
-    @Autowired
-    private UserDAO udao;
+
     @Autowired
     private MainService mServ;
     @Autowired
@@ -32,12 +31,14 @@ public class WaitController {
     private WaitHolder wh;
     @Autowired
     private OnlineHolder oh;
+    @Autowired
+    private UserHolder uh;
 
     @RequestMapping("wait.html")
     public ModelAndView wait(HttpServletRequest req, HttpServletResponse res) throws IOException {
         ModelAndView model = new ModelAndView();
         String login = ((String) req.getSession().getAttribute("login"));
-        User u = udao.getUserByLogin(login);
+        User u = uh.getUser();
         boolean inBattle = false;
         // в случае если на нашу страницу перешел не зарегестрированый пользиватель его оправляем на мейн страницу.
         if (login == null) {
@@ -46,7 +47,7 @@ public class WaitController {
         } else {
             // получаем карты нашего игрока которые он выбрал для боя, что бы не пускать игроков с не полной колодой.
             // код можно увидить нажав CTRL+getUserCards.
-            Set<Card> cards = mServ.getUserCards(login, model);
+            Set<Card> cards = mServ.getUserCards(model,u.getClasss());
             if (cards.size() < 10) {
                 res.sendRedirect("/CardGame/main.html");
                 return null;
@@ -54,8 +55,8 @@ public class WaitController {
                 // так как при первом запуске баттл ID еще не записан в сесии будет выкидывать NullPointerExeption,
                 // но в дальнейшем мы всеравно пытаемся взять этот артибус сесии что бы получить ключ боя в котором находиться наш игрок.
                 for (int i : bh.keySet()) {
-                    Battle bat = bh.get(i);
-                    if (bat.p2.getLogin().equals(login)) {
+                    Battle b = bh.get(i);
+                    if (b.p2.getLogin().equals(login)) {
                         req.getSession().setAttribute("battleId", i);
                         break;
                     }
@@ -79,10 +80,9 @@ public class WaitController {
                     if (Online > 0) {
                         pOnline = "Players online: " + Online;
                     }
-                    System.out.println(keylogin.contains(login));
                     //если в нашем списке ожидающих нету такого игрока добавляем.
                     if (!keylogin.contains(login)) {
-                        wh.put(login, udao.getUserByLogin(login));
+                        wh.put(login, uh.getUser());
                         int waitSize = wh.size();
                         //показываем модель в случае если игрок ждет сам.
                         if (waitSize < 2) {
@@ -94,14 +94,13 @@ public class WaitController {
                             // и присваем значения игрок 1 и игрок 2 в бою, и удаляем себя из списка ожидающих игроков.
                         } else {
                             Battle b = new Battle();
-                            b.p1 = udao.getUserByLogin(login);
+                            b.p1 = uh.getUser();
                             wh.remove(b.p1.getLogin());
                             Set<String> waitKeys = wh.keySet();
                             if (b.p2.getLogin() != login) {
                                 for (String key : waitKeys) {
                                     if (key != login) {
-                                        b.p2 = udao.getUserByLogin(key);
-                                        wh.remove(b.p2.getLogin());
+                                        b.p2 = wh.remove(key);
                                         break;
                                     } else {
                                     }
@@ -121,6 +120,7 @@ public class WaitController {
                             }
                         }
                     } else {
+                        model.addObject("level", u.getLvl());
                         model.addObject("pOnline", pOnline);
                         model.addObject("login", login);
                         return model;

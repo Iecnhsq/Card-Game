@@ -60,11 +60,15 @@ public class BattleController {
                     b.p1ActiveCards.clear();
                     b.atackCardP1 = null;
                     b.p1MadeTurn = true;
+                    b.p1HeroPowerSelected = false;
+                    b.p1Attacked = false;
                 }
                 if (b.p2.getLogin().equals(login)) {
                     b.p2ActiveCards.clear();
                     b.atackCardP2 = null;
                     b.p2MadeTurn = true;
+                    b.p2HeroPowerSelected = false;
+                    b.p2Attacked = false;
                 }
             }
             if (b.p1MadeTurn && b.p2MadeTurn) {
@@ -95,70 +99,231 @@ public class BattleController {
                 if (idString != null) {
                     int id = Integer.parseInt(idString);
                     //у карт противника id будут передаваться с минусом
-                    if (id < 0) {
-                        for (Card c : b.onTableP2) {
-                            if (c.getId() == -id) {
-                                // Считаем очки при нанесении урона,
-                                //картой первого игрока карте 2го игрока.
-                                b.p1points = bs.addPoint(c.getHealth(), b.atackCardP1.getDamage(), b.p1points);
-                                //добавляем очки за защиту от вражеской карты
-                                b.p2points = bs.addPoint(b.atackCardP1.getHealth(), c.getDamage(), b.p2points);
-                                c.setHealth(c.getHealth() - b.atackCardP1.getDamage());
-                                b.atackCardP1.setHealth(b.atackCardP1.getHealth() - c.getDamage());
-                                if (c.getHealth() <= 0) {
-                                    b.onTableP2.remove(c);
-                                }
-                                if (b.atackCardP1.getHealth() <= 0) {
-                                    b.onTableP1.remove(b.atackCardP1);
-                                }
-                                b.p1ActiveCards.remove(b.atackCardP1.getId());
-                                b.atackCardP1 = null;
-                            }
-                        }
-                        //если выбрали свою карту
-                    } else if (id > 0) {
-                        Set<Integer> activeCardsKeySet = b.p1ActiveCards.keySet();
-                        for (int cardId : activeCardsKeySet) {
-                            if (cardId == id) {
-                                for (Card c : b.onTableP1) {
-                                    if (c.getId() == id) {
-                                        if (c.equals(b.atackCardP1)) {
-                                            b.atackCardP1 = null;
-                                        } else {
-                                            b.atackCardP1 = c;
+                    if (!b.p1HeroPowerSelected) {
+                        if (id < 0) {
+                            bs.p1CreatureAttack(b, id);
+                            //если выбрали свою карту
+                        } else if (id > 0) {
+                            Set<Integer> activeCardsKeySet = b.p1ActiveCards.keySet();
+                            for (int cardId : activeCardsKeySet) {
+                                if (cardId == id) {
+                                    for (Card c : b.onTableP1) {
+                                        if (c.getId() == id) {
+                                            if (c.equals(b.atackCardP1)) {
+                                                b.atackCardP1 = null;
+                                            } else {
+                                                b.atackCardP1 = c;
+                                            }
+                                            break;
                                         }
+                                    }
+                                }
+                            }
+                            for (Card c : b.onHandP1) {
+                                if (c.getId() == id) {
+                                    if (c.getLevel() <= b.manaP1) {
+                                        b.manaP1 -= c.getLevel();
+                                        b.onTableP1.add(c);
+                                        if (c.getCharge()) {
+                                            b.p1ActiveCards.put(id, c);
+                                        }
+                                        b.onHandP1.remove(c);
                                         break;
                                     }
                                 }
                             }
+                            //id=0 у перса противника
+                        } else if (id == 0 && !b.onTableP2.checkTaunt()) {
+                            if (b.atackCardP1 != null && !b.onTableP2.checkTaunt()) {
+                                // добавляем очки 1му игроку за атаку героя
+                                b.p1points = bs.addPoint(b.healthP2, b.atackCardP1.getDamage(), b.p1points);
+                                b.healthP2 -= b.atackCardP1.getDamage();
+                                b.p1ActiveCards.remove(b.atackCardP1.getId());
+                                b.atackCardP1 = null;
+                            }
                         }
-                        for (Card c : b.onHandP1) {
-                            if (c.getId() == id) {
-                                if (c.getLevel() <= b.manaP1) {
-                                    b.manaP1 -= c.getLevel();
-                                    b.onTableP1.add(c);
-                                    b.onHandP1.remove(c);
-                                    System.out.println(c.getId());
-                                    break;
+                    } else {
+                        if (id == 0) {
+                            b.healthP2 -= 1;
+                            b.manaP1 -= 2;
+                            b.p1points += 1;
+                            b.p1HeroPowerSelected = false;
+                            b.p1Attacked = true;
+                        }
+                        if (id > 0) {
+                            for (Card c : b.onTableP1) {
+                                if (c.getId() == id) {
+                                    if (!c.getShield()) {
+                                        c.setHealth(c.getHealth() - 1);
+                                        if (c.getHealth() <= 0) {
+                                            b.onTableP1.remove(c);
+                                        }
+                                        b.manaP1 -= 2;
+                                        b.p1points += 1;
+                                        b.p1HeroPowerSelected = false;
+                                        b.p1Attacked = true;
+                                    }else{
+                                        c.setShield(false);
+                                        b.manaP1 -= 2;
+                                        b.p1HeroPowerSelected = false;
+                                        b.p1Attacked = true;
+                                    }
                                 }
                             }
                         }
-                        //id=0 у перса противника
-                    } else if (id == 0) {
-                        if (b.atackCardP1 != null) {
-                            // добавляем очки 1му игроку за атаку героя
-                            b.p1points = bs.addPoint(b.healthP2, b.atackCardP1.getDamage(), b.p1points);
-                            b.healthP2 -= b.atackCardP1.getDamage();
-                            b.p1ActiveCards.remove(b.atackCardP1.getId());
-                            b.atackCardP1 = null;
+                        if (id < 0) {
+                            for (Card c : b.onTableP2) {
+                                if (c.getId() == -id) {
+                                    if (!c.getShield()) {
+                                        c.setHealth(c.getHealth() - 1);
+                                        if (c.getHealth() <= 0) {
+                                            b.onTableP2.remove(c);
+                                        }
+                                        b.manaP1 -= 2;
+                                        b.p1points += 1;
+                                        b.p1HeroPowerSelected = false;
+                                        b.p1Attacked = true;
+                                    }else{
+                                        c.setShield(false);
+                                        b.manaP1 -= 2;
+                                        b.p1HeroPowerSelected = false;
+                                        b.p1Attacked = true;
+                                    }
+                                }
+                            }
                         }
                     }
                 } else if (req.getParameter("heroAttack") != null) {
-                    if (b.manaP1 >= 2) {
-                        b.p1points = bs.addPoint(b.healthP2, 2, b.p1points);
-                        b.healthP2 -= 2;
-                        b.manaP1 -= 2;
-                        model.addObject("p1Attacked", true);
+                    b.atackCardP1 = null;
+                    if (b.manaP1 >= 2 && !b.p1Attacked) {
+                        if (b.p1HeroPowerSelected) {
+                            b.p1HeroPowerSelected = false;
+                        } else {
+                            b.p1HeroPowerSelected = true;
+                        }
+                    }
+                }
+            }
+
+//            
+//            
+//            
+//            
+//            
+//            
+//            
+//            
+//            
+//            
+            if (b.p2.getLogin().equals(login)) {
+                if (b.p1MadeTurn) {
+                    if (idString != null) {
+                        int id = Integer.parseInt(idString);
+                        if (!b.p2HeroPowerSelected) {
+                            //у карт противника id будут передаваться с минусом
+                            if (id < 0) {
+                                bs.p2CreatureAttack(b, id);
+                                //если выбрали свою карту
+                            } else if (id > 0) {
+                                if (b.p2ActiveCards != null) {
+                                    Set<Integer> activeCardsKeySet = b.p2ActiveCards.keySet();
+                                    for (int cardId : activeCardsKeySet) {
+                                        if (cardId == id) {
+                                            for (Card c : b.onTableP2) {
+                                                if (c.getId() == id) {
+                                                    if (c.equals(b.atackCardP2)) {
+                                                        b.atackCardP2 = null;
+                                                    } else {
+                                                        b.atackCardP2 = c;
+                                                    }
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                for (Card c : b.onHandP2) {
+                                    if (c.getId() == id) {
+                                        if (c.getLevel() <= b.manaP2) {
+                                            b.manaP2 -= c.getLevel();
+                                            b.onTableP2.add(c);
+                                            if (c.getCharge()) {
+                                                b.p2ActiveCards.put(id, c);
+                                            }
+                                            b.onHandP2.remove(c);
+                                            break;
+                                        }
+                                    }
+                                }
+                                //id=0 у перса противника
+                            } else if (id == 0) {
+                                if (b.atackCardP2 != null && !b.onTableP1.checkTaunt()) {
+                                    b.p2points = bs.addPoint(b.healthP1, b.atackCardP2.getDamage(), b.p2points);
+                                    b.healthP1 -= b.atackCardP2.getDamage();
+                                    b.p2ActiveCards.remove(b.atackCardP2.getId());
+                                    b.atackCardP2 = null;
+                                }
+                            }
+                        } else {
+                            if (id == 0) {
+                                b.healthP1 -= 1;
+                                b.p2HeroPowerSelected = false;
+                                b.manaP2 -= 2;
+                                b.p2points += 1;
+                                b.p2Attacked = true;
+                            }
+                            if (id > 0) {
+                                for (Card c : b.onTableP2) {
+                                    if (c.getId() == id) {
+                                        if (!c.getShield()) {
+                                            c.setHealth(c.getHealth() - 1);
+                                            if (c.getHealth() <= 0) {
+                                                b.onTableP2.remove(c);
+                                            }
+                                            b.p2HeroPowerSelected = false;
+                                            b.manaP2 -= 2;
+                                            b.p2points += 1;
+                                            b.p2Attacked = true;
+                                        } else {
+                                            c.setShield(false);
+                                            b.p2HeroPowerSelected = false;
+                                            b.manaP2 -= 2;
+                                            b.p2Attacked = true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (id < 0) {
+                                for (Card c : b.onTableP1) {
+                                    if (c.getId() == -id) {
+                                        if (!c.getShield()) {
+                                            c.setHealth(c.getHealth() - 1);
+                                            if (c.getHealth() <= 0) {
+                                                b.onTableP1.remove(c);
+                                            }
+                                            b.p2HeroPowerSelected = false;
+                                            b.manaP2 -= 2;
+                                            b.p2points += 1;
+                                            b.p2Attacked = true;
+                                        } else {
+                                            c.setShield(false);
+                                            b.p2HeroPowerSelected = false;
+                                            b.manaP2 -= 2;
+                                            b.p2Attacked = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else if (req.getParameter("heroAttack") != null) {
+                        b.atackCardP2 = null;
+                        if (b.manaP2 >= 2 && !b.p2Attacked) {
+                            if (b.p2HeroPowerSelected) {
+                                b.p2HeroPowerSelected = false;
+                            } else {
+                                b.p2HeroPowerSelected = true;
+                            }
+                        }
                     }
                 }
             }
@@ -171,81 +336,15 @@ public class BattleController {
                 b.p2Win = true;
                 resp.sendRedirect("/CardGame/finish.html");
                 return null;
-//                }
             }
-
-            if (b.p2.getLogin().equals(login)) {
-                if (b.p1MadeTurn) {
-                    if (idString != null) {
-                        int id = Integer.parseInt(idString);
-                        //у карт противника id будут передаваться с минусом
-                        if (id < 0) {
-                            for (Card c : b.onTableP1) {
-                                if (c.getId() == -id) {
-                                    //добавляем очки второму игроку за атаку вражеской карты
-                                    b.p2points = bs.addPoint(c.getHealth(), b.atackCardP2.getDamage(), b.p2points);
-                                    //добавляем очки за защиту от вражеской карты
-                                    b.p1points = bs.addPoint(b.atackCardP2.getHealth(), c.getDamage(), b.p1points);
-                                    c.setHealth(c.getHealth() - b.atackCardP2.getDamage());
-                                    b.atackCardP2.setHealth(b.atackCardP2.getHealth() - c.getDamage());
-                                    if (c.getHealth() <= 0) {
-                                        b.onTableP1.remove(c);
-                                    }
-                                    if (b.atackCardP2.getHealth() <= 0) {
-                                        b.onTableP2.remove(b.atackCardP2);
-                                    }
-                                    b.p2ActiveCards.remove(b.atackCardP2.getId());
-                                    b.atackCardP2 = null;
-                                }
-                            }
-                            //если выбрали свою карту
-                        } else if (id > 0) {
-                            if (b.p2ActiveCards != null) {
-                                Set<Integer> activeCardsKeySet = b.p2ActiveCards.keySet();
-                                for (int cardId : activeCardsKeySet) {
-                                    if (cardId == id) {
-                                        for (Card c : b.onTableP2) {
-                                            if (c.getId() == id) {
-                                                if (c.equals(b.atackCardP2)) {
-                                                    b.atackCardP2 = null;
-                                                } else {
-                                                    b.atackCardP2 = c;
-                                                }
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            for (Card c : b.onHandP2) {
-                                if (c.getId() == id) {
-                                    if (c.getLevel() <= b.manaP2) {
-                                        b.manaP2 -= c.getLevel();
-                                        b.onTableP2.add(c);
-                                        b.onHandP2.remove(c);
-                                        break;
-                                    }
-                                }
-                            }
-                            //id=0 у перса противника
-                        } else if (id == 0) {
-                            if (b.atackCardP2 != null) {
-                                b.p2points = bs.addPoint(b.healthP1, b.atackCardP2.getDamage(), b.p2points);
-                                b.healthP1 -= b.atackCardP2.getDamage();
-                                b.p2ActiveCards.remove(b.atackCardP2.getId());
-                                b.atackCardP2 = null;
-                            }
-                        }
-                    } else if (req.getParameter("heroAttack") != null) {
-                        if (b.manaP2 >= 2) {
-                            b.p2points = bs.addPoint(b.healthP1, 2, b.p2points);
-                            b.manaP2 -= 2;
-                            b.healthP1 -= 2;
-                            model.addObject("p2Attacked", true);
-                        }
-                    }
-                }
-            }           
+            model.addObject("p1Attacked", b.p1Attacked);
+            model.addObject("p2Attacked", b.p2Attacked);
+            model.addObject("p1HeroPowerSelected", b.p1HeroPowerSelected);
+            model.addObject("p2HeroPowerSelected", b.p2HeroPowerSelected);
+            model.addObject("p1TauntCards", b.onTableP1.getTauntCards());
+            model.addObject("p2TauntCards", b.onTableP2.getTauntCards());
+            model.addObject("p1HasTaunt", b.onTableP1.checkTaunt());
+            model.addObject("p2HasTaunt", b.onTableP2.checkTaunt());
             model.addObject("Char1Health", b.healthP1);
             model.addObject("Char2Health", b.healthP2);
             model.addObject("Char1Mana", b.manaP1);
@@ -277,8 +376,6 @@ public class BattleController {
                 model.addObject("p1Logged", false);
                 model.addObject("p2Logged", true);
             }
-            System.out.println(b.p1points + " " + b.p2points);
-            System.out.println("P1 deck: " + b.deckP1.size());
             return model;
         }
         return null;

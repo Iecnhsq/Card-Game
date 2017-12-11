@@ -4,6 +4,7 @@ import dao.NewsDAO;
 import dao.UserDAO;
 import entity.News;
 import entity.User;
+import holders.UserHolder;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
@@ -21,12 +22,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AdminController {
 
+
     @Autowired
     private UserDAO udao;
     @Autowired
     private NewsDAO ndao;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private UserHolder uh;
 
     private int id;
     private static final String CA = captcha();
@@ -47,6 +51,7 @@ public class AdminController {
                     String ca = req.getParameter("ca");
                     String re = req.getParameter("re");
                     if (ca.equals(re)) {
+                        uh.set(u);
                         isLogAdm = true;
                         String emailSubject = "You have just logged in as Administrator!";
                         StringBuilder sb = new StringBuilder();

@@ -7,27 +7,27 @@ import org.hibernate.Session;
 
 public class CardDAO {
 
-    public Card getCardById(int id) {
+    public Card getCardById(int id, String cardClassName) {
         Session s = HibernateUtil.getSESSIONFACTORY().openSession();
         s.beginTransaction();
-        Card out = (Card) s.createQuery("FROM Card WHERE id=" + id + "").uniqueResult();
+        Card out = (Card) s.createQuery("FROM " +cardClassName+ " WHERE id=" + id + "").uniqueResult();
         s.getTransaction().commit();
         s.close();
         return out;
     }
 
-    public List<Card> getCards() {
+    public List<Card> getCards(String cardClassName) {
         List<Card> out;
         Session s = HibernateUtil.getSESSIONFACTORY().openSession();
-        out = s.createQuery("From Card").list();
+        out = s.createQuery("From "+cardClassName+"").list();
         s.close();
         return out;
     }
 
-    public List<Card> getByLvl() {
+    public List<Card> getByLvl(String cardClassName) {
         List<Card> out;
         Session s = HibernateUtil.getSESSIONFACTORY().openSession();
-        out = s.createQuery("From Card Level").list();
+        out = s.createQuery("From "+cardClassName+" Card Level").list();
         s.close();
         return out;
     }
