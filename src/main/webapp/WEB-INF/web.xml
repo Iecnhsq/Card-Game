@@ -29,8 +29,6 @@
         <url-pattern>/wait.html</url-pattern>
         <url-pattern>/battle.html</url-pattern>
         
-        <url-pattern>/about.html</url-pattern>
-        <url-pattern>/news.html</url-pattern>
         <url-pattern>/support.html</url-pattern>
         <url-pattern>/forgotpass.html</url-pattern>
         <url-pattern>/recovery.html</url-pattern>

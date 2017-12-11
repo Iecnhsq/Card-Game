@@ -1,10 +1,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
         http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
         
     
     <context:component-scan base-package="controller"/>
@@ -42,6 +48,7 @@
     <bean id="cdao" class="dao.CardDAO"/>
     <bean id="udao" class="dao.UserDAO"/>
     <bean id="ndao" class="dao.NewsDAO"/>
+    
     <bean id="hand" class="entity.Deck" scope="prototype"/>
     <bean id="mServ" class="service.MainService"/>
     <bean id="cserv" class="service.CardService"/>
@@ -52,4 +59,11 @@
     <bean id="onlineHolder" class="holders.OnlineHolder"/>
     <bean id="waitHolder" class="holders.WaitHolder"/>
     <bean id="fserv" class="service.FinishService"/>
+    
+    <bean id="mailS" class="service.MailService"/>
+    <bean id="registerService" class="service.RegisterService"/>
+    
+    <bean id="userHolder" class="holders.UserHolder" scope="session">
+        <aop:scoped-proxy/>
+    </bean>
 </beans>

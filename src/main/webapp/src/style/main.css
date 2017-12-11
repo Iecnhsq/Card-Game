@@ -1,0 +1,116 @@
+.mainDeck{
+    background-color: rgba(84,82,71,.5);
+    padding: 10px;
+    display: inlie-block;
+    color: white;
+    width: 1024px;
+    margin: auto;
+    border-radius: 5px;
+}
+#bm1{
+    z-index: -1;
+    width: 85%;
+    height: 58%;
+    position: absolute;
+    margin-top: 9%;
+    margin-left: 8%;
+    margin-right: 7%;
+}
+.t1{
+    position: absolute;
+}
+a1{
+    margin: 30px;
+}
+form{
+    z-index: 1;
+}
+@-webkit-keyframes pulsate {
+    50% { color: #fff; text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff; }
+}
+@keyframes pulsate {
+    50% { color: #fff; text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff; }
+}
+
+#cD{
+    display: inlie-block;
+    text-align:  center;
+}
+#sO{
+    display: inlie-block;
+    color: rgb(245,245,245);
+    text-shadow: 0 -1px rgba(0,0,0,.1);
+
+    -webkit-animation: pulsate 1.2s linear infinite;
+    animation: pulsate 1.2s linear infinite;
+}
+#sO1{
+    display: inlie-block;
+    text-shadow: 0 -1px rgba(0,0,0,.1);
+}
+.table1{
+    align-self: center;
+    min-height: 150px;
+    min-width: 150px;
+    border: 2px solid black;
+    columns: auto;
+}
+.cardBlocks{
+    background-image: url(src/img/cards/MINION.png);
+    background-size: 100% 100%;
+    width: 100px;
+    height: 150px;
+    margin-left: 7%;
+    margin-top: 1%;
+    display: inline-block;
+    position: relative;
+    padding: 1%;
+}
+.mainmenu{
+    text-align: center;
+    width: 1000px;
+    padding: 10px;
+    border: 2px #A9A9A9 solid;
+    border-radius: 8px;
+    background-color: rgba(84,82,71,.5);
+    color: white;
+    font: 14pt Arial, Helvetica, sans-serif;
+}
+#name{
+    left: 32px;
+    position: absolute;
+    height: 20px;
+    width: 0px;
+    bottom: 40px;
+    font-size: 10pt !important;
+}
+#HP{
+    width: 20px;
+    height: 20px;
+    bottom: 7px;
+    right: -2px;
+    position: absolute;
+}
+#lvl{
+    width: 20px;
+    height: 20px;
+    top: 7px;
+    right: 85px;
+    position: absolute;
+}
+#dmg{
+    width: 20px;
+    height: 20px;
+    bottom: 7px;
+    left: 16px;
+    position: absolute;
+}
+#attribute{
+    width: 88px;
+    height: 40px;
+    position: absolute;
+    bottom: 101px;
+    padding-left: 6px;
+    padding-right: 6px;
+    z-index: -1;
+}
