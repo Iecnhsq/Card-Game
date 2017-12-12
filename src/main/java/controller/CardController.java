@@ -116,7 +116,9 @@ public class CardController {
                 resp.sendRedirect("main.html");
                 return null;
             }
-            model.addObject("allCards", allCards);
+            for(Card c:cards){
+                System.out.println(c.getId());
+            }
             model.addObject("deckCards", cards);
             for (int j = 0; j <= 10; j++) {
                 model.addObject("level" + j + "Cards", cserv.getCardsByLvl(allCards, j));

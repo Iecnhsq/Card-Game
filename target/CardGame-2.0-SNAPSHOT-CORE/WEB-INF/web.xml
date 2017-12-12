@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    
+    
+    <session-config>
+        <session-timeout> 30 </session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>main.html</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/main.html</url-pattern>
+        <url-pattern>/login.html</url-pattern>
+        <url-pattern>/register.html</url-pattern>
+        <url-pattern>/card.html</url-pattern>
+        <url-pattern>/account.html</url-pattern>
+        <url-pattern>/wait.html</url-pattern>
+        <url-pattern>/battle.html</url-pattern>
+        
+        <url-pattern>/support.html</url-pattern>
+        <url-pattern>/forgotpass.html</url-pattern>
+        <url-pattern>/recovery.html</url-pattern>
+        <url-pattern>/finish.html</url-pattern>
+        <url-pattern>/class.html</url-pattern>
+        
+        <url-pattern>/logcheck.html</url-pattern>
+        <url-pattern>/passcheck.html</url-pattern>
+        <url-pattern>/equalcheck.html</url-pattern>
+        <url-pattern>/mailcheck.html</url-pattern>
+        <url-pattern>/equalscheck.html</url-pattern>
+        <url-pattern>/logchecksupp.html</url-pattern>
+        <url-pattern>/checkrec.html</url-pattern>
+        
+        <url-pattern>/admin.html</url-pattern>
+        <url-pattern>/newspost.html</url-pattern>
+    </servlet-mapping>
+    
+    <listener>
+        <listener-class>listener.SessionListener</listener-class>
+    </listener>
+    
+</web-app>

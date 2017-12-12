@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -107,4 +108,37 @@ public abstract class Card implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + this.id;
+        hash = 17 * hash + this.level;
+        hash = 17 * hash + Objects.hashCode(this.type);
+        hash = 17 * hash + this.damage;
+        hash = 17 * hash + this.health;
+        hash = 17 * hash + Objects.hashCode(this.taunt);
+        hash = 17 * hash + Objects.hashCode(this.imun);
+        hash = 17 * hash + Objects.hashCode(this.shield);
+        hash = 17 * hash + Objects.hashCode(this.charge);
+        hash = 17 * hash + Objects.hashCode(this.poison);
+        hash = 17 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Card other = (Card) obj;
+        return true;
+    }
+    
 }
