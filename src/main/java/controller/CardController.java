@@ -2,7 +2,6 @@ package controller;
 
 import dao.UserDAO;
 import entity.Card;
-import entity.Deck;
 import entity.User;
 import holders.CardHolder;
 import holders.OnlineHolder;

@@ -1,10 +1,8 @@
 package controller;
 
 import battle.Battle;
-import dao.UserDAO;
 import entity.User;
 import holders.BattlesHolder;
-import holders.UserHolder;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
