@@ -34,7 +34,7 @@ form{
 
 #cD{
     display: inlie-block;
-    text-align:  center;
+    text-align: center;
 }
 #sO{
     display: inlie-block;
@@ -46,6 +46,7 @@ form{
 }
 #sO1{
     display: inlie-block;
+    color: rgb(245,245,245);
     text-shadow: 0 -1px rgba(0,0,0,.1);
 }
 .table1{

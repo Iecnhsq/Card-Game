@@ -45,6 +45,7 @@
         
         <url-pattern>/admin.html</url-pattern>
         <url-pattern>/newspost.html</url-pattern>
+        <url-pattern>/premium.html</url-pattern>
     </servlet-mapping>
     
     <listener>

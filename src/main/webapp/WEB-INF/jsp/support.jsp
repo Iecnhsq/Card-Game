@@ -40,7 +40,7 @@
                         <input type="text" placeholder="Your problem" required name="err"/><br>
                         <input type="text" placeholder="Subject" required name="sub"/><br>
                         <input type="text" placeholder="Your Login" name="log" id="login" onblur="loginCheckSupp()" required/><br>
-                        <textarea cols="40" rows="7" required name="mess" maxlength="250" placeholder="Enter Your message..."></textarea><br>             
+                        <textarea required name="mess" maxlength="250" placeholder="Enter Your message..."></textarea><br>             
                         <input type="submit" value="Send" onclick="playAudio();"/>
                     </fieldset>
                 </form>

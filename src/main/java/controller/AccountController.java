@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +23,6 @@ public class AccountController {
     @RequestMapping(value = "/account.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView account(HttpServletRequest req, HttpServletResponse resp) {
         String login = (String) req.getSession().getAttribute("login");
-        //если пользователь не авторизован, выбрасываем на мейн
         if (login == null) {
             try {
                 resp.sendRedirect("main.html");
@@ -64,9 +62,6 @@ public class AccountController {
             } else {
                 req.getSession().setAttribute("wr", false);
             }
-
-            String mailNow = user.getEmail();
-
             String phone = req.getParameter("phone");
             // если не указан телефон, "перезагружаем" страницу
             if (phone == null) {

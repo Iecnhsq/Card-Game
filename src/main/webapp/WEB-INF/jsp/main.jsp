@@ -3,7 +3,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="author" content="IT Academy CONTACT 2017" />
+        <meta name="description" content="Card Game" />
+        <meta name="keywords" content="Card, Game, Card Game" />
         <title>Card Game</title>
         <style>
             <%@include file="/src/style/main.css" %>
@@ -107,18 +110,18 @@
                     </div>
             </c:forEach>
             <div style="clear: both"></div>
-            <div class ="mainButton" style="margin-left: 300px">
+            <div class="mainButton" style="margin: 0px auto; width: 430px">
                 <c:if test="${isLogin}">
-                    <form id="1" action="card.html" style="float: left; margin-top: 20px">
-                        <input id="cD" type="submit" value="Change Deck"/>
+                    <form action="card.html" style="float: left">
+                        <input id="cD" type="submit" value="Change Deck" style=" margin-top: 100px"/>
                     </form>
                     <c:if test="${card.size()>=10}">
-                        <form id="2" action="wait.html" style="float: left; margin-top: 20px; margin-left: 10px">
+                        <form action="wait.html" style="float: left">
                             <input id="sO" type="submit" value="Search opponent"/>
                         </form>
                     </c:if>
                     <c:if test="${card.size()<10}">
-                        <input type="button" id="sO1" value="Search opponent" style="float: left; margin-top: 20px; margin-left: 10px;"/>
+                        <input type="button" id="sO1" value="Search opponent" style="float: left; margin-left: 220px; margin-top: -50px"/>
                     </c:if>
                 </c:if>
             </div>
