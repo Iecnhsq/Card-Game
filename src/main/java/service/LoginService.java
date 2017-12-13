@@ -25,7 +25,7 @@ public class LoginService {
         final String shaman = "Shaman";
         final String warrior = "Warrior";
         final String thief = "Thief";
-        
+
         List<Card> BasicCard = getCardsInDB(basicCard);
         List<Card> Hunter = getCardsInDB(hunter);
         List<Card> Mage = getCardsInDB(mage);
@@ -33,7 +33,7 @@ public class LoginService {
         List<Card> Shaman = getCardsInDB(shaman);
         List<Card> Warrior = getCardsInDB(warrior);
         List<Card> Thief = getCardsInDB(thief);
-        
+
         methodAdd(basicCard, BasicCard);
         methodAdd(hunter, Hunter);
         methodAdd(mage, Mage);
@@ -45,9 +45,9 @@ public class LoginService {
     }
 
     private void methodAdd(String className, List<Card> CardClass) {
-        for (Card c : CardClass) {
+        CardClass.forEach((c) -> {
             ch.putId(c.getId(), c);
-        }
+        });
         ch.putClass(className, CardClass);
     }
 }
