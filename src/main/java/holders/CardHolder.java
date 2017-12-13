@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CardHolder {
-
+// we have 2 maps holders card
     private final Map<String, List<Card>> cardClasses = new ConcurrentHashMap<>();
     private final Map<Integer, Card> cardID = new ConcurrentHashMap<>();
 
