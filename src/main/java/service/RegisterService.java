@@ -22,7 +22,6 @@ public class RegisterService {
         User u = new User(new Random().nextInt(), login, pass, new Date(), 0, 0, new Gson().toJson(new Deck()), "Mage", 0, city, phone, email);
         udao.addUser(u);
         return true;
-        
     }
 
     public boolean isUserExists(String login) {
@@ -58,4 +57,5 @@ public class RegisterService {
             mimeMsgHelperObj.setSubject(emailSubject);
         });
     }
+
 }

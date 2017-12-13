@@ -22,12 +22,16 @@ public class BattleController {
     private BattlesHolder bh;
 
     @RequestMapping("/battle.html")
-    public ModelAndView fight(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public ModelAndView fight(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView();
         String login = ((String) req.getSession().getAttribute("login"));
         if (login == null) {
             LOGGER.info("has redirect to main becouse you haven`t login");
-            resp.sendRedirect("/CardGame/main.html");
+            try {
+                resp.sendRedirect("main.html");
+            } catch (IOException ex) {
+                System.out.println("Error: " + ex);
+            }
 
         } else {
             // пытаемся взять бой по атирибуту battleId
@@ -37,7 +41,11 @@ public class BattleController {
                 b = bh.get((Integer) req.getSession().getAttribute("battleId"));
 //                если не получаеться возвращаемся на main.html
             } catch (Exception e) {
-                resp.sendRedirect("/CardGame/main.html");
+                try {
+                    resp.sendRedirect("main.html");
+                } catch (IOException ex) {
+                    System.out.println("Error: " + ex);
+                }
                 return null;
             }
             // Проверяем сформирован ли бой по признаку deckP1==null
@@ -52,7 +60,6 @@ public class BattleController {
             if (b.p1MadeTurn && b.p2MadeTurn) {
                 bs.beginNewTurn(b);
             }
-
             String idString = req.getParameter("id");
             if (b.p1.getLogin().equals(login)) {
                 if (idString != null) {
@@ -66,25 +73,11 @@ public class BattleController {
                 } else if (req.getParameter("heroAttack") != null) {
                     b.atackCardP1 = null;
                     if (b.manaP1 >= 2 && !b.p1Attacked) {
-                        if (b.p1HeroPowerSelected) {
-                            b.p1HeroPowerSelected = false;
-                        } else {
-                            b.p1HeroPowerSelected = true;
-                        }
+                        b.p1HeroPowerSelected = !b.p1HeroPowerSelected;
                     }
                 }
             }
 
-//            
-//            
-//            
-//            
-//            
-//            
-//            
-//            
-//            
-//            
             if (b.p2.getLogin().equals(login)) {
                 if (b.p1MadeTurn) {
                     if (idString != null) {
@@ -97,23 +90,27 @@ public class BattleController {
                     } else if (req.getParameter("heroAttack") != null) {
                         b.atackCardP2 = null;
                         if (b.manaP2 >= 2 && !b.p2Attacked) {
-                            if (b.p2HeroPowerSelected) {
-                                b.p2HeroPowerSelected = false;
-                            } else {
-                                b.p2HeroPowerSelected = true;
-                            }
+                            b.p2HeroPowerSelected = !b.p2HeroPowerSelected;
                         }
                     }
                 }
             }
             if (b.healthP2 <= 0) {
                 b.p1Win = true;
-                resp.sendRedirect("/CardGame/finish.html");
+                try {
+                    resp.sendRedirect("finish.html");
+                } catch (IOException ex) {
+                    System.out.println("Error: " + ex);
+                }
                 return null;
             }
             if (b.healthP1 <= 0) {
                 b.p2Win = true;
-                resp.sendRedirect("/CardGame/finish.html");
+                try {
+                    resp.sendRedirect("finish.html");
+                } catch (IOException ex) {
+                    System.out.println("Error: " + ex);
+                }
                 return null;
             }
             model.addObject("p1Attacked", b.p1Attacked);

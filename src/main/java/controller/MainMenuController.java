@@ -21,7 +21,7 @@ public class MainMenuController {
     private JavaMailSender mailSender;
     @Autowired
     private UserDAO udao;
-    
+
     @RequestMapping(value = "/support.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView mMCsupport(HttpServletRequest req, HttpServletResponse resp) {
         String err = req.getParameter("err");
@@ -48,7 +48,6 @@ public class MainMenuController {
                                 return new ModelAndView("support");
                             } else {
                                 try {
-                                    //emailSender
                                     String emailSubject = sub;
                                     StringBuilder sb = new StringBuilder();
                                     sb.append(err).append("\n").append("\n")
@@ -63,9 +62,9 @@ public class MainMenuController {
                                         mimeMsgHelperObj.setText(emailMessage);
                                         mimeMsgHelperObj.setSubject(emailSubject);
                                     });
-                                    //
-                                    resp.sendRedirect("/CardGame/main.html");
+                                    resp.sendRedirect("main.html");
                                 } catch (IOException ex) {
+                                    System.out.println("Error: " + ex);
                                 }
                             }
                         }

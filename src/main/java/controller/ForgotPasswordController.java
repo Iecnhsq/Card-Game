@@ -98,8 +98,9 @@ public class ForgotPasswordController {
                     mimeMsgHelperObj.setSubject(emailSubject);
                 });
                 try {
-                    resp.sendRedirect("/CardGame/main.html");
+                    resp.sendRedirect("main.html");
                 } catch (IOException ex) {
+                    System.out.println("Error: " + ex);
                 }
             } else {
                 return new ModelAndView("recovery");

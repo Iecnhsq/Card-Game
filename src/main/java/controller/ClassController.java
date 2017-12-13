@@ -12,11 +12,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class ClassController {
 
     @RequestMapping(value = "/class.html", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView Class(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public ModelAndView Class(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("class");
         String idClass = req.getParameter("idc");
         if (idClass == null) {
-            resp.sendRedirect("/CardGame/main.html");
+            try {
+                resp.sendRedirect("main.html");
+            } catch (IOException ex) {
+                System.out.println("Error: " + ex);
+            }
         } else {
             if (idClass.equals("hu")) {
                 model.addObject("HU", true);

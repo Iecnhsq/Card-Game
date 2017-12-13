@@ -10,7 +10,7 @@
     <version>2.0-SNAPSHOT-CORE</version>
     <packaging>war</packaging>
 
-    <name>CardGame_10</name>
+    <name>CardGame_10_git</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.1.Final</version>
+            <version>5.2.10.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -149,5 +149,9 @@
             </plugin>
         </plugins>
     </build>
+    <description>Card-Game
 
+        All graphic files in this project are presented for informational purposes only.
+
+        IT Academy CONTACT 2017</description>
 </project>

@@ -38,7 +38,7 @@ public class MainController {
     private UserHolder uh;
 
     @RequestMapping("/main.html")
-    public ModelAndView main(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public ModelAndView main(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("main");
         Date dNow = new Date();
         SimpleDateFormat sdt = new SimpleDateFormat("yyyy.MM.dd 'at' H:mm:ss");
@@ -59,7 +59,6 @@ public class MainController {
                 model.addObject("allnews", allNews);
             }
         }
-
         String login = (String) req.getSession().getAttribute("login");
         boolean isLogin = false;
         boolean isAdmP = false;
@@ -74,11 +73,15 @@ public class MainController {
                 //удаление юзера из списка пользователей онлайн
                 oh.remove(login);
                 wh.remove(login);
-                resp.sendRedirect("/CardGame/main.html");
+                try {
+                    resp.sendRedirect("main.html");
+                } catch (IOException ex) {
+                    System.out.println("Error: " + ex);
+                }
             } else {
                 //если не был передан параметр выхода меняем маркер логина
                 isLogin = true;
-                
+
                 mServ.getUserCards(model, u.getClasss());
                 if (login.equals(AD)) {
                     isAdmP = true;

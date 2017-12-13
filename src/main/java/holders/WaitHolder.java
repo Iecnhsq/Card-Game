@@ -11,17 +11,14 @@ public class WaitHolder {
 
     public User get(String key) {
         return wait.get(key);
-
     }
 
     public User put(String key, User value) {
         return wait.put(key, value);
-
     }
 
     public int size() {
         return wait.size();
-
     }
 
     public Set<String> keySet() {
@@ -31,4 +28,5 @@ public class WaitHolder {
     public User remove(String login) {
         return wait.remove(login);
     }
+
 }

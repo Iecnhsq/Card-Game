@@ -41,7 +41,6 @@ public class LoginService {
         methodAdd(shaman, Shaman);
         methodAdd(thief, Thief);
         methodAdd(warrior, Warrior);
-
     }
 
     private void methodAdd(String className, List<Card> CardClass) {
@@ -50,4 +49,5 @@ public class LoginService {
         });
         ch.putClass(className, CardClass);
     }
+
 }

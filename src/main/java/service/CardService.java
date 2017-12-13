@@ -19,7 +19,6 @@ public class CardService {
     @Autowired
     private CardHolder ch;
 
-
     private Card addCard(Integer idInt) {
         return ch.getCardById(idInt);
     }
@@ -107,6 +106,6 @@ public class CardService {
         String userCards = new Gson().toJson(d);
         System.out.println(userCards);
         uh.getUser().setCards(userCards);
-                
     }
+    
 }

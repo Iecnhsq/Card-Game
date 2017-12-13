@@ -21,9 +21,6 @@ public class WaitService {
                     return _item;
                 }).forEachOrdered((_item) -> {
                     inSearch.remove(paired.get(1));
-                    // Method which starts a battle, na vhod kotoromy
-                    //inSearch.get(paired.get(0))
-                    //inSearch.get(paired.get(1))
                 });
             }
         }
@@ -31,7 +28,6 @@ public class WaitService {
 
     public static boolean inBattle(String login, Battle b) {
         return b.p1.getLogin().equals(login) || b.p2.getLogin().equals(login);
-
     }
 
 }

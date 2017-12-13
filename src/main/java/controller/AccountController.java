@@ -19,8 +19,6 @@ public class AccountController {
     @Autowired
     private UserDAO udao;
     @Autowired
-    private JavaMailSender mailSender;
-    @Autowired
     private UserHolder uh;
 
     @RequestMapping(value = "/account.html", method = {RequestMethod.GET, RequestMethod.POST})
@@ -29,8 +27,9 @@ public class AccountController {
         //если пользователь не авторизован, выбрасываем на мейн
         if (login == null) {
             try {
-                resp.sendRedirect("/CardGame/main.html");
+                resp.sendRedirect("main.html");
             } catch (IOException ex) {
+                System.out.println("Error: " + ex);
             }
             return null;
         } else {
@@ -67,7 +66,6 @@ public class AccountController {
             }
 
             String mailNow = user.getEmail();
-            System.out.println(mailNow + "++++++++++++++++");
 
             String phone = req.getParameter("phone");
             // если не указан телефон, "перезагружаем" страницу
@@ -108,33 +106,10 @@ public class AccountController {
                             if (pass.length() > 0) {
                                 user.setPass(pass);
                             }
-                            //отсылаем изменения на мыло
-//                            String emailSubject = "Your are register in 'Card Game'";
-//                            StringBuilder sb = new StringBuilder();
-//                            sb.append("Hi!").append("\n").append("You just changed your details in 'Card Game'")
-//                                    .append("\n").append("\n")
-//                                    .append("Your new Login: ").append(user.getLogin()).append("\n")
-//                                    .append("Your new Password: ").append(user.getPass()).append("\n")
-//                                    .append("\n")
-//                                    .append("If you did not, immediately contact support!").append("\n")
-//                                    .append("\n")
-//                                    .append("Sincerely, the Card Game team");
-//                            String emailMessage = sb.toString();
-//                            mailSender.send((MimeMessage mimeMessage) -> {
-//                                MimeMessageHelper mimeMsgHelperObj = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-//                                mimeMsgHelperObj.setTo(mailNow);
-//                                mimeMsgHelperObj.setFrom("cardgamesupp@gmail.com");
-//                                mimeMsgHelperObj.setText(emailMessage);
-//                                mimeMsgHelperObj.setSubject(emailSubject);
-//                            });
-//                            System.out.println("\nMessage Send Successfully.... Hurrey!\n");
-//System.out.println(mailNow + "++++++++++++++++");
-                            //
-                            // меняем юзера в дб
                             uh.set(user);
                             udao.updateUser(user);
                             // переходим обратно в мейн
-                            resp.sendRedirect("/CardGame/main.html");
+                            resp.sendRedirect("main.html");
                         } else {
                             ModelAndView account = new ModelAndView("account");
                             account.addObject("isLogin", true);
@@ -143,6 +118,7 @@ public class AccountController {
                             return account;
                         }
                     } catch (IOException ex) {
+                        System.out.println("Error: " + ex);
                     }
                     return null;
                 }

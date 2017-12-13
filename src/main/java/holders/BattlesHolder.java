@@ -11,17 +11,14 @@ public class BattlesHolder {
 
     public Set<Integer> keySet() {
         return battle.keySet();
-
     }
 
     public Battle get(Integer key) {
         return battle.get(key);
-
     }
 
     public Battle put(Integer key, Battle value) {
         return battle.put(key, value);
-
     }
 
     public int size() {
@@ -31,4 +28,5 @@ public class BattlesHolder {
     public void remove(int id) {
         battle.remove(id);
     }
+    
 }
