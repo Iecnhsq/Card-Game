@@ -1,6 +1,8 @@
 /home/jeka/Документы/gitCard/src/main/java/entity/BasicCard.java
 /home/jeka/Документы/gitCard/src/main/java/controller/ClassController.java
+/home/jeka/Документы/gitCard/src/main/java/service/LoginService.java
 /home/jeka/Документы/gitCard/src/main/java/entity/Card.java
+/home/jeka/Документы/gitCard/src/main/java/holders/CardHolder.java
 /home/jeka/Документы/gitCard/src/main/java/dao/CardDAO.java
 /home/jeka/Документы/gitCard/src/main/java/controller/AdminController.java
 /home/jeka/Документы/gitCard/src/main/java/holders/BattlesHolder.java

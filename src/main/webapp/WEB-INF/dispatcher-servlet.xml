@@ -49,7 +49,7 @@
     <bean id="udao" class="dao.UserDAO"/>
     <bean id="ndao" class="dao.NewsDAO"/>
     
-    <bean id="hand" class="entity.Deck" scope="prototype"/>
+    <bean id="deck" class="entity.Deck" scope="prototype"/>
     <bean id="mServ" class="service.MainService"/>
     <bean id="cserv" class="service.CardService"/>
     <bean id="batt" class="battle.Battle"/>
@@ -66,4 +66,7 @@
     <bean id="userHolder" class="holders.UserHolder" scope="session">
         <aop:scoped-proxy/>
     </bean>
+    
+    <bean id="cardHolder" class="holders.CardHolder"/>
+    <bean id="loginService" class="service.LoginService"/>
 </beans>

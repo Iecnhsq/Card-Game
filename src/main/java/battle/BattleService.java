@@ -1,21 +1,19 @@
 package battle;
 
 import com.google.gson.Gson;
-import dao.CardDAO;
 import entity.Card;
 import entity.Deck;
+import holders.CardHolder;
 import holders.UserHolder;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.ModelAndView;
 
 public class BattleService {
 
     @Autowired
-    private CardDAO cdao;
+    private CardHolder ch;
     @Autowired
     private UserHolder uh;
 
@@ -24,11 +22,7 @@ public class BattleService {
         List<Card> l = new CopyOnWriteArrayList<>();
         Deck d = new Gson().fromJson(b.p1.getCards(), Deck.class);
         d.deck.forEach((i) -> {
-            if (i < 1000000) {
-                l.add(cdao.getCardById(i, "BasicCard"));
-            } else {
-                l.add(cdao.getCardById(i, b.p1.getClasss()));
-            }
+                l.add(ch.getCardById(i));
         });
         return l;
     }
@@ -41,11 +35,9 @@ public class BattleService {
         // проходим по списку id наших карт из колоды
         d.deck.forEach((i) -> {
             // добавляем в наш список карты из колоды
-            if (i < 1000000) {
-                l.add(cdao.getCardById(i, "BasicCard"));
-            } else {
-                l.add(cdao.getCardById(i, b.p2.getClasss()));
-            }
+ 
+                l.add(ch.getCardById(i));
+
         });
         return l;
     }

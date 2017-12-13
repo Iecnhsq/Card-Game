@@ -1,8 +1,10 @@
 package controller;
 
 import battle.Battle;
+import dao.UserDAO;
 import entity.User;
 import holders.BattlesHolder;
+import holders.UserHolder;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,7 @@ public class FinishController {
     private BattlesHolder bh;
     @Autowired
     private FinishService fs;
+
 
     @RequestMapping("/finish.html")
     public ModelAndView finish(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -101,6 +104,7 @@ public class FinishController {
             if (b.p1CheckInFinish && b.p2CheckInFinish) {
                 bh.remove(i);
             }
+            
         }
         return model;
     }

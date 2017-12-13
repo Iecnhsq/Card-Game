@@ -1,11 +1,10 @@
 package controller;
 
-import com.google.gson.Gson;
-import dao.CardDAO;
 import dao.UserDAO;
 import entity.Card;
 import entity.Deck;
 import entity.User;
+import holders.CardHolder;
 import holders.OnlineHolder;
 import holders.UserHolder;
 import java.io.IOException;
@@ -22,9 +21,7 @@ import service.MainService;
 
 @Controller
 public class CardController {
-
-    @Autowired
-    private CardDAO cdao;
+    
     @Autowired
     private UserDAO udao;
     @Autowired
@@ -35,20 +32,23 @@ public class CardController {
     private OnlineHolder oh;
     @Autowired
     private UserHolder uh;
+    @Autowired
+    private CardHolder ch;
 
+    
     @RequestMapping("/card.html")
     public ModelAndView card(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ModelAndView model = new ModelAndView("card");
-        List<Card> allCards = cdao.getCards("BasicCard");
+        List<Card> allCards = ch.getCardByClass("BasicCard");
         String login = ((String) req.getSession().getAttribute("login"));
         User u = uh.getUser();
         // в случае если на нашу страницу перешел не зарегестрированый пользиватель его оправляем на мейн страницу.       
-        if (login != null) {
+        if (cserv.userAuthorized(login)) {
             System.out.println("in login");
             //выводим количество игроков онлайн на экран.
             int Online = oh.size();
             String pOnline = "No Players online";
-            if (Online > 0) {
+            if (cserv.presentPlayerOnline(Online)) {
                 pOnline = "Players online: " + Online;
             }
             model.addObject("pOnline", pOnline);
@@ -58,66 +58,35 @@ public class CardController {
             Set<Card> cards;
             String idClass = req.getParameter("idclass");
             String classNameJoin = u.getClasss();
-            req.getSession().setAttribute("cardClass", cdao.getCards(classNameJoin));
-            req.getSession().setAttribute("heroClass", classNameJoin);
-            boolean newClass = false;
-            if (idClass != null) {
-                newClass = true;
-                req.getSession().setAttribute("heroClass", idClass);
-                req.getSession().setAttribute("cardClass", cdao.getCards(idClass));
-                u.setClasss(idClass);
-                uh.set(u);
+            
+            if (cserv.classSelected(idClass)) {
+                cserv.addClassCardInSession(req, idClass);
+                cserv.setEmptyDeck(idClass);
                 udao.updateUser(u);
+            } else {
+                cserv.addClassCardInSession(req, classNameJoin);
             }
-
             String CardClassName = u.getClasss();
 //            req.setAttribute("cardClass", className);
             cards = mserv.getUserCards(model, CardClassName);
-            if (newClass) {
-                cards.clear();
-            }
-            if (idString != null) {
+            
+            if (cserv.cardSelected(idString)) {
                 System.out.println("in id string");
                 int id = Integer.parseInt(idString);
-                if (id == 0) {
-                    cards.clear();
-                    //если больше 0 добавляем выбраную карту в список выбраных карт.
-                } else if (id > 0) {
-                    cards.add(cserv.addCard(CardClassName, id));
-//                  если меньше 0 то удаляем из списка выбраных карт.
-                    System.out.println(cards.size());
-                } else if (id < 0) {
-                    cserv.removeCard(cards, id);
-                }
-                // если количество выбраных карт превышает 10 карт возврашаемся обратно на card.html без изменений
-                if (cards.size() > 10) {
+                cards = cserv.writeCards(id, cards);
+                if (cserv.deckIsFull(cards)) {
                     resp.sendRedirect("card.html");
                     return null;
                 }
-
-//                req.getSession().setAttribute("cards", cards);
             }
-            Deck deck = new Deck();
+
             //запускаем цыкл для переноса значений из cards в deck.deck
-            cards.forEach((c) -> {
-                deck.deck.add(c.getId());
-            });
-            String userCards = new Gson().toJson(deck);
-            if (newClass) {
-                u.setClasss(idClass);
-
-            } else {
-                u.setClasss(classNameJoin);
-            }
-            u.setCards(userCards);
-            uh.set(u);
-            if (req.getParameter("getCards") != null) {
+            cserv.setDeck(cards);
+            String getCards = req.getParameter("getCards");
+            if (cserv.commitGetCard(getCards)) {
                 udao.updateUser(u);
                 resp.sendRedirect("main.html");
                 return null;
-            }
-            for(Card c:cards){
-                System.out.println(c.getId());
             }
             model.addObject("deckCards", cards);
             for (int j = 0; j <= 10; j++) {

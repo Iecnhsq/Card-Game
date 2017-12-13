@@ -1,31 +1,30 @@
 package service;
 
-import dao.CardDAO;
+import com.google.gson.Gson;
 import entity.Card;
+import entity.Deck;
+import entity.User;
+import holders.CardHolder;
+import holders.UserHolder;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CardService {
 
     @Autowired
-    private CardDAO cdao;
+    private UserHolder uh;
+    @Autowired
+    private CardHolder ch;
 
-    public Card addCard(String cardClass, Integer idInt) {
 
-        if (cardClass == null||idInt<1000000) {
-            System.out.println("you get card id="+idInt+"");
-            return cdao.getCardById(idInt, "BasicCard");
-        } else {
-            System.out.println("you get card id="+idInt+"");
-            return cdao.getCardById(idInt, cardClass);
-        }
-        
-
+    private Card addCard(Integer idInt) {
+        return ch.getCardById(idInt);
     }
 
-    public void removeCard(Set<Card> cards, Integer idInt) {
+    private void removeCard(Set<Card> cards, Integer idInt) {
         for (Card c : cards) {
             if (c.getId() == (-idInt)) {
                 cards.remove(c);
@@ -43,18 +42,71 @@ public class CardService {
         });
         return levelList;
     }
-//
-//    public static ModelAndView gsonNote(User u, List<Card> allCards, Set<Card> cards) {
-//        UserDAO udao = ((UserDAO) SpringContextHolder.getContext().getBean("udao"));
-//        ModelAndView model = new ModelAndView();
-//        Deck d = new Deck();
-//        Gson g = new Gson();
-//        String json = g.toJson(d);
-//        u.setCards(json);
-//        udao.updateUser(u);
-//        model.addObject("cards", allCards);
-//        model.addObject("card", cards);
-//        System.out.println("1 block");
-//        return model;
-//    }
+
+    public boolean commitGetCard(String getCard) {
+        return getCard != null;
+    }
+
+    public Set<Card> writeCards(int id, Set<Card> cards) {
+        if (id == 0) {
+            cards.clear();
+            //если больше 0 добавляем выбраную карту в список выбраных карт.
+        } else if (id > 0) {
+            cards.add(addCard(id));
+//                  если меньше 0 то удаляем из списка выбраных карт.
+            System.out.println(cards.size());
+        } else if (id < 0) {
+            removeCard(cards, id);
+            System.out.println(cards.size());
+        }
+        return cards;
+        // если количество выбраных карт превышает 10 карт возврашаемся обратно на card.html без изменений
+    }
+
+    public boolean deckIsFull(Set<Card> cards) {
+        return cards.size() > 10;
+    }
+
+    public boolean cardSelected(String idString) {
+        return idString != null;
+    }
+
+    public void addClassCardInSession(HttpServletRequest req, String heroClass) {
+        req.getSession().setAttribute("heroClass", heroClass);
+        req.getSession().setAttribute("cardClass", ch.getCardByClass(heroClass));
+
+    }
+
+    public void setEmptyDeck(String idClass) {
+        Deck d = new Deck();
+        User u = uh.getUser();
+        u.setCards(new Gson().toJson(d));
+        u.setClasss(idClass);
+        uh.set(u);
+    }
+
+    public boolean classSelected(String idClass) {
+        return idClass != null;
+    }
+
+    public boolean presentPlayerOnline(int online) {
+        return online > 0;
+    }
+
+    public boolean userAuthorized(String login) {
+        return login != null;
+    }
+
+    public void setDeck(Set<Card> cards) {
+        Deck d = new Deck();
+        System.out.println(cards.size());
+        cards.forEach((c) -> {
+            d.deck.add(c.getId());
+            d.deck.size();
+        });
+        String userCards = new Gson().toJson(d);
+        System.out.println(userCards);
+        uh.getUser().setCards(userCards);
+                
+    }
 }

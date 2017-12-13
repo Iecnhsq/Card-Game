@@ -2,15 +2,19 @@ package service;
 
 import dao.UserDAO;
 import entity.User;
+import holders.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class FinishService {
 
     @Autowired
     private UserDAO udao;
+    @Autowired
+    private UserHolder uh;
 
     public int updatePoints(User player, int pointsGained) {
         player.setPoints(player.getPoints() + pointsGained);
+        uh.set(player);
         udao.updateUser(player);
         return pointsGained;
     }
@@ -21,6 +25,7 @@ public class FinishService {
             int s = u.getLvl();
             s++;
             u.setLvl(s);
+            uh.set(u);
             udao.updateUser(u);
         }
     }

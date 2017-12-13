@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import service.LoginService;
 
 @Controller
 public class LoginController {
@@ -22,6 +23,9 @@ public class LoginController {
     private OnlineHolder oh;
     @Autowired
     private UserHolder uh;
+    @Autowired
+    private LoginService lserv;
+
 
     @RequestMapping(value = "/login.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView login(HttpServletRequest req, HttpServletResponse resp) {
@@ -40,7 +44,7 @@ public class LoginController {
                     req.getSession().setAttribute("login", login);
                     oh.put(u.getLogin(), u);
                     uh.set(u);
-                    
+                    lserv.getAllCardsInDB();
                     try {
                         resp.sendRedirect("/CardGame/main.html");
                     } catch (IOException ex) {
