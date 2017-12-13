@@ -7,8 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CardHolder {
 
-    private Map<String, List<Card>> cardClasses = new ConcurrentHashMap<>();
-    private Map<Integer, Card> cardID = new ConcurrentHashMap<>();
+    private final Map<String, List<Card>> cardClasses = new ConcurrentHashMap<>();
+    private final Map<Integer, Card> cardID = new ConcurrentHashMap<>();
 
     public void putClass(String className, List<Card> cardClass) {
         cardClasses.put(className, cardClass);
@@ -24,6 +24,5 @@ public class CardHolder {
     public Card getCardById(int id) {
         return cardID.get(id);
     }
-
 
 }
