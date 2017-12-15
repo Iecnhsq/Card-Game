@@ -42,25 +42,16 @@ public class BattleService {
     }
 
     private List<Card> set2cardsP1toHand(Battle b) {
-//            добавляем 2 карты в руки игроку
         List<Card> l = new CopyOnWriteArrayList<>();
-        //по одному проходу цыкла на карту
         for (Integer i = 0; i < 2; i++) {
-            //выбираем рандомную карту из колоды первого игрока
-            // добавляем в наш спискок
-            // убираем эту карту из колоды
             l.add(b.deckP1.remove(new Random().nextInt(b.deckP1.size())));
         }
         return l;
     }
 
     private List<Card> set2cardsP2toHand(Battle b) {
-//                    добавляем 2 карты в руки игроку
         List<Card> l = new CopyOnWriteArrayList<>();
         for (Integer i = 0; i < 2; i++) {
-            //выбираем рандомную карту из колоды второго игрока
-            // добавляем в наш спискок
-            // убираем эту карту из колоды
             l.add(b.deckP2.remove(new Random().nextInt(b.deckP2.size())));
         }
         return l;
@@ -145,24 +136,18 @@ public class BattleService {
     public void p1CreatureTurn(Battle b, int id) {
         if (id < 0) {
             p1CreatureToCreatureAttack(b, id);
-            //если выбрали свою карту
         } else if (id > 0) {
             p1CardChoice(b, id);
-            //id=0 у перса противника
         } else if (id == 0 && !b.onTableP2.checkTaunt() && b.atackCardP1 != null) {
-            // добавляем очки 1му игроку за атаку героя
             p1CreatureToHeroAttack(b);
         }
     }
 
     public void p2CreatureTurn(Battle b, int id) {
-        //у карт противника id будут передаваться с минусом
         if (id < 0) {
             p2CreatureToCreatureAttack(b, id);
-            //если выбрали свою карту
         } else if (id > 0) {
             p2CardChoice(b, id);
-            //id=0 у перса противника
         } else if (id == 0 && b.atackCardP2 != null && !b.onTableP1.checkTaunt()) {
             p2CreatureToHeroAttack(b);
         }

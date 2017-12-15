@@ -39,7 +39,6 @@ public class WaitController {
         String login = ((String) req.getSession().getAttribute("login"));
         User u = uh.getUser();
         boolean inBattle = false;
-        // в случае если на нашу страницу перешел не зарегестрированый пользиватель его оправляем на мейн страницу.
         if (login == null) {
             try {
                 res.sendRedirect("main.html");
@@ -57,8 +56,6 @@ public class WaitController {
                 }
                 return null;
             } else {
-                // так как при первом запуске баттл ID еще не записан в сесии будет выкидывать NullPointerExeption,
-                // но в дальнейшем мы всеравно пытаемся взять этот артибус сесии что бы получить ключ боя в котором находиться наш игрок.
                 for (int i : bh.keySet()) {
                     Battle b = bh.get(i);
                     if (b.p2.getLogin().equals(login)) {
@@ -67,17 +64,14 @@ public class WaitController {
                     }
                 }
                 try {
-                    Battle inB = bh
-                            .get((Integer) req.getSession().getAttribute("battleId"));
+                    Battle inB = bh.get((Integer) req.getSession().getAttribute("battleId"));
                     if (inB != null) {
                         inBattle = WaitService.inBattle(login, inB);
                     }
                 } catch (Exception e) {
                     System.out.println("Error: " + e);
                 }
-                //если мы не в бою
                 if (!inBattle) {
-                    // получаем количество игроков онлайн.
                     Set<String> keylogin = wh.keySet();
                     int Online = oh.size();
                     String pOnline = null;
@@ -85,23 +79,19 @@ public class WaitController {
                     if (Online > 0) {
                         pOnline = "Players online: " + Online;
                     }
-                    //если в нашем списке ожидающих нету такого игрока добавляем.
                     if (!keylogin.contains(login)) {
                         wh.put(login, uh.getUser());
                         int waitSize = wh.size();
-                        //показываем модель в случае если игрок ждет сам.
                         if (waitSize < 2) {
                             model.addObject("pOnline", pOnline);
                             model.addObject("login", login);
                             return model;
-                            //если 2 игрока ожидают бой, формируем бой.
-                            // и присваем значения игрок 1 и игрок 2 в бою, и удаляем себя из списка ожидающих игроков.
                         } else {
                             Battle b = new Battle();
                             b.p1 = uh.getUser();
                             wh.remove(b.p1.getLogin());
                             Set<String> waitKeys = wh.keySet();
-                            if (b.p2.getLogin() != login) {
+                            if (b.p2.getLogin() == null ? login != null : !b.p2.getLogin().equals(login)) {
                                 for (String key : waitKeys) {
                                     if (key != login) {
                                         b.p2 = wh.remove(key);
@@ -110,9 +100,7 @@ public class WaitController {
                                     }
                                 }
                                 Integer i = new Random().nextInt();
-                                // добавляем наш бой в Мапу в сервлет контекст.
                                 bh.put(i, b);
-                                //                             добавляем в сесию ID нашего боя.
                                 req.getSession().setAttribute("battleId", i);
                                 try {
                                     res.sendRedirect("battle.html");

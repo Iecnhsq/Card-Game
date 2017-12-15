@@ -50,13 +50,13 @@ public class ForgotPasswordController {
                     String emailMessage = sb.toString();
                     mailSender.send((MimeMessage mimeMessage) -> {
                         MimeMessageHelper mimeMsgHelperObj = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-                        mimeMsgHelperObj.setTo(u.getEmail());
+                        mimeMsgHelperObj.setTo(mail);
                         mimeMsgHelperObj.setFrom("cardgamesupp@gmail.com");
                         mimeMsgHelperObj.setText(emailMessage);
                         mimeMsgHelperObj.setSubject(emailSubject);
                     });
                     ModelAndView recovery = new ModelAndView("recovery");
-                    req.getSession().setAttribute("mail", u.getEmail());
+                    req.getSession().setAttribute("mail", mail);
                     req.getSession().setAttribute("pass", u.getPass());
                     return recovery;
                 }
