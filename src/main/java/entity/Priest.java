@@ -5,10 +5,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cg_priest")
-public class Priest extends Card{
+public class Priest extends Card {
 
     public Priest() {
     }
 
-   
 }

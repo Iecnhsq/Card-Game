@@ -20,14 +20,17 @@ public class FinishController {
     @Autowired
     private FinishService fs;
 
-
     @RequestMapping("/finish.html")
-    public ModelAndView finish(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public ModelAndView finish(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView();
         Integer i = (Integer) req.getSession().getAttribute("battleId");
         String login = (String) req.getSession().getAttribute("login");
         if (login == null || req.getParameter("refresh") != null || i == null) {
-            resp.sendRedirect("/CardGame/main.html");
+            try {
+                resp.sendRedirect("main.html");
+            } catch (IOException ex) {
+                System.out.println("Error: " + ex);
+            }
             return null;
         } else {
             //берем баттл из мапы батлов
@@ -62,7 +65,7 @@ public class FinishController {
                 model.addObject("p1NextLvlPoints", p1NextLvlPoints);
                 model.addObject("p1Win", b.p1Win);
                 model.addObject("login", login);
-                model.addObject("pointNowP1",(oldPointsP1+newPointsP1));
+                model.addObject("pointNowP1", (oldPointsP1 + newPointsP1));
                 model.addObject("p1Lvl", p1Lvl);
                 // удаляем ид батла из сесии 
                 req.getSession().removeAttribute("battleId");
@@ -90,19 +93,21 @@ public class FinishController {
                 model.addObject("p2NextLvlPoints", p2NextLvlPoints);
                 model.addObject("p2Win", b.p2Win);
                 model.addObject("login", login);
-                model.addObject("pointNowP2",(oldPointsP2+newPointsP2));
+                model.addObject("pointNowP2", (oldPointsP2 + newPointsP2));
                 model.addObject("p2Lvl", p2Lvl);
                 // удаляем ид батла из сесии 
                 req.getSession().removeAttribute("battleId");
             } else {
-                resp.sendRedirect("/CardGame/main.html");
+                try {
+                    resp.sendRedirect("main.html");
+                } catch (IOException ex) {
+                    System.out.println("Error: " + ex);
+                }
                 return null;
             }
-            // удаляем бой из мабы идущих боев
             if (b.p1CheckInFinish && b.p2CheckInFinish) {
                 bh.remove(i);
             }
-            
         }
         return model;
     }

@@ -16,8 +16,9 @@ public class UserDAO {
     }
 
     public User getUserByLogin(String login) {
+        User out;
         Session s = HibernateUtil.getSESSIONFACTORY().openSession();
-        User out = null;
+        out = null;
         s.beginTransaction();
         out = (User) s.createQuery("FROM User WHERE login='" + login + "'").uniqueResult();
         s.getTransaction().commit();
@@ -41,7 +42,7 @@ public class UserDAO {
         s.close();
     }
 
-    public User getUserMail(String email) { //// пусть будет, пригодится
+    public User getUserMail(String email) {
         Session s = HibernateUtil.getSESSIONFACTORY().openSession();
         User out = null;
         s.beginTransaction();

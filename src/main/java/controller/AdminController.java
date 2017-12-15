@@ -104,8 +104,9 @@ public class AdminController {
                         try {
                             News n = new News(id, subject, author, new Date(), text);
                             ndao.addNews(n);                
-                            resp.sendRedirect("/CardGame/admin.html");
+                            resp.sendRedirect("admin.html");
                         } catch (IOException ex) {
+                            System.out.println("Error: " + ex);
                         }
                     }
                 }

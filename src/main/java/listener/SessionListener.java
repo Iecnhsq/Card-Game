@@ -29,7 +29,6 @@ public class SessionListener implements HttpSessionListener {
             udao.updateUser(uh.getUser());
             oh.remove((String) se.getSession().getAttribute("login"));
             wh.remove((String) se.getSession().getAttribute("login"));
-
         }
     }
 

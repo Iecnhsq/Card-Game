@@ -22,7 +22,6 @@ import service.WaitService;
 @Controller
 public class WaitController {
 
-
     @Autowired
     private MainService mServ;
     @Autowired
@@ -35,21 +34,27 @@ public class WaitController {
     private UserHolder uh;
 
     @RequestMapping("wait.html")
-    public ModelAndView wait(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    public ModelAndView wait(HttpServletRequest req, HttpServletResponse res) {
         ModelAndView model = new ModelAndView();
         String login = ((String) req.getSession().getAttribute("login"));
         User u = uh.getUser();
         boolean inBattle = false;
         // в случае если на нашу страницу перешел не зарегестрированый пользиватель его оправляем на мейн страницу.
         if (login == null) {
-            res.sendRedirect("/CardGame/main.html");
+            try {
+                res.sendRedirect("main.html");
+            } catch (IOException ex) {
+                System.out.println("Error: " + ex);
+            }
             return null;
         } else {
-            // получаем карты нашего игрока которые он выбрал для боя, что бы не пускать игроков с не полной колодой.
-            // код можно увидить нажав CTRL+getUserCards.
-            Set<Card> cards = mServ.getUserCards(model,u.getClasss());
+            Set<Card> cards = mServ.getUserCards(model, u.getClasss());
             if (cards.size() < 10) {
-                res.sendRedirect("/CardGame/main.html");
+                try {
+                    res.sendRedirect("main.html");
+                } catch (IOException ex) {
+                    System.out.println("Error: " + ex);
+                }
                 return null;
             } else {
                 // так как при первом запуске баттл ID еще не записан в сесии будет выкидывать NullPointerExeption,
@@ -68,7 +73,7 @@ public class WaitController {
                         inBattle = WaitService.inBattle(login, inB);
                     }
                 } catch (Exception e) {
-                    System.out.println("You have exeption on get battle id");
+                    System.out.println("Error: " + e);
                 }
                 //если мы не в бою
                 if (!inBattle) {
@@ -86,7 +91,6 @@ public class WaitController {
                         int waitSize = wh.size();
                         //показываем модель в случае если игрок ждет сам.
                         if (waitSize < 2) {
-
                             model.addObject("pOnline", pOnline);
                             model.addObject("login", login);
                             return model;
@@ -110,13 +114,11 @@ public class WaitController {
                                 bh.put(i, b);
                                 //                             добавляем в сесию ID нашего боя.
                                 req.getSession().setAttribute("battleId", i);
-//                                проверочные строки можно раскоментировать посмотреть.
-//                                System.out.println(((Map<Integer, Battle>) req.getServletContext().getAttribute("battle"))
-//                                        .get(req.getServletContext().getAttribute("battleId")).p1.getLogin());
-//                                System.out.println(((Map<Integer, Battle>) req.getServletContext().getAttribute("battle"))
-//                                        .get(req.getServletContext().getAttribute("battleId")).p2.getLogin());
-                                // to do when 2 player create battle
-                                res.sendRedirect("/CardGame/battle.html");
+                                try {
+                                    res.sendRedirect("battle.html");
+                                } catch (IOException ex) {
+                                    System.out.println("Error: " + ex);
+                                }
                             }
                         }
                     } else {
@@ -126,7 +128,11 @@ public class WaitController {
                         return model;
                     }
                 } else {
-                    res.sendRedirect("/CardGame/battle.html");
+                    try {
+                        res.sendRedirect("battle.html");
+                    } catch (IOException ex) {
+                        System.out.println("Error: " + ex);
+                    }
                 }
             }
         }

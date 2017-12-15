@@ -46,7 +46,6 @@ public class LoginService {
         methodAdd(shaman, Shaman);
         methodAdd(thief, Thief);
         methodAdd(warrior, Warrior);
-
     }
 
     private void methodAdd(String className, List<Card> CardClass) {
@@ -55,6 +54,7 @@ public class LoginService {
         });
         ch.putClass(className, CardClass);
     }
+
     public boolean matchPassword(String userPass, String parameterPass){
         return userPass.equals(parameterPass);
     }
@@ -67,4 +67,5 @@ public class LoginService {
     public User getUserInDB(String login){
         return udao.getUserByLogin(login);
     }
+
 }

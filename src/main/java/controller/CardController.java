@@ -20,7 +20,7 @@ import service.MainService;
 
 @Controller
 public class CardController {
-    
+
     @Autowired
     private UserDAO udao;
     @Autowired
@@ -34,9 +34,8 @@ public class CardController {
     @Autowired
     private CardHolder ch;
 
-    
     @RequestMapping("/card.html")
-    public ModelAndView card(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public ModelAndView card(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("card");
         List<Card> allCards = ch.getCardByClass("BasicCard");
         String login = ((String) req.getSession().getAttribute("login"));
@@ -57,7 +56,7 @@ public class CardController {
             Set<Card> cards;
             String idClass = req.getParameter("idclass");
             String classNameJoin = u.getClasss();
-            
+
             if (cserv.classSelected(idClass)) {
                 cserv.addClassCardInSession(req, idClass);
                 cserv.setEmptyDeck(idClass);
@@ -68,13 +67,17 @@ public class CardController {
             String CardClassName = u.getClasss();
 //            req.setAttribute("cardClass", className);
             cards = mserv.getUserCards(model, CardClassName);
-            
+
             if (cserv.cardSelected(idString)) {
                 System.out.println("in id string");
                 int id = Integer.parseInt(idString);
                 cards = cserv.writeCards(id, cards);
                 if (cserv.deckIsFull(cards)) {
-                    resp.sendRedirect("card.html");
+                    try {
+                        resp.sendRedirect("card.html");
+                    } catch (IOException ex) {
+                        System.out.println("Error: " + ex);
+                    }
                     return null;
                 }
             }
@@ -84,7 +87,11 @@ public class CardController {
             String getCards = req.getParameter("getCards");
             if (cserv.commitGetCard(getCards)) {
                 udao.updateUser(u);
-                resp.sendRedirect("main.html");
+                try {
+                    resp.sendRedirect("main.html");
+                } catch (IOException ex) {
+                    System.out.println("Error: " + ex);
+                }
                 return null;
             }
             model.addObject("deckCards", cards);
@@ -93,7 +100,11 @@ public class CardController {
             }
             return model;
         } else {
-            resp.sendRedirect("login.html");
+            try {
+                resp.sendRedirect("login.html");
+            } catch (IOException ex) {
+                System.out.println("Error: " + ex);
+            }
         }
         return null;
     }

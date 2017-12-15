@@ -1,0 +1,5 @@
+# Exceptions
+target/
+.gitignore
+*.lst
+*.war

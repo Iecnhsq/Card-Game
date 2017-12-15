@@ -1,0 +1,78 @@
+.cHunter{
+    width: 100px;
+    height: 150px;
+    float: left;
+    display: inline-block;
+    margin: 2px;
+    position: relative;
+    margin-left: 35px;
+    margin-bottom: 8px;
+    background-image: url(src/img/cards/HUNTER.png);
+    background-size: 100% 100%;
+    color: white;
+}
+.cMage{
+    width: 100px;
+    height: 150px;
+    float: left;
+    display: inline-block;
+    margin: 2px;
+    position: relative;
+    margin-left: 35px;
+    margin-bottom: 8px;
+    background-image: url(src/img/cards/MAGE.png);
+    background-size: 100% 100%;
+    color: white;
+}
+.cPriest{
+    width: 100px;
+    height: 150px;
+    float: left;
+    display: inline-block;
+    margin: 2px;
+    position: relative;
+    margin-left: 35px;
+    margin-bottom: 8px;
+    background-image: url(src/img/cards/PRIEST.png);
+    background-size: 100% 100%;
+    color: white;
+}
+.cThief{
+    width: 100px;
+    height: 150px;
+    float: left;
+    display: inline-block;
+    margin: 2px;
+    position: relative;
+    margin-left: 35px;
+    margin-bottom: 8px;
+    background-image: url(src/img/cards/THIEF.png);
+    background-size: 100% 100%;
+    color: white;
+}
+.cShaman{
+    width: 100px;
+    height: 150px;
+    float: left;
+    display: inline-block;
+    margin: 2px;
+    position: relative;
+    margin-left: 35px;
+    margin-bottom: 8px;
+    background-image: url(src/img/cards/SHAMAN.png);
+    background-size: 100% 100%;
+    color: white;
+}
+.cWarrior{
+    width: 100px;
+    height: 150px;
+    float: left;
+    display: inline-block;
+    margin: 2px;
+    position: relative;
+    margin-left: 35px;
+    margin-bottom: 8px;
+    background-image: url(src/img/cards/WARRIOR.png);
+    background-size: 100% 100%;
+    color: white;
+}

@@ -24,7 +24,6 @@ public class LoginController {
     @Autowired
     private LoginService lserv;
 
-
     @RequestMapping(value = "/login.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView login(HttpServletRequest req, HttpServletResponse resp) {
         String login = req.getParameter("login");
@@ -44,8 +43,9 @@ public class LoginController {
                     uh.set(u);
                     lserv.getAllCardsInDB();
                     try {
-                        resp.sendRedirect("/CardGame/main.html");
+                        resp.sendRedirect("main.html");
                     } catch (IOException ex) {
+                        System.out.println("Error: " + ex);
                     }
                 }
             }

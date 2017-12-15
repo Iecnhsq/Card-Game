@@ -21,4 +21,5 @@ public class HibernateUtil {
     public static SessionFactory getSESSIONFACTORY() {
         return SESSIONFACTORY;
     }
+
 }

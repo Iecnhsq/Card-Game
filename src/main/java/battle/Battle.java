@@ -41,4 +41,5 @@ public class Battle {
     public Boolean p2HeroPowerSelected=false;
     public Boolean p1Attacked=false;
     public Boolean p2Attacked=false;
+    
 }

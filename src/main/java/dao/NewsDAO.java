@@ -18,8 +18,9 @@ public class NewsDAO {
     }
 
     public News getNewsById(int id) {
+        News out;
         Session s = HibernateUtil.getSESSIONFACTORY().openSession();
-        News out = null;
+        out = null;
         s.beginTransaction();
         out = (News) s.createQuery("FROM News WHERE id='" + id + "'").uniqueResult();
         s.getTransaction().commit();
@@ -49,8 +50,8 @@ public class NewsDAO {
                 maxId = (int) currentSeq.get(0);
                 return maxId + 1;
             }
-        } catch (HibernateException exc) {
-            System.out.print("Unable to get latestID");
+        } catch (HibernateException ex) {
+            System.out.println("Error: " + ex);
         }
         return maxId;
     }

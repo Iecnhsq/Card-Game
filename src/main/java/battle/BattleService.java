@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import entity.Card;
 import entity.Deck;
 import holders.CardHolder;
-import holders.UserHolder;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -15,41 +14,29 @@ public class BattleService {
 
     @Autowired
     private CardHolder ch;
-    @Autowired
-    private UserHolder uh;
 
     public void setDeckCards(Battle b) {
-        // заполняем колоду 1го игрока
         b.deckP1 = setDeckP1(b);
         System.out.println("deck in battle:" + b.deckP1.size());
-        // заполняем колоду 2го игрока
         b.deckP2 = setDeckP2(b);
-        // и даем им по 2 случайных карты из колоды на руки
         b.onHandP1 = set2cardsP1toHand(b);
         b.onHandP2 = set2cardsP2toHand(b);
     }
 
     private List<Card> setDeckP1(Battle b) {
-        //раздаем карты 1му игроку 
         List<Card> l = new CopyOnWriteArrayList<>();
         Deck d = new Gson().fromJson(b.p1.getCards(), Deck.class);
         d.deck.forEach((i) -> {
-                l.add(ch.getCardById(i));
+            l.add(ch.getCardById(i));
         });
         return l;
     }
 
     private List<Card> setDeckP2(Battle b) {
-        //раздаем карты 2му игроку 
         List<Card> l = new CopyOnWriteArrayList<>();
-        //создаем колоду и сеттим ей значение из карт второго игрока в бое
         Deck d = new Gson().fromJson(b.p2.getCards(), Deck.class);
-        // проходим по списку id наших карт из колоды
         d.deck.forEach((i) -> {
-            // добавляем в наш список карты из колоды
- 
-                l.add(ch.getCardById(i));
-
+            l.add(ch.getCardById(i));
         });
         return l;
     }
@@ -63,7 +50,6 @@ public class BattleService {
             // добавляем в наш спискок
             // убираем эту карту из колоды
             l.add(b.deckP1.remove(new Random().nextInt(b.deckP1.size())));
-
         }
         return l;
     }
@@ -132,12 +118,12 @@ public class BattleService {
             b.onHandP1.add(add1CardToP1Hand(b));
             b.onHandP2.add(add1CardToP2Hand(b));
         }
-        for (Card c : b.onTableP1) {
+        b.onTableP1.forEach((c) -> {
             b.p1ActiveCards.put(c.getId(), c);
-        }
-        for (Card c : b.onTableP2) {
+        });
+        b.onTableP2.forEach((c) -> {
             b.p2ActiveCards.put(c.getId(), c);
-        }
+        });
     }
 
     private void p1EndTurn(Battle b) {
@@ -184,25 +170,25 @@ public class BattleService {
 
     private void p1CreatureToCreatureAttack(Battle b, int id) {
         if (!b.onTableP2.checkTaunt()) {
-            for (Card c : b.onTableP2) {
+            b.onTableP2.forEach((c) -> {
                 attackProcessP1Creature(b, c, id);
-            }
+            });
         } else {
-            for (Card c : b.onTableP2.getTauntCards()) {
+            b.onTableP2.getTauntCards().forEach((c) -> {
                 attackProcessP1Creature(b, c, id);
-            }
+            });
         }
     }
 
     private void p2CreatureToCreatureAttack(Battle b, int id) {
         if (!b.onTableP1.checkTaunt()) {
-            for (Card c : b.onTableP1) {
+            b.onTableP1.forEach((c) -> {
                 attackProcessP2Creature(b, c, id);
-            }
+            });
         } else {
-            for (Card c : b.onTableP1.getTauntCards()) {
+            b.onTableP1.getTauntCards().forEach((c) -> {
                 attackProcessP2Creature(b, c, id);
-            }
+            });
         }
     }
 
@@ -405,91 +391,83 @@ public class BattleService {
     }
 
     private void p1HeroAttackHisCard(Battle b, int id) {
-        for (Card c : b.onTableP1) {
-            if (c.getId() == id) {
-                if (!c.getShield()) {
-                    c.setHealth(c.getHealth() - 1);
-                    if (c.getHealth() <= 0) {
-                        b.onTableP1.remove(c);
-                    }
-                    b.manaP1 -= 2;
-                    b.p1points += 1;
-                    b.p1HeroPowerSelected = false;
-                    b.p1Attacked = true;
-                } else {
-                    c.setShield(false);
-                    b.manaP1 -= 2;
-                    b.p1HeroPowerSelected = false;
-                    b.p1Attacked = true;
+        b.onTableP1.stream().filter((c) -> (c.getId() == id)).forEachOrdered((c) -> {
+            if (!c.getShield()) {
+                c.setHealth(c.getHealth() - 1);
+                if (c.getHealth() <= 0) {
+                    b.onTableP1.remove(c);
                 }
+                b.manaP1 -= 2;
+                b.p1points += 1;
+                b.p1HeroPowerSelected = false;
+                b.p1Attacked = true;
+            } else {
+                c.setShield(false);
+                b.manaP1 -= 2;
+                b.p1HeroPowerSelected = false;
+                b.p1Attacked = true;
             }
-        }
+        });
     }
 
     private void p2HeroAttackHisCard(Battle b, int id) {
-        for (Card c : b.onTableP2) {
-            if (c.getId() == id) {
-                if (!c.getShield()) {
-                    c.setHealth(c.getHealth() - 1);
-                    if (c.getHealth() <= 0) {
-                        b.onTableP2.remove(c);
-                    }
-                    b.p2HeroPowerSelected = false;
-                    b.manaP2 -= 2;
-                    b.p2points += 1;
-                    b.p2Attacked = true;
-                } else {
-                    c.setShield(false);
-                    b.p2HeroPowerSelected = false;
-                    b.manaP2 -= 2;
-                    b.p2Attacked = true;
+        b.onTableP2.stream().filter((c) -> (c.getId() == id)).forEachOrdered((c) -> {
+            if (!c.getShield()) {
+                c.setHealth(c.getHealth() - 1);
+                if (c.getHealth() <= 0) {
+                    b.onTableP2.remove(c);
                 }
+                b.p2HeroPowerSelected = false;
+                b.manaP2 -= 2;
+                b.p2points += 1;
+                b.p2Attacked = true;
+            } else {
+                c.setShield(false);
+                b.p2HeroPowerSelected = false;
+                b.manaP2 -= 2;
+                b.p2Attacked = true;
             }
-        }
+        });
     }
 
     private void p1HeroAttackEnemyCard(Battle b, int id) {
-        for (Card c : b.onTableP2) {
-            if (c.getId() == -id) {
-                if (!c.getShield()) {
-                    c.setHealth(c.getHealth() - 1);
-                    if (c.getHealth() <= 0) {
-                        b.onTableP2.remove(c);
-                    }
-                    b.manaP1 -= 2;
-                    b.p1points += 1;
-                    b.p1HeroPowerSelected = false;
-                    b.p1Attacked = true;
-                } else {
-                    c.setShield(false);
-                    b.manaP1 -= 2;
-                    b.p1HeroPowerSelected = false;
-                    b.p1Attacked = true;
+        b.onTableP2.stream().filter((c) -> (c.getId() == -id)).forEachOrdered((c) -> {
+            if (!c.getShield()) {
+                c.setHealth(c.getHealth() - 1);
+                if (c.getHealth() <= 0) {
+                    b.onTableP2.remove(c);
                 }
+                b.manaP1 -= 2;
+                b.p1points += 1;
+                b.p1HeroPowerSelected = false;
+                b.p1Attacked = true;
+            } else {
+                c.setShield(false);
+                b.manaP1 -= 2;
+                b.p1HeroPowerSelected = false;
+                b.p1Attacked = true;
             }
-        }
+        });
     }
 
     private void p2HeroAttackEnemyCard(Battle b, int id) {
-        for (Card c : b.onTableP1) {
-            if (c.getId() == -id) {
-                if (!c.getShield()) {
-                    c.setHealth(c.getHealth() - 1);
-                    if (c.getHealth() <= 0) {
-                        b.onTableP1.remove(c);
-                    }
-                    b.p2HeroPowerSelected = false;
-                    b.manaP2 -= 2;
-                    b.p2points += 1;
-                    b.p2Attacked = true;
-                } else {
-                    c.setShield(false);
-                    b.p2HeroPowerSelected = false;
-                    b.manaP2 -= 2;
-                    b.p2Attacked = true;
+        b.onTableP1.stream().filter((c) -> (c.getId() == -id)).forEachOrdered((c) -> {
+            if (!c.getShield()) {
+                c.setHealth(c.getHealth() - 1);
+                if (c.getHealth() <= 0) {
+                    b.onTableP1.remove(c);
                 }
+                b.p2HeroPowerSelected = false;
+                b.manaP2 -= 2;
+                b.p2points += 1;
+                b.p2Attacked = true;
+            } else {
+                c.setShield(false);
+                b.p2HeroPowerSelected = false;
+                b.manaP2 -= 2;
+                b.p2Attacked = true;
             }
-        }
+        });
     }
 
 }
