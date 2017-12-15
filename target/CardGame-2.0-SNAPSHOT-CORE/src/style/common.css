@@ -17,11 +17,25 @@ input[type="submit"] {
     margin: 12px;
     padding: 6px 32px;
 }
+input[type="text"] {
+    width: 300px;
+}
+input[type="password"] {
+    width: 300px;
+}
+input[type="email"] {
+    width: 300px;
+}
+input[type="tel"] {
+    width: 300px;
+}
 textarea {
     resize: none;
     margin: 2px;
     font-size: 14pt;
     border: 2px #52500d solid;
+    width: 308px;
+    height: 150px;
 }
 a{
     text-decoration: none;

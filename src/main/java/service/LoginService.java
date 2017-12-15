@@ -1,7 +1,9 @@
 package service;
 
 import dao.CardDAO;
+import dao.UserDAO;
 import entity.Card;
+import entity.User;
 import holders.CardHolder;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,15 @@ public class LoginService {
     private CardHolder ch;
     @Autowired
     private CardDAO cdao;
+    @Autowired
+    private UserDAO udao;
 
     private List<Card> getCardsInDB(String cardClassName) {
         return cdao.getCards(cardClassName);
     }
 
     public void getAllCardsInDB() {
+        
         final String basicCard = "BasicCard";
         final String hunter = "Hunter";
         final String mage = "Mage";
@@ -48,6 +53,19 @@ public class LoginService {
             ch.putId(c.getId(), c);
         });
         ch.putClass(className, CardClass);
+    }
+
+    public boolean matchPassword(String userPass, String parameterPass){
+        return userPass.equals(parameterPass);
+    }
+    public boolean userExists(User u){
+        return u!=null;
+    }
+    public boolean loginEntered(String login){
+        return login!=null;
+    }
+    public User getUserInDB(String login){
+        return udao.getUserByLogin(login);
     }
 
 }

@@ -40,8 +40,8 @@
                         <img src="src/img/warrior_a.png" style="float: left; margin: 0px 20px 0px 0px"/>
                     </c:if>               
                     <input type="text" size="25" readonly value="${u.points} / ${u.lvl}" style="text-align: center"/><br>
-                    <input type="text" size="25" readonly value="${u.login}" title="Name" style="text-align: center"/><br>
-                    <input type="text" size="25" readonly value="${u.classs}" title="Class" style="text-align: center"/><br>
+                    <input type="text" size="25" readonly value="${u.login}" style="text-align: center"/><br>
+                    <input type="text" size="25" readonly value="${u.classs}" style="text-align: center"/><br>
                 </p>
                 <p style="margin-top: 40px; font-size: 14pt">
                     Registered : <b>${u.date}</b><br>
@@ -67,7 +67,7 @@
             </div>
             <div style="clear: both"></div>
             <div style="text-align: center">
-                <form action="" method="POST" id="p">
+                <form action="premium.html" method="POST" id="p">
                     <input type="submit" value="Get Premium" form="p"/>
                     <input type="submit" value="Main Page" form="m"/>
                 </form>
