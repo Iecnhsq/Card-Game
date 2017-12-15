@@ -1,6 +1,5 @@
 package controller;
 
-import dao.UserDAO;
 import entity.User;
 import holders.OnlineHolder;
 import holders.UserHolder;
@@ -17,8 +16,7 @@ import service.LoginService;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private UserDAO udao;
+    
     @Autowired
     private OnlineHolder oh;
     @Autowired
@@ -30,15 +28,15 @@ public class LoginController {
     @RequestMapping(value = "/login.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView login(HttpServletRequest req, HttpServletResponse resp) {
         String login = req.getParameter("login");
-        if (login == null) {
+        if (!lserv.loginEntered(login)) {
             return new ModelAndView("login");
         } else {
             String pass = req.getParameter("pass");
-            User u = udao.getUserByLogin(login);
-            if (u == null) {
+            User u = lserv.getUserInDB(login);
+            if (!lserv.userExists(u)) {
                 return new ModelAndView("login");
             } else {
-                if (!u.getPass().equals(pass)) {
+                if (!lserv.matchPassword(u.getPass(), pass)) {
                     return new ModelAndView("login");
                 } else {
                     req.getSession().setAttribute("login", login);

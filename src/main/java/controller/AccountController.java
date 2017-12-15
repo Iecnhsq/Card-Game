@@ -35,17 +35,17 @@ public class AccountController {
             return null;
         } else {
             User user = uh.getUser();
-            if (user.getClasss().equals("hunter")) {
+            if (user.getClasss().equals("Hunter")) {
                 req.getSession().setAttribute("hu", true);
             } else {
                 req.getSession().setAttribute("hu", false);
             }
-            if (user.getClasss().equals("mage")) {
+            if (user.getClasss().equals("Mage")) {
                 req.getSession().setAttribute("ma", true);
             } else {
                 req.getSession().setAttribute("ma", false);
             }
-            if (user.getClasss().equals("priest")) {
+            if (user.getClasss().equals("Priest")) {
                 req.getSession().setAttribute("pr", true);
             } else {
                 req.getSession().setAttribute("pr", false);
@@ -55,12 +55,12 @@ public class AccountController {
             } else {
                 req.getSession().setAttribute("ro", false);
             }
-            if (user.getClasss().equals("shaman")) {
+            if (user.getClasss().equals("Shaman")) {
                 req.getSession().setAttribute("sh", true);
             } else {
                 req.getSession().setAttribute("sh", false);
             }
-            if (user.getClasss().equals("warrior")) {
+            if (user.getClasss().equals("Warrior")) {
                 req.getSession().setAttribute("wr", true);
             } else {
                 req.getSession().setAttribute("wr", false);
