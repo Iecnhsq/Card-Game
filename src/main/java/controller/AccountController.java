@@ -32,38 +32,7 @@ public class AccountController {
             return null;
         } else {
             User user = uh.getUser();
-            if (user.getClasss().equals("Hunter")) {
-                req.getSession().setAttribute("hu", true);
-            } else {
-                req.getSession().setAttribute("hu", false);
-            }
-            if (user.getClasss().equals("Mage")) {
-                req.getSession().setAttribute("ma", true);
-            } else {
-                req.getSession().setAttribute("ma", false);
-            }
-            if (user.getClasss().equals("Priest")) {
-                req.getSession().setAttribute("pr", true);
-            } else {
-                req.getSession().setAttribute("pr", false);
-            }
-            if (user.getClasss().equals("rogue")) {
-                req.getSession().setAttribute("ro", true);
-            } else {
-                req.getSession().setAttribute("ro", false);
-            }
-            if (user.getClasss().equals("Shaman")) {
-                req.getSession().setAttribute("sh", true);
-            } else {
-                req.getSession().setAttribute("sh", false);
-            }
-            if (user.getClasss().equals("Warrior")) {
-                req.getSession().setAttribute("wr", true);
-            } else {
-                req.getSession().setAttribute("wr", false);
-            }
             String phone = req.getParameter("phone");
-            // если не указан телефон, "перезагружаем" страницу
             if (phone == null) {
                 ModelAndView account = new ModelAndView("account");
                 account.addObject("isLogin", true);
@@ -73,9 +42,8 @@ public class AccountController {
             } else {
                 String email = req.getParameter("email");
                 String city = req.getParameter("city");
-                String pass = req.getParameter("pass");//новый пароль
-                String pass2 = req.getParameter("pass2");//подтвержденный новый пароль
-                //если пароли не сходятся перезагружаем страницу
+                String pass = req.getParameter("pass");
+                String pass2 = req.getParameter("pass2");
                 if (!pass.equals(pass2)) {
                     ModelAndView account = new ModelAndView("account");
                     account.addObject("isLogin", true);
@@ -84,7 +52,6 @@ public class AccountController {
                     return account;
                 } else {
                     try {
-                        // добавляем данные если они заданы
                         if (city.length() > 0) {
                             user.setCity(city);
                         }
@@ -94,16 +61,13 @@ public class AccountController {
                         if (phone.length() > 0) {
                             user.setPhone(phone);
                         }
-                        String pass3 = req.getParameter("pass3");//старый пароль
-                        // проверяем равен ли пароль действующему паролю
+                        String pass3 = req.getParameter("pass3");
                         if (pass3.equals(user.getPass())) {
-                            //изменяем пароль если он задан
                             if (pass.length() > 0) {
                                 user.setPass(pass);
                             }
                             uh.set(user);
                             udao.updateUser(user);
-                            // переходим обратно в мейн
                             resp.sendRedirect("main.html");
                         } else {
                             ModelAndView account = new ModelAndView("account");

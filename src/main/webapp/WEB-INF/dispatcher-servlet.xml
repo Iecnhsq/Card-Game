@@ -69,4 +69,5 @@
     
     <bean id="cardHolder" class="holders.CardHolder"/>
     <bean id="loginService" class="service.LoginService"/>
+    <bean id="accountService" class="service.AccountService"/>
 </beans>

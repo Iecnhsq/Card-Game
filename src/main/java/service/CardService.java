@@ -49,17 +49,14 @@ public class CardService {
     public Set<Card> writeCards(int id, Set<Card> cards) {
         if (id == 0) {
             cards.clear();
-            //если больше 0 добавляем выбраную карту в список выбраных карт.
         } else if (id > 0) {
             cards.add(addCard(id));
-//                  если меньше 0 то удаляем из списка выбраных карт.
             System.out.println(cards.size());
         } else if (id < 0) {
             removeCard(cards, id);
             System.out.println(cards.size());
         }
         return cards;
-        // если количество выбраных карт превышает 10 карт возврашаемся обратно на card.html без изменений
     }
 
     public boolean deckIsFull(Set<Card> cards) {

@@ -20,25 +20,7 @@
         <div style="margin: 100px auto; width: 900px; background-color: rgba(84,82,71,.5)">
             <div style="clear: both"></div>
             <div class="forma_1">
-                <p>
-                    <c:if test="${hu}">
-                        <img src="src/img/hunter_a.png" style="float: left; margin: 0px 20px 0px 0px"/>
-                    </c:if>
-                    <c:if test="${ma}">
-                        <img src="src/img/mage_a.png" style="float: left; margin: 0px 20px 0px 0px"/>
-                    </c:if>
-                    <c:if test="${pr}">
-                        <img src="src/img/priest_a.png" style="float: left; margin: 0px 20px 0px 0px"/>
-                    </c:if>
-                    <c:if test="${ro}">
-                        <img src="src/img/rogue_a.png" style="float: left; margin: 0px 20px 0px 0px"/>
-                    </c:if>
-                    <c:if test="${sh}">
-                        <img src="src/img/shaman_a.png" style="float: left; margin: 0px 20px 0px 0px"/>
-                    </c:if>
-                    <c:if test="${wr}">
-                        <img src="src/img/warrior_a.png" style="float: left; margin: 0px 20px 0px 0px"/>
-                    </c:if>               
+                <p>             
                     <input type="text" size="25" readonly value="${u.points} / ${u.lvl}" style="text-align: center"/><br>
                     <input type="text" size="25" readonly value="${u.login}" style="text-align: center"/><br>
                     <input type="text" size="25" readonly value="${u.classs}" style="text-align: center"/><br>
