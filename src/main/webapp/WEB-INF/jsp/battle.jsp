@@ -64,6 +64,9 @@
                 <div class="turn">
                     <c:if test="${p1turn}">
                         <div>
+                            <a href="battle.html?putCard=1">
+                                <input type="button" value="Put Card"/>
+                            </a>
                             <audio id="player" src="src/sound/end_new_turn.mp3"></audio>
                             <a href="battle.html?end=1" onclick="document.getElementById('player').play()">
                                 <input type="button" value="End of turn" onclick="document.getElementById('player').play()"/>
@@ -202,6 +205,9 @@
                 <!--кнопка пропуска хода, или рефреш-->
                 <div class="turn">
                     <c:if test="${p2turn}">
+                        <a href="battle.html?putCard=1">
+                            <input type="button" value="Put Card"/>
+                        </a>
                         <a href="battle.html?end=1">
                             <input type="button" value="End of turn"/>
                         </a>

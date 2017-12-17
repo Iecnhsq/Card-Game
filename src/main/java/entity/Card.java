@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Card implements Serializable {
+public abstract class Card implements Serializable, Cloneable {
 
     @Id
     private int id;
@@ -138,7 +138,43 @@ public abstract class Card implements Serializable {
             return false;
         }
         final Card other = (Card) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.level != other.level) {
+            return false;
+        }
+        if (this.damage != other.damage) {
+            return false;
+        }
+        if (this.health != other.health) {
+            return false;
+        }
+        if (!Objects.equals(this.type, other.type)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.taunt, other.taunt)) {
+            return false;
+        }
+        if (!Objects.equals(this.imun, other.imun)) {
+            return false;
+        }
+        if (!Objects.equals(this.shield, other.shield)) {
+            return false;
+        }
+        if (!Objects.equals(this.charge, other.charge)) {
+            return false;
+        }
+        if (!Objects.equals(this.poison, other.poison)) {
+            return false;
+        }
         return true;
     }
 
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
