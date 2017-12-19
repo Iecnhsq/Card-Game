@@ -11,8 +11,7 @@
     <property name="show_sql">true</property>
     <mapping class="entity.BasicCard"/>
     <mapping class="entity.User"/>
-    <mapping class="entity.News"/>
-    
+    <mapping class="entity.News"/>   
     <mapping class="entity.Mage"/>
     <mapping class="entity.Priest"/>
     <mapping class="entity.Warrior"/>

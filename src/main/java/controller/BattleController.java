@@ -2,7 +2,6 @@ package controller;
 
 import battle.Battle;
 import battle.BattleService;
-import entity.Card;
 import holders.BattlesHolder;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +41,7 @@ public class BattleController {
                 b = bh.get((Integer) req.getSession().getAttribute("battleId"));
 //                если не получаеться возвращаемся на main.html
             } catch (Exception e) {
+                System.out.println("Error: " + e);
                 try {
                     resp.sendRedirect("main.html");
                 } catch (IOException ex) {

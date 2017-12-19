@@ -21,7 +21,7 @@ public class RegisterController {
         String loginInSession = (String) req.getSession().getAttribute("login");
         if (regService.isLoginInSessionExists(loginInSession)) {
             try {
-                resp.sendRedirect("main.html");
+                resp.sendRedirect("index.html");
             } catch (IOException ex) {
                 System.out.println("Error: " + ex);
             }

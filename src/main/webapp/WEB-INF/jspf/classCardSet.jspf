@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8" %>
 <div style="margin: 10px auto; width: 750px; text-align: left">
-
     <fieldset class="${heroClass}">
         <c:forEach items="${cardClass}" var="ch">
             <a href="card.html?id=${ch.id}" class="tooltip">
@@ -24,16 +23,15 @@
                             <div id="dmg">${ch.damage}</div>
                             <div id="HP">${ch.health}</div></b>
                         <div id="attribute">
-                            <c:if test="${ch.taunt}"><img src="src/img/ars/Ability_Physical_Taunt.ico" title="taunt"/></c:if>
-                            <c:if test="${ch.imun}"><img src="src/img/ars/Spell_Nature_ProtectionformNature.ico" title="imun"/></c:if>
-                            <c:if test="${ch.shield}"><img src="src/img/ars/Ability_Warrior_ShieldMastery.ico" title="shield"/></c:if>
-                            <c:if test="${ch.charge}"><img src="src/img/ars/Ability_Warrior_Charge.ico" title="charge"/></c:if>
-                            <c:if test="${ch.poison}"><img src="src/img/ars/Ability_Creature_Poison_02.ico" title="poison"/></c:if>
+                            <c:if test="${ch.taunt}"><img src="src/img/ars/taunt.ico" title="taunt"/></c:if>
+                            <c:if test="${ch.imun}"><img src="src/img/ars/immunity.ico" title="imun"/></c:if>
+                            <c:if test="${ch.shield}"><img src="src/img/ars/shield.ico" title="shield"/></c:if>
+                            <c:if test="${ch.charge}"><img src="src/img/ars/charge.ico" title="charge"/></c:if>
+                            <c:if test="${ch.poison}"><img src="src/img/ars/poison.ico" title="poison"/></c:if>
                             </div>
                         </form>
                     </div>
                 </a>
         </c:forEach>
     </fieldset>
-
 </div>

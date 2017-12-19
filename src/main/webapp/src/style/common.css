@@ -1,34 +1,3 @@
-body{
-    background-image: url(src/img/fon.png);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
-    font-size: 14pt;
-}
-input{
-    padding: 6px;
-    margin: 2px;
-    border: 2px #52500d solid;
-    font-size: 14pt;
-}
-input[type="submit"] {
-    background-color: #545247;
-    color: ghostwhite;
-    margin: 12px;
-    padding: 6px 32px;
-}
-input[type="text"] {
-    width: 300px;
-}
-input[type="password"] {
-    width: 300px;
-}
-input[type="email"] {
-    width: 300px;
-}
-input[type="tel"] {
-    width: 300px;
-}
 textarea {
     resize: none;
     margin: 2px;
@@ -37,17 +6,6 @@ textarea {
     width: 308px;
     height: 150px;
 }
-a{
-    text-decoration: none;
-    color: white;
-}
-a:hover {
-    color: gainsboro;
-}
-fieldset{
-    border: none;
-    text-align: center;
-}
 .form1{
     float: left;
     padding: 10px;
@@ -55,18 +13,9 @@ fieldset{
     color: white;
 }
 .onlineT{
-    font-size: x-large;
     color: rgb(245,245,245);
     -webkit-animation: pulsate 5s linear infinite;
     animation: pulsate 5s linear infinite;
-}
-.head {
-    width: 1024px;
-    margin: auto;
-    padding: 10px;
-    background-color: rgba(84,82,71,.5);
-    border-radius: 5px;
-    color: white;
 }
 #refresh{
     display: inlie-block;
@@ -99,10 +48,4 @@ label {
 }
 .main {
     float:left
-}
-@-webkit-keyframes pulsate {
-    50% { color: #fff; text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff; }
-}
-@keyframes pulsate {
-    50% { color: #fff; text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff; }
 }

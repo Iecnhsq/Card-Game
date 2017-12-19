@@ -1,20 +1,3 @@
-.class_head{
-    width: 1024px;
-    margin: auto;
-    padding: 10px;
-    background-color: rgba(84,82,71,.5);
-    border-radius: 5px;
-    color: white;
-    text-align: center;
-}
-
-@-webkit-keyframes pulsate {
-    50% { color: #fff; text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff; }
-}
-@keyframes pulsate {
-    50% { color: #fff; text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff; }
-}
-
 #b1{
     left: 70%;
     margin-top: 1%;
@@ -37,13 +20,6 @@
 #bl2{
     display: inlie-block;
     min-width: 170px;
-}
-.card {
-    width: 1024px;
-    padding: 10px;
-    margin: auto;
-    background-color: rgba(84,82,71,.5);
-    border-radius: 5px;
 }
 .allCards{
     margin-top: 10px;

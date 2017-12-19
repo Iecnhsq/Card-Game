@@ -3,6 +3,13 @@
 <p>
     This is most popularity online card game like as Hearthstone.
 </p>
+<p>
+<h3>АХТУНГ!!!!</h3>
+<b>Обязательно</b>, перед каждым митингом собираем рабочую версию проект и заливаем на <b>Google Disk</b> как:<br>
+<strong><font style="color: red; font-size: 16pt"><i>№ текущего митинга</i> _ <i>название проекта</i> _ <i>CORE</i>
+</font></strong><br>
+Зачем? - Что бы не откатывать лишнее и не тратить в пустую время!
+</p>
 <div style="width: 400px; margin: auto; border: 1px solid black; border-radius: 5px; padding: 10px">
     <p style="text-align: center">
         <b style="color: yellow; font-size: 12pt">2017.11.17 in 20:00 by Admin</b><br>
@@ -16,5 +23,5 @@
     <li>And many new things...</li>
 </ul>                  
 </p>
-<p style="text-align: center"><a href="main.html?page=news">Get more info by...</a></p>
+<p style="text-align: center"><a href="index.html?page=news">Get more info by...</a></p>
 </div>

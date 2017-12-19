@@ -57,10 +57,10 @@
     <div id="dmg">${c.damage}</div>
     <div id="HP">${c.health}</div>
     <div id="attribute">
-        <c:if test="${c.taunt}"><img src="src/img/ars/Ability_Physical_Taunt.ico" title="taunt"/></c:if>
-        <c:if test="${c.imun}"><img src="src/img/ars/Spell_Nature_ProtectionformNature.ico" title="imun"/></c:if>
-        <c:if test="${c.shield}"><img src="src/img/ars/Ability_Warrior_ShieldMastery.ico" title="shield"/></c:if>
-        <c:if test="${c.charge}"><img src="src/img/ars/Ability_Warrior_Charge.ico" title="charge"/></c:if>
-        <c:if test="${c.poison}"><img src="src/img/ars/Ability_Creature_Poison_02.ico" title="poison"/></c:if>
+        <c:if test="${c.taunt}"><img src="src/img/ars/taunt.ico" title="taunt"/></c:if>
+        <c:if test="${c.imun}"><img src="src/img/ars/immunity.ico" title="imun"/></c:if>
+        <c:if test="${c.shield}"><img src="src/img/ars/shield.ico" title="shield"/></c:if>
+        <c:if test="${c.charge}"><img src="src/img/ars/charge.ico" title="charge"/></c:if>
+        <c:if test="${c.poison}"><img src="src/img/ars/poison.ico" title="poison"/></c:if>
     </div>
 </div>

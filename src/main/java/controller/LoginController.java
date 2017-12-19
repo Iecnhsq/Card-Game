@@ -16,7 +16,6 @@ import service.LoginService;
 @Controller
 public class LoginController {
 
-    
     @Autowired
     private OnlineHolder oh;
     @Autowired
@@ -28,15 +27,15 @@ public class LoginController {
     public ModelAndView login(HttpServletRequest req, HttpServletResponse resp) {
         String login = req.getParameter("login");
         if (!lserv.loginEntered(login)) {
-            return new ModelAndView("login");
+            return new ModelAndView("index");
         } else {
             String pass = req.getParameter("pass");
             User u = lserv.getUserInDB(login);
             if (!lserv.userExists(u)) {
-                return new ModelAndView("login");
+                return new ModelAndView("index");
             } else {
                 if (!lserv.matchPassword(u.getPass(), pass)) {
-                    return new ModelAndView("login");
+                    return new ModelAndView("index");
                 } else {
                     req.getSession().setAttribute("login", login);
                     oh.put(u.getLogin(), u);
@@ -50,8 +49,9 @@ public class LoginController {
                 }
             }
         }
-        ModelAndView model = new ModelAndView("login");
-        return model;
+//        ModelAndView model = new ModelAndView("login");
+//        return model;
+        return new ModelAndView("index");
     }
 
 }
