@@ -2,7 +2,6 @@ package controller;
 
 import battle.Battle;
 import battle.BattleService;
-import entity.Card;
 import holders.BattlesHolder;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;

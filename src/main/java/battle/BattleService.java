@@ -1,22 +1,13 @@
 package battle;
 
 import com.google.gson.Gson;
-import entity.BasicCard;
 import entity.Card;
 import entity.Deck;
-import entity.Hunter;
-import entity.Mage;
-import entity.Priest;
-import entity.Shaman;
-import entity.Thief;
-import entity.Warrior;
 import holders.CardHolder;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BattleService {
