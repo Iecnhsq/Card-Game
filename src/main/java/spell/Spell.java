@@ -1,6 +1,9 @@
+
 package spell;
 
-public interface Spell {
+import battle.Battle;
 
-    public void doSpell(int amount);
+public interface Spell {
+    public void doSpell(int amount, Battle batt);
+    
 }

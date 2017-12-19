@@ -1,0 +1,27 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+<a href="card.html?id=${c.id}" class="tooltip">
+    <span class="custom help">
+        <img src="src/img/Help.png" alt="Helper" height="48" width="48" />
+        <em>${c.name}</em>
+        Level: ${c.level}<br>
+        Damage: ${c.damage}<br>
+        Health Point: ${c.health}
+    </span>
+    <div class="t1">
+        <form action="http://localhost:8084/CardGame/">
+            <b><div id="name">${c.name}</div>
+                <div id="lvl">${c.level}</div>
+                <div id="dmg">${c.damage}</div>
+                <div id="HP">${c.health}</div>
+            </b>
+            <div id="attribute">
+                <c:if test="${c.taunt}"><img src="src/img/ars/Ability_Physical_Taunt.ico" title="taunt"/></c:if>
+                <c:if test="${c.imun}"><img src="src/img/ars/Spell_Nature_ProtectionformNature.ico" title="imun"/></c:if>
+                <c:if test="${c.shield}"><img src="src/img/ars/Ability_Warrior_ShieldMastery.ico" title="shield"/></c:if>
+                <c:if test="${c.charge}"><img src="src/img/ars/Ability_Warrior_Charge.ico" title="charge"/></c:if>
+                <c:if test="${c.poison}"><img src="src/img/ars/Ability_Creature_Poison_02.ico" title="poison"/></c:if>
+            </div>
+        </form>
+    </div>
+</a>
