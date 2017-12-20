@@ -4,6 +4,7 @@
 <style>
     <%@include file="/src/style/battle.css" %>
     <%@include file="/src/style/common.css" %>
+    <%@include file="/src/style/style.css" %>
 </style>
 </head>
 <body>

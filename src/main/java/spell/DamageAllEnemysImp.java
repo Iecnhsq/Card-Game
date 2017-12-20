@@ -1,7 +1,6 @@
 package spell;
 
 import battle.Battle;
-import entity.Card;
 import ourlists.OnTableList;
 
 public class DamageAllEnemysImp implements DamageAllEnemys {
@@ -12,18 +11,15 @@ public class DamageAllEnemysImp implements DamageAllEnemys {
         OnTableList p1OnTable = batt.p1OnTable;
         if (batt.p1MadeTurn) {
             batt.p2OnTable = takeAwayOneLifeOnTableEnemyCards(p2OnTable);
-
         } else {
             batt.p1OnTable = takeAwayOneLifeOnTableEnemyCards(p1OnTable);
-
         }
     }
 
     private OnTableList takeAwayOneLifeOnTableEnemyCards(OnTableList onTable) {
-        for (Card c : onTable) {
+        onTable.forEach((c) -> {
             c.setHealth(c.getHealth() - 1);
-        }
-
+        });
         return onTable;
     }
 
