@@ -50,16 +50,20 @@
     <bean id="ndao" class="dao.NewsDAO"/>
     
     <bean id="deck" class="entity.Deck" scope="prototype"/>
+    
     <bean id="mServ" class="service.MainService"/>
     <bean id="cserv" class="service.CardService"/>
+    
     <bean id="batt" class="battle.Battle"/>
     <bean id="bserv" class="battle.BattleService"/>
+    
     <bean id="ws" class="service.WaitService"/>
+    
     <bean id="battelsHolder" class="holders.BattlesHolder"/>
     <bean id="onlineHolder" class="holders.OnlineHolder"/>
     <bean id="waitHolder" class="holders.WaitHolder"/>
-    <bean id="fserv" class="service.FinishService"/>
     
+    <bean id="fserv" class="service.FinishService"/>
     <bean id="mailS" class="service.MailService"/>
     <bean id="registerService" class="service.RegisterService"/>
     
@@ -70,4 +74,6 @@
     <bean id="cardHolder" class="holders.CardHolder"/>
     <bean id="loginService" class="service.LoginService"/>
     <bean id="accountService" class="service.AccountService"/>
+    <bean id="wService" class="service.WaitService"/>
+    <bean id="spellId" class="holders.SpellId"/>
 </beans>

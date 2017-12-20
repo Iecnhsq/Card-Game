@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class WaitService {
 
-    public static void pairUsers(Map<String, User> inSearch) {
+    public void pairUsers(Map<String, User> inSearch) {
         if (!inSearch.isEmpty()) {
 
             List<String> paired = new LinkedList<>();
@@ -26,7 +26,7 @@ public class WaitService {
         }
     }
 
-    public static boolean inBattle(String login, Battle b) {
+    public boolean inBattle(String login, Battle b) {
         return b.p1.getLogin().equals(login) || b.p2.getLogin().equals(login);
     }
 

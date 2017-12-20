@@ -32,6 +32,8 @@ public class WaitController {
     private OnlineHolder oh;
     @Autowired
     private UserHolder uh;
+    @Autowired
+    private WaitService wService;
 
     @RequestMapping("wait.html")
     public ModelAndView wait(HttpServletRequest req, HttpServletResponse res) {
@@ -66,7 +68,7 @@ public class WaitController {
                 try {
                     Battle inB = bh.get((Integer) req.getSession().getAttribute("battleId"));
                     if (inB != null) {
-                        inBattle = WaitService.inBattle(login, inB);
+                        inBattle = wService.inBattle(login, inB);
                     }
                 } catch (Exception e) {
                     System.out.println("Error: " + e);
@@ -91,12 +93,11 @@ public class WaitController {
                             b.p1 = uh.getUser();
                             wh.remove(b.p1.getLogin());
                             Set<String> waitKeys = wh.keySet();
-                            if (b.p2.getLogin() == null ? login != null : !b.p2.getLogin().equals(login)) {
+                            if (b.p2.getLogin() != login) {
                                 for (String key : waitKeys) {
-                                    if (key != login) {
+                                    if (!key.equals(login)) {
                                         b.p2 = wh.remove(key);
                                         break;
-                                    } else {
                                     }
                                 }
                                 Integer i = new Random().nextInt();
