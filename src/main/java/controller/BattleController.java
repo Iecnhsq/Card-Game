@@ -77,7 +77,10 @@ public class BattleController {
                         b.p1HeroPowerSelected = !b.p1HeroPowerSelected;
                     }
                 } else if (req.getParameter("putCard") != null && b.p1ChosenHandCard != null) {
+                    String spell = b.p1ChosenHandCard.getSpell();
                     bs.p1PutCard(b.p1ChosenHandCard, b);
+                    bs.doSpell(spell, b);
+
                 }
             }
 
@@ -95,8 +98,11 @@ public class BattleController {
                         b.p2HeroPowerSelected = !b.p2HeroPowerSelected;
                     }
                 } else if (req.getParameter("putCard") != null && b.p2ChosenHandCard != null) {
+                    String spell = b.p2ChosenHandCard.getSpell();
                     bs.p2PutCard(b.p2ChosenHandCard, b);
+                    bs.doSpell(spell, b);
                 }
+                bs.clearDefeatedCard(b.p1OnTable, b.p2OnTable);
             }
             if (b.p2Health <= 0) {
                 b.p1Win = true;

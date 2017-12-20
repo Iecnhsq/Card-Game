@@ -3,17 +3,22 @@ package battle;
 import com.google.gson.Gson;
 import entity.Card;
 import entity.Deck;
+import entity.SpellSet;
 import holders.CardHolder;
+import holders.SpellId;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import ourlists.OnTableList;
 
 public class BattleService {
 
     @Autowired
     private CardHolder ch;
+    @Autowired
+    private SpellId spellId;
 
     public void setDeckCards(Battle b) {
         b.p1Deck = setDeckP1(b);
@@ -488,6 +493,28 @@ public class BattleService {
                 b.p2ActiveCards.put(c.getId(), c);
             }
             b.p2ChosenHandCard = null;
+        }
+    }
+
+    public void doSpell(String spell, Battle b) {
+        if (spell != null) {
+            SpellSet spellSet = new Gson().fromJson(spell, SpellSet.class);
+            for (Integer i : spellId.spellId.keySet()) {
+                spellId.spellId.get(i).doSpell(0, b);
+            }
+        }
+    }
+
+    public void clearDefeatedCard(OnTableList onTablep1, OnTableList onTablep2) {
+        for (Card c : onTablep1) {
+            if (c.getHealth() < 1) {
+                onTablep1.remove(c);
+            }
+        }
+        for (Card c : onTablep2) {
+            if (c.getHealth() < 1) {
+                onTablep2.remove(c);
+            }
         }
     }
 

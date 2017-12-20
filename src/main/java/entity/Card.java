@@ -20,6 +20,7 @@ public abstract class Card implements Serializable, Cloneable {
     private Boolean charge;
     private Boolean poison;
     private String name;
+    private String spell;
 
     public int getId() {
         return id;
@@ -176,5 +177,13 @@ public abstract class Card implements Serializable, Cloneable {
 
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    public String getSpell() {
+        return spell;
+    }
+
+    public void setSpell(String spell) {
+        this.spell = spell;
     }
 }
