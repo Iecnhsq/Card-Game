@@ -498,9 +498,16 @@ public class BattleService {
 
     public void doSpell(String spell, Battle b) {
         if (spell != null) {
+            System.out.println(spell);
             SpellSet spellSet = new Gson().fromJson(spell, SpellSet.class);
-            for (Integer i : spellId.spellId.keySet()) {
-                spellId.spellId.get(i).doSpell(0, b);
+            System.out.println(spellSet.spellSet.keySet().size()+"size");
+            System.out.println(spellSet.spellSet.keySet().toString()+"str");
+            for (int i : spellSet.spellSet.keySet()) {
+                System.out.println(i+"dsadad");
+                Integer amount = spellSet.spellSet.get(i);
+                System.out.println("i="+i);
+                System.out.println("amount="+amount);
+                spellId.spellId.get(i).doSpell(amount, b);
             }
         }
     }

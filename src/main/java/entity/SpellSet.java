@@ -1,10 +1,10 @@
 
 package entity;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class SpellSet {
-    public Set<Integer> spellSet = new LinkedHashSet<>();
+    public Map<Integer, Integer> spellSet = new ConcurrentHashMap<>();
 }
