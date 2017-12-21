@@ -4,7 +4,7 @@ import battle.Battle;
 import entity.Card;
 import ourlists.OnTableList;
 
-public class HealOneFriendlyCreatureImp implements HealOneFriendlyCreature {
+public class AttackHPBuffFriendlyCreatureImp implements AttackHPBuffFriendlyCreature {
 
     private static Integer id = null;
 
@@ -13,11 +13,9 @@ public class HealOneFriendlyCreatureImp implements HealOneFriendlyCreature {
         OnTableList p2OnTable = batt.p2OnTable;
         OnTableList p1OnTable = batt.p1OnTable;
         if (!batt.p1MadeTurn && !batt.p2MadeTurn) {
-
-            addHeals(p1OnTable, amount);
+            addHpDmg(p1OnTable, amount);        
         } else if (batt.p1MadeTurn && !batt.p2MadeTurn) {
-            addHeals(p2OnTable, amount);
-
+            addHpDmg(p2OnTable, amount);
         }
     }
 
@@ -25,12 +23,12 @@ public class HealOneFriendlyCreatureImp implements HealOneFriendlyCreature {
         id = idFriendlyCard;
     }
 
-    private void addHeals(OnTableList OnTable, int amount) {
+    private void addHpDmg(OnTableList OnTable, int amount) {
         for (Card c : OnTable) {
             if (c.getId() == id) {
                 c.setHealth(c.getHealth() + amount);
+                c.setDamage(c.getDamage() + amount);
             }
         }
     }
-
 }
