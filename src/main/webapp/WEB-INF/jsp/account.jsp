@@ -1,7 +1,10 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../jspf/header.jspf" %>
-<style><%@include file="/src/style/common.css" %></style>
+<style>
+    <%@include file="/src/style/common.css" %>
+    <%@include file="/src/style/style.css" %>
+</style>
 </head>
 <body>
     <script type="text/javascript">
@@ -11,13 +14,13 @@
             myAudio.autoplay = true;
         }
     </script>
-    <div style="margin: 100px auto; width: 900px; background-color: rgba(84,82,71,.5)">
+    <div class="wrap">
         <div style="clear: both"></div>
         <div class="forma_1">
             <p>             
-                <input type="text" size="25" readonly value="${u.points} / ${u.lvl}" style="text-align: center"/><br>
-                <input type="text" size="25" readonly value="${u.login}" style="text-align: center"/><br>
-                <input type="text" size="25" readonly value="${u.classs}" style="text-align: center"/><br>
+                <input type="text" readonly value="${u.points} / ${u.lvl}" style="text-align: center"/><br>
+                <input type="text" readonly value="${u.login}" style="text-align: center"/><br>
+                <input type="text" readonly value="${u.classs}" style="text-align: center"/><br>
             </p>
             <p style="margin-top: 40px; font-size: 14pt">
                 Registered : <b>${u.date}</b><br>
@@ -50,5 +53,4 @@
             <form action="main.html" id="m"></form>
         </div>
     </div>
-</body>
-</html>
+    <%@include file="../jspf/footer.jspf" %>>

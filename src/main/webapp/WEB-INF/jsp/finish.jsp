@@ -1,7 +1,10 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../jspf/header.jspf" %>
-<style><%@include file="/src/style/common.css" %></style>
+<style>
+    <%@include file="/src/style/common.css" %>
+    <%@include file="/src/style/style.css" %>
+</style>
 </head>
 <body>
     <script type="text/javascript">
@@ -61,5 +64,4 @@
             </div>
         </div>
     </c:if>
-</body>
-</html>
+    <%@include file="../jspf/footer.jspf" %>

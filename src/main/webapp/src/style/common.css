@@ -6,12 +6,6 @@ textarea {
     width: 308px;
     height: 150px;
 }
-.form1{
-    float: left;
-    padding: 10px;
-    background-color: rgba(84,82,71,.5);
-    color: white;
-}
 .onlineT{
     color: rgb(245,245,245);
     -webkit-animation: pulsate 5s linear infinite;

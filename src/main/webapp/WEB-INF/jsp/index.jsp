@@ -2,7 +2,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../jspf/header.jspf" %>
 <style>
-    <%@include file="/src/style/main.css" %>
     <%@include file="/src/style/common.css" %>
     <%@include file="/src/style/style.css" %>
 </style>
