@@ -7,7 +7,7 @@
 
     <groupId>com.mycompany</groupId>
     <artifactId>CardGame</artifactId>
-    <version>2.0-SNAPSHOT-CORE</version>
+    <version>1.0_M12-SNAPSHOT-CORE</version>
     <packaging>war</packaging>
 
     <name>CardGame_10_git</name>
@@ -150,6 +150,8 @@
         </plugins>
     </build>
     <description>Card-Game
+        
+        Lord Of Magic Cards
 
         All graphic files in this project are presented for informational purposes only.
 

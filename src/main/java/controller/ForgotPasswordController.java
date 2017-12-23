@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import service.IndexService;
 
 @Controller
 public class ForgotPasswordController {
@@ -22,11 +23,17 @@ public class ForgotPasswordController {
     private UserDAO udao;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private IndexService is;
 
     private static final String CA = captcha();
 
     @RequestMapping(value = "/forgotpass.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView forgotPass(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView model = new ModelAndView("forgotpass");
+        is.statusServer(model);
+        is.dateNow(model);
+        is.online(model);
         String login = req.getParameter("login");
         if (login == null) {
             return new ModelAndView("forgotpass");
@@ -75,6 +82,10 @@ public class ForgotPasswordController {
 
     @RequestMapping(value = "/recovery.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView recovery(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView model = new ModelAndView("recovery");
+        is.statusServer(model);
+        is.dateNow(model);
+        is.online(model);
         String ans = req.getParameter("answer");
         if (ans == null) {
             return new ModelAndView("recovery");
@@ -98,7 +109,7 @@ public class ForgotPasswordController {
                     mimeMsgHelperObj.setSubject(emailSubject);
                 });
                 try {
-                    resp.sendRedirect("main.html");
+                    resp.sendRedirect("index.html");
                 } catch (IOException ex) {
                     System.out.println("Error: " + ex);
                 }
@@ -106,7 +117,6 @@ public class ForgotPasswordController {
                 return new ModelAndView("recovery");
             }
         }
-        ModelAndView model = new ModelAndView("recovery");
         return model;
     }
 

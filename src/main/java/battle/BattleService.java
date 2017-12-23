@@ -499,26 +499,21 @@ public class BattleService {
     public boolean doSpell(String spell, Battle b) {
         if (spell != null) {
             SpellSet spellSet = new Gson().fromJson(spell, SpellSet.class);
-            for (int i : spellSet.spellSet.keySet()) {
+            spellSet.spellSet.keySet().forEach((i) -> {
                 Integer amount = spellSet.spellSet.get(i);
                 spellId.spellId.get(i).doSpell(amount, b);
-                
-            }
+            });
         }
         return true;
     }
 
     public void clearDefeatedCard(OnTableList onTablep1, OnTableList onTablep2) {
-        for (Card c : onTablep1) {
-            if (c.getHealth() < 1) {
-                onTablep1.remove(c);
-            }
-        }
-        for (Card c : onTablep2) {
-            if (c.getHealth() < 1) {
-                onTablep2.remove(c);
-            }
-        }
+        onTablep1.stream().filter((c) -> (c.getHealth() < 1)).forEachOrdered((c) -> {
+            onTablep1.remove(c);
+        });
+        onTablep2.stream().filter((c) -> (c.getHealth() < 1)).forEachOrdered((c) -> {
+            onTablep2.remove(c);
+        });
     }
 
 }

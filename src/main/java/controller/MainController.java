@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import service.IndexService;
 import service.MainService;
 
 @Controller
@@ -31,13 +32,13 @@ public class MainController {
     private WaitHolder wh;
     @Autowired
     private UserHolder uh;
+    @Autowired
+    private IndexService is;
 
     @RequestMapping("/main.html")
     public ModelAndView main(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("main");
-        Date dNow = new Date();
-        SimpleDateFormat sdt = new SimpleDateFormat("yyyy.MM.dd 'at' H:mm:ss");
-        String outDate = sdt.format(dNow);  
+        is.dateNow(model);
         String login = (String) req.getSession().getAttribute("login");
         boolean isLogin = false;
         boolean isAdmP = false;
@@ -67,16 +68,10 @@ public class MainController {
                 model.addObject("rDate", u.getDate());
             }
         }
-        int Online = oh.size();
-        String pOnline = "No Players online";
-        if (Online > 0) {
-            pOnline = "Players online: " + Online;
-        }
-        model.addObject("pOnline", pOnline);
+        is.online(model);
         model.addObject("login", login);
         model.addObject("isLogin", isLogin);
         model.addObject("isAdmP", isAdmP);
-        model.addObject("outDate", outDate);
         return model;
     }
 

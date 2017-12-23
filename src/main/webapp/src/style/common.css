@@ -1,11 +1,3 @@
-textarea {
-    resize: none;
-    margin: 2px;
-    font-size: 14pt;
-    border: 2px #52500d solid;
-    width: 308px;
-    height: 150px;
-}
 .onlineT{
     color: rgb(245,245,245);
     -webkit-animation: pulsate 5s linear infinite;

@@ -49,8 +49,6 @@ public class LoginController {
                 }
             }
         }
-//        ModelAndView model = new ModelAndView("login");
-//        return model;
         return new ModelAndView("index");
     }
 

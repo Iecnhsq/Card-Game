@@ -33,7 +33,6 @@ public class FinishController {
             }
             return null;
         } else {
-            //берем баттл из мапы батлов
             Battle b = bh.get(i);
             User p1 = b.p1;
             User p2 = b.p2;
@@ -43,7 +42,6 @@ public class FinishController {
             Integer oldPointsP2 = p2.getPoints();
             Integer p1OldLvlPoints = (int) (125 * Math.pow(1.25, p1.getLvl() - 1));
             Integer p2OldLvlPoints = (int) (125 * Math.pow(1.25, p2.getLvl() - 1));
-            //делаем просчеты очков и уровня игрока 1
             if (login.equals(b.p1.getLogin()) && !b.p1CheckInFinish) {
                 Integer newPointsP1 = null;
                 if (b.p1Win && !b.p2Win) {
@@ -53,7 +51,6 @@ public class FinishController {
                 } else if (b.p1Win && b.p2Win) {
                     newPointsP1 = fs.updatePoints(p1, b.p1points / 2);
                 }
-                // если достаточно очков повышаем уровень p1
                 fs.lvlUp(p1, p1.getPoints());
                 Integer p1NextLvlPoints = (int) (125 * Math.pow(1.25, p1.getLvl()));
                 b.p1CheckInFinish = true;
@@ -67,9 +64,7 @@ public class FinishController {
                 model.addObject("login", login);
                 model.addObject("pointNowP1", (oldPointsP1 + newPointsP1));
                 model.addObject("p1Lvl", p1Lvl);
-                // удаляем ид батла из сесии 
                 req.getSession().removeAttribute("battleId");
-                //делаем просчеты очков и уровня игрока 2
             } else if (login.equals(b.p2.getLogin()) && !b.p2CheckInFinish) {
                 Integer newPointsP2 = null;
                 if (b.p1Win && !b.p2Win) {
@@ -79,8 +74,6 @@ public class FinishController {
                 } else if (b.p1Win && b.p2Win) {
                     newPointsP2 = fs.updatePoints(p2, b.p2points / 2);
                 }
-
-                // если достаточно очков повышаем уровень p2
                 fs.lvlUp(p2, p2.getPoints());
                 Integer p2NextLvlPoints = (int) (125 * Math.pow(1.25, p2.getLvl()));
                 b.p2CheckInFinish = true;
@@ -95,7 +88,6 @@ public class FinishController {
                 model.addObject("login", login);
                 model.addObject("pointNowP2", (oldPointsP2 + newPointsP2));
                 model.addObject("p2Lvl", p2Lvl);
-                // удаляем ид батла из сесии 
                 req.getSession().removeAttribute("battleId");
             } else {
                 try {

@@ -66,7 +66,7 @@
             <div><span id="resultRec"/></div>
             <form action="forgotpass.html" method="POST">
                 <fieldset>
-                    <input type="text" placeholder="Login" name="login" id="log" required />
+                    <input type="text" placeholder="Login" name="login" id="log" required /><br>
                     <input type="email" placeholder="Enter Your E-mail" name="mail" id="email" onblur="checkRec()" required /><br>
                     <input type="submit" value="Recovery" onclick="playAudio();"/>
                 </fieldset>

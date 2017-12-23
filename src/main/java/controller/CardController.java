@@ -39,11 +39,9 @@ public class CardController {
         ModelAndView model = new ModelAndView("card");
         List<Card> allCards = ch.getCardByClass("BasicCard");
         String login = ((String) req.getSession().getAttribute("login"));
-        User u = uh.getUser();
-        // в случае если на нашу страницу перешел не зарегестрированый пользиватель его оправляем на мейн страницу.       
+        User u = uh.getUser();      
         if (cserv.userAuthorized(login)) {
             System.out.println("in login");
-            //выводим количество игроков онлайн на экран.
             int Online = oh.size();
             String pOnline = "No Players online";
             if (cserv.presentPlayerOnline(Online)) {
@@ -51,12 +49,10 @@ public class CardController {
             }
             model.addObject("pOnline", pOnline);
             model.addObject("user", u);
-            // берем айди карты
             String idString = req.getParameter("id");
             Set<Card> cards;
             String idClass = req.getParameter("idclass");
             String classNameJoin = u.getClasss();
-
             if (cserv.classSelected(idClass)) {
                 cserv.addClassCardInSession(req, idClass);
                 cserv.setEmptyDeck(idClass);
@@ -65,9 +61,7 @@ public class CardController {
                 cserv.addClassCardInSession(req, classNameJoin);
             }
             String CardClassName = u.getClasss();
-//            req.setAttribute("cardClass", className);
             cards = mserv.getUserCards(model, CardClassName);
-
             if (cserv.cardSelected(idString)) {
                 System.out.println("in id string");
                 int id = Integer.parseInt(idString);
@@ -81,8 +75,6 @@ public class CardController {
                     return null;
                 }
             }
-
-            //запускаем цыкл для переноса значений из cards в deck.deck
             cserv.setDeck(cards);
             String getCards = req.getParameter("getCards");
             if (cserv.commitGetCard(getCards)) {

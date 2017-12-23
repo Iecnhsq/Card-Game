@@ -13,17 +13,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import service.IndexService;
 
 @Controller
-public class MainMenuController {
+public class SupportController {
 
     @Autowired
     private JavaMailSender mailSender;
     @Autowired
     private UserDAO udao;
+    @Autowired
+    private IndexService is;
 
     @RequestMapping(value = "/support.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView mMCsupport(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView model = new ModelAndView("support");
+        is.statusServer(model);
+        is.dateNow(model);
+        is.online(model);
         String err = req.getParameter("err");
         if (err == null) {
             return new ModelAndView("support");
@@ -53,7 +60,7 @@ public class MainMenuController {
                                     sb.append(err).append("\n").append("\n")
                                             .append(mess).append("\n").append("\n")
                                             .append("Send from User: ")
-                                            .append(u.getLogin());
+                                            .append(log);
                                     String emailMessage = sb.toString();
                                     mailSender.send((MimeMessage mimeMessage) -> {
                                         MimeMessageHelper mimeMsgHelperObj = new MimeMessageHelper(mimeMessage, true, "UTF-8");
@@ -62,7 +69,7 @@ public class MainMenuController {
                                         mimeMsgHelperObj.setText(emailMessage);
                                         mimeMsgHelperObj.setSubject(emailSubject);
                                     });
-                                    resp.sendRedirect("main.html");
+                                    resp.sendRedirect("index.html");
                                 } catch (IOException ex) {
                                     System.out.println("Error: " + ex);
                                 }
@@ -72,7 +79,6 @@ public class MainMenuController {
                 }
             }
         }
-        ModelAndView model = new ModelAndView("support");
         return model;
     }
 
