@@ -11,8 +11,8 @@ html {
 textarea {
     resize: none;
     margin: 2px;
-    font-size: 14pt;
-    width: 308px;
+    font-size: 12pt;
+    width: 238px;
     height: 150px;
 }
 fieldset {
@@ -52,4 +52,9 @@ a:hover {
     padding: 10px;
     border-radius: 5px;
     background-color: rgba(46,139,87, 0.3);
+}
+.online{
+    color: rgb(245,245,245);
+    -webkit-animation: pulsate 5s linear infinite;
+    animation: pulsate 5s linear infinite;
 }

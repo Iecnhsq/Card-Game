@@ -64,6 +64,7 @@
     <bean id="mailS" class="service.MailService"/>
     <bean id="registerService" class="service.RegisterService"/>
     <bean id="indexService" class="service.IndexService"/>
+    <bean id="supportService" class="service.SupportService"/>
     
     <bean id="battelsHolder" class="holders.BattlesHolder"/>
     <bean id="onlineHolder" class="holders.OnlineHolder"/>

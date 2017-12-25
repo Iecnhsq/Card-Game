@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import service.IndexService;
 import service.RegisterService;
 
 @Controller
@@ -16,8 +15,6 @@ public class RegisterController {
 
     @Autowired
     private RegisterService regService;
-    @Autowired
-    private IndexService is;
 
     @RequestMapping(value = "/register.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView register(HttpServletRequest req, HttpServletResponse resp) {
@@ -30,9 +27,9 @@ public class RegisterController {
             }
         } else {
             ModelAndView model = new ModelAndView("register");
-            is.statusServer(model);
-            is.dateNow(model);
-            is.online(model);
+            regService.statusServer(model);
+            regService.dateNow(model);
+            regService.online(model);
             String login = req.getParameter("login");
             if (!regService.isLoginCorrect(login)) {
                 return new ModelAndView("register");

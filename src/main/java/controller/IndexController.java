@@ -12,15 +12,15 @@ import service.IndexService;
 public class IndexController {
 
     @Autowired
-    private IndexService is;
+    private IndexService indexService;
 
     @RequestMapping("/index.html")
     public ModelAndView index(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("index");
-        is.statusServer(model);
-        is.changerMainAbotNews(req, model);
-        is.dateNow(model);
-        is.online(model);
+        indexService.statusServer(model);
+        indexService.changerMainAbotNews(req, model);
+        indexService.dateNow(model);
+        indexService.online(model);
         return model;
     }
 

@@ -1,20 +1,9 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../jspf/header.jspf" %>
-<style>
-    <%@include file="/src/style/common.css" %>
-    <%@include file="/src/style/style.css" %>
-</style>
-</head>
-<body>
-    <script type="text/javascript">
-        function playAudio() {
-            var myAudio = new Audio();
-            myAudio.src = "src/sound/click.mp3";
-            myAudio.autoplay = true;
-        }
-    </script>
-    <c:if test="${nameP1==login}">
+<%@include file="../jspf/isLoginHeadNav.jspf" %>
+<c:if test="${nameP1==login}">
+    <div class="wrap">
         <div style="margin: 100px auto; width: 350px">
             <div class="form1">
                 <c:if test="${p1Win}">
@@ -38,8 +27,10 @@
                 </fieldset>
             </div>
         </div>
-    </c:if>
-    <c:if test="${nameP2==login}">
+    </div>
+</c:if>
+<c:if test="${nameP2==login}">
+    <div class="wrap">
         <div style="margin: 100px auto; width: 350px">
             <div class="form1">
                 <c:if test="${p2Win}">
@@ -63,5 +54,6 @@
                 </fieldset>
             </div>
         </div>
-    </c:if>
-    <%@include file="../jspf/footer.jspf" %>
+    </div>
+</c:if>
+<%@include file="../jspf/footer.jspf" %>
