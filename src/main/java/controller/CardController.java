@@ -39,7 +39,7 @@ public class CardController {
         ModelAndView model = new ModelAndView("card");
         List<Card> allCards = ch.getCardByClass("BasicCard");
         String login = ((String) req.getSession().getAttribute("login"));
-        User u = uh.getUser();      
+        User u = uh.getUser();
         if (cserv.userAuthorized(login)) {
             System.out.println("in login");
             int Online = oh.size();
@@ -49,6 +49,11 @@ public class CardController {
             }
             model.addObject("pOnline", pOnline);
             model.addObject("user", u);
+            model.addObject("classs", u.getClasss());
+            model.addObject("lvl", u.getLvl());
+            model.addObject("pts", u.getPoints());
+            model.addObject("mon", u.getMoney());
+            model.addObject("rDate", u.getDate());
             String idString = req.getParameter("id");
             Set<Card> cards;
             String idClass = req.getParameter("idclass");

@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../jspf/header.jspf" %>
+<%@include file="../jspf/headerislogin.jspf" %>
 <div class="wrap">
     <div style="clear: both"></div>
     <div class="forma_1">
@@ -14,7 +14,6 @@
             LVL : <b>${u.lvl}</b><br>
             Points : <b>${u.points}</b><br>
             Money : <b>${u.money}</b><br><br>
-            Frends : <b>{frends}</b>
         </p>
     </div>
     <div class="forma_2">
@@ -40,4 +39,4 @@
         <form action="main.html" id="m"></form>
     </div>
 </div>
-<%@include file="../jspf/footer.jspf" %>>
+<%@include file="../jspf/footer.jspf" %>

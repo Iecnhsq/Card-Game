@@ -30,4 +30,5 @@ public class AttackHPBuffFriendlyCreatureImp implements AttackHPBuffFriendlyCrea
             c.setDamage(c.getDamage() + amount);
         });
     }
+    
 }

@@ -7,7 +7,7 @@
 
     <groupId>com.mycompany</groupId>
     <artifactId>CardGame</artifactId>
-    <version>1.0_M12-SNAPSHOT-CORE</version>
+    <version>1.1_M12-SNAPSHOT-CORE-FRONT</version>
     <packaging>war</packaging>
 
     <name>CardGame_10_git</name>

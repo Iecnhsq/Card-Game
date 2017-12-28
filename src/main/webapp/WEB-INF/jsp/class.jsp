@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="../jspf/header.jspf" %>
+<%@include file="../jspf/headerislogin.jspf" %>
 <style type="text/css" media="all">
     p {
         text-align: justify;
@@ -13,7 +13,7 @@
 </style>
 </head>
 <body>
-    <%@include file="../jspf/isLoginHeadNav.jspf" %>
+    <%@include file="../jspf/isloginheadnav.jspf" %>
     <div class="wrap">
         <h1 style="color: #aad372">Hunter</h1>
         <p>

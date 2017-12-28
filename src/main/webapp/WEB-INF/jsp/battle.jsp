@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../jspf/header.jspf" %>
+<%@include file="../jspf/headerislogin.jspf" %>
 <audio src="src/sound/legends_of_azeroth.mp3" autoplay loop></audio>
     <c:if test="${p1Logged}">
     <div class="all">

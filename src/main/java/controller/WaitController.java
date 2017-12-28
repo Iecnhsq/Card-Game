@@ -37,7 +37,7 @@ public class WaitController {
 
     @RequestMapping("wait.html")
     public ModelAndView wait(HttpServletRequest req, HttpServletResponse res) {
-        ModelAndView model = new ModelAndView();
+        ModelAndView model = new ModelAndView("wait");
         String login = ((String) req.getSession().getAttribute("login"));
         User u = uh.getUser();
         boolean inBattle = false;

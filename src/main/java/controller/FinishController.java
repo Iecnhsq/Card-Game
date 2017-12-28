@@ -3,6 +3,7 @@ package controller;
 import battle.Battle;
 import entity.User;
 import holders.BattlesHolder;
+import holders.UserHolder;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +20,12 @@ public class FinishController {
     private BattlesHolder bh;
     @Autowired
     private FinishService fs;
+    @Autowired
+    private UserHolder uh;
 
     @RequestMapping("/finish.html")
     public ModelAndView finish(HttpServletRequest req, HttpServletResponse resp) {
-        ModelAndView model = new ModelAndView();
+        ModelAndView model = new ModelAndView("finish");
         Integer i = (Integer) req.getSession().getAttribute("battleId");
         String login = (String) req.getSession().getAttribute("login");
         if (login == null || req.getParameter("refresh") != null || i == null) {
@@ -33,6 +36,12 @@ public class FinishController {
             }
             return null;
         } else {
+            User u = uh.getUser();
+            model.addObject("classs", u.getClasss());
+            model.addObject("lvl", u.getLvl());
+            model.addObject("pts", u.getPoints());
+            model.addObject("mon", u.getMoney());
+            model.addObject("rDate", u.getDate());
             Battle b = bh.get(i);
             User p1 = b.p1;
             User p2 = b.p2;

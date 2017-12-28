@@ -6,7 +6,6 @@ body {
     font-size: 14pt;
     color: white;
 }
-
 footer {
     margin: 0px auto;
     width: 1024px;
@@ -16,26 +15,48 @@ footer {
     border-radius: 5px;
     background: rgba(48, 48, 48, 0.4);
 }
-
 fieldset{
     border: none;
 }
-
+textarea {
+    resize: none;
+    margin: 2px;
+    font-size: 12pt;
+    width: 238px;
+    height: 150px;
+}
+input {
+    padding: 5px;
+    margin: 3px;
+    font-size: 11pt;
+}
+input[type='text'] {
+    width: 230px;
+}
+input[type='tel'] {
+    width: 230px;
+}
+input[type='email'] {
+    width: 230px;
+}
+input[type='password'] {
+    width: 230px;
+}
+input[type='submit'] {
+    width: 244px;
+}
 a {
     text-decoration: none;
     color: white;
 }
-
 a:hover {
     color: silver;
 }
-
 .forms {
     margin: 100px auto;
     width: 1024px;
     text-align: center;
 }
-
 .form_1 {
     float: left;
     width: 650px;
@@ -43,7 +64,6 @@ a:hover {
     border-radius: 5px;
     background: rgba(48, 48, 48, 0.4);
 }
-
 .form_2 {
     float: right;
     width: 250px;
@@ -51,4 +71,9 @@ a:hover {
     border-radius: 5px;
     background: rgba(48, 48, 48, 0.6);
     font-size: 18pt;
+}
+.online{
+    color: rgb(245,245,245);
+    -webkit-animation: pulsate 5s linear infinite;
+    animation: pulsate 5s linear infinite;
 }

@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="../jspf/header.jspf" %>
-<%@include file="../jspf/isLoginHeadNav.jspf" %>
+<%@include file="../jspf/headerislogin.jspf" %>
+<%@include file="../jspf/isloginheadnav.jspf" %>
 <div class="wrap">
     <p>Select a deck of cards and a hero. Maximum of cards in a deck of 10. Carefully 
         choose the cards in order not to lose =)

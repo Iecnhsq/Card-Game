@@ -6,16 +6,16 @@
         <c:if test="${isAdmP}">
             <a href="admin.html" onclick="playAudio();" style="color: red">Admin Panel</a><br>
         </c:if>
-        Go to account:&emsp;<a href="account.html" onclick="playAudio();">${login}</a><br>
-        Read or go to class-list:&emsp;<a href="class.html" onclick="playAudio();">${classs}</a><br>
-        Perhaps, You need to improve the deck:&emsp;<a href="card.html" onclick="playAudio();">Change Deck</a><br>
+        <a href="account.html" onclick="playAudio();">Account</a><br>
+        <a href="class.html" onclick="playAudio();">${classs}</a><br>
+        <a href="card.html" onclick="playAudio();">Change Deck</a><br>
         <c:if test="${card.size()>=10}">
-            Join the battle or wait for rivals!&emsp;<a href="wait.html" id="sO" onclick="playAudio();">Search opponent!</a><br>
+            <a href="wait.html" id="sO" onclick="playAudio();">Search opponent!</a><br>
         </c:if>
         <c:if test="${card.size()<10}">
-            Alas, your deck is not complete...&emsp;<a href="#" title="Alas, your deck is not complete... :(" onclick="playAudio();">Search opponent!</a><br>
+            <a href="#" title="Alas, your deck is not complete... :(" onclick="playAudio();">Search opponent!</a><br>
         </c:if>
-        Today is a bad game..?&emsp;<a href="main.html?exit=true" onclick="playAudio();">Exit</a>
+        <a href="main.html?exit=true" onclick="playAudio();">Exit</a>
     </div>
     <div style="float: right">
         <a>Registered : <b>${rDate}</b></a><br>
