@@ -1,0 +1,54 @@
+body {
+    background-image: url(src/img/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    font-size: 14pt;
+    color: white;
+}
+
+footer {
+    margin: 0px auto;
+    width: 1024px;
+    text-align: center;
+    font-size: 10pt;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(48, 48, 48, 0.4);
+}
+
+fieldset{
+    border: none;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: silver;
+}
+
+.forms {
+    margin: 100px auto;
+    width: 1024px;
+    text-align: center;
+}
+
+.form_1 {
+    float: left;
+    width: 650px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(48, 48, 48, 0.4);
+}
+
+.form_2 {
+    float: right;
+    width: 250px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(48, 48, 48, 0.6);
+    font-size: 18pt;
+}
