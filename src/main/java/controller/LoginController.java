@@ -27,15 +27,15 @@ public class LoginController {
     public ModelAndView login(HttpServletRequest req, HttpServletResponse resp) {
         String login = req.getParameter("login");
         if (!lserv.loginEntered(login)) {
-            return new ModelAndView("index");
+            return new ModelAndView("login");
         } else {
             String pass = req.getParameter("pass");
             User u = lserv.getUserInDB(login);
             if (!lserv.userExists(u)) {
-                return new ModelAndView("index");
+                return new ModelAndView("login");
             } else {
                 if (!lserv.matchPassword(u.getPass(), pass)) {
-                    return new ModelAndView("index");
+                    return new ModelAndView("login");
                 } else {
                     req.getSession().setAttribute("login", login);
                     oh.put(u.getLogin(), u);
@@ -49,7 +49,7 @@ public class LoginController {
                 }
             }
         }
-        return new ModelAndView("index");
+        return new ModelAndView("login");
     }
 
 }

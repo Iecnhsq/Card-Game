@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
-<div class="wrap">
+<footer>
     <div style="clear: both"></div>
-    <div style="float: left; padding-top: 8px; font-size: 8pt;">
+    <div style="float: left; padding-top: 3px">
         &copy; Lord Of Magic Cards<br>Authors: IT Academy "Contact" 2017</div>
     <div style="float: right">
         <a href="https://plus.google.com/"><img src="src/img/google.png" style="border-radius: 10px;"/></a>
@@ -9,6 +9,6 @@
         <a href="https://www.youtube.com/"><img src="src/img/youtube.png" style="border-radius: 10px;"/></a>
     </div>
     <div style="clear: both"></div>
-</div>
+</footer>
 </body>
 </html>

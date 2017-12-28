@@ -17,10 +17,21 @@ public class IndexController {
     @RequestMapping("/index.html")
     public ModelAndView index(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("index");
-        indexService.statusServer(model);
-        indexService.changerMainAbotNews(req, model);
         indexService.dateNow(model);
         indexService.online(model);
+        return model;
+    }
+
+    @RequestMapping("/about.html")
+    public ModelAndView about(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView model = new ModelAndView("about");
+        return model;
+    }
+
+    @RequestMapping("/news.html")
+    public ModelAndView news(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView model = new ModelAndView("news");
+        indexService.getNews(model);
         return model;
     }
 

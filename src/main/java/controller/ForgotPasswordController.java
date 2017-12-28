@@ -31,7 +31,6 @@ public class ForgotPasswordController {
     @RequestMapping(value = "/forgotpass.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView forgotPass(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("forgotpass");
-        is.statusServer(model);
         is.dateNow(model);
         is.online(model);
         String login = req.getParameter("login");
@@ -83,7 +82,6 @@ public class ForgotPasswordController {
     @RequestMapping(value = "/recovery.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView recovery(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("recovery");
-        is.statusServer(model);
         is.dateNow(model);
         is.online(model);
         String ans = req.getParameter("answer");
