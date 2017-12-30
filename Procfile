@@ -1,1 +1,1 @@
-web: java -jar target/java-getting-started-1.0.jar
+web: java -jar target/CardGame-1.1_M12-SNAPSHOT-CORE-FRONT.jar
