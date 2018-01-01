@@ -3,8 +3,6 @@ package service;
 import dao.NewsDAO;
 import entity.News;
 import holders.OnlineHolder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,16 +11,8 @@ public class IndexService {
 
     @Autowired
     private NewsDAO ndao;
-
     @Autowired
     private OnlineHolder oh;
-
-    public void dateNow(ModelAndView model) {
-        Date dNow = new Date();
-        SimpleDateFormat sdt = new SimpleDateFormat("yyyy.MM.dd 'at' H:mm:ss");
-        String outDate = sdt.format(dNow);
-        model.addObject("outDate", outDate);
-    }
 
     public void online(ModelAndView model) {
         int Online = oh.size();

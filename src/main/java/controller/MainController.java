@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import service.IndexService;
 import service.MainService;
 
 @Controller
@@ -30,13 +29,10 @@ public class MainController {
     private WaitHolder wh;
     @Autowired
     private UserHolder uh;
-    @Autowired
-    private IndexService is;
 
     @RequestMapping("/main.html")
     public ModelAndView main(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("main");
-        is.dateNow(model);
         String login = (String) req.getSession().getAttribute("login");
         boolean isLogin = false;
         boolean isAdmP = false;
@@ -66,7 +62,6 @@ public class MainController {
                 model.addObject("rDate", u.getDate());
             }
         }
-        is.online(model);
         model.addObject("login", login);
         model.addObject("isLogin", isLogin);
         model.addObject("isAdmP", isAdmP);

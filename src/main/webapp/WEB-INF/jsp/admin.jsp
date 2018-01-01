@@ -46,9 +46,6 @@
         <div class="all">
             <!--            <div class="d" style="margin-bottom: 10px"><span id="resultRec"/></div>-->
             <br><br>
-            <p style="text-align: center">
-                <b>${passlog}</b>
-            </p>
             <form action="admin.html" method="POST">
                 <fieldset>
                     <input type="text" placeholder="Login" name="login" id="log" required />

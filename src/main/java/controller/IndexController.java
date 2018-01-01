@@ -17,7 +17,6 @@ public class IndexController {
     @RequestMapping("/index.html")
     public ModelAndView index(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("index");
-        indexService.dateNow(model);
         indexService.online(model);
         return model;
     }
@@ -25,12 +24,14 @@ public class IndexController {
     @RequestMapping("/about.html")
     public ModelAndView about(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("about");
+        indexService.online(model);
         return model;
     }
 
     @RequestMapping("/news.html")
     public ModelAndView news(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("news");
+        indexService.online(model);
         indexService.getNews(model);
         return model;
     }

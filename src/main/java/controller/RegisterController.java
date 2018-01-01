@@ -18,6 +18,8 @@ public class RegisterController {
 
     @RequestMapping(value = "/register.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView register(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView model = new ModelAndView("register");
+        regService.online(model);
         String loginInSession = (String) req.getSession().getAttribute("login");
         if (regService.isLoginInSessionExists(loginInSession)) {
             try {
@@ -26,10 +28,6 @@ public class RegisterController {
                 System.out.println("Error: " + ex);
             }
         } else {
-            ModelAndView model = new ModelAndView("register");
-            regService.statusServer(model);
-            regService.dateNow(model);
-            regService.online(model);
             String login = req.getParameter("login");
             if (!regService.isLoginCorrect(login)) {
                 return new ModelAndView("register");

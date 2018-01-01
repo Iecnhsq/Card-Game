@@ -7,10 +7,7 @@ import javax.persistence.Table;
 @Table(name = "cg_mage")
 public class Mage extends Card {
 
-
-
     public Mage() {
     }
-
 
 }

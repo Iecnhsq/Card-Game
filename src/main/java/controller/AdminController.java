@@ -33,14 +33,11 @@ public class AdminController {
     private UserHolder uh;
 
     private int id;
-    private static final String CA = captcha();
+    private final String CA = captcha();
 
     @RequestMapping(value = "/admin.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView adminPanel(HttpServletRequest req, HttpServletResponse resp) {
-        boolean isLogAdm = false;
         ModelAndView model = new ModelAndView("admin");
-        String passLog = "Login: admin; Password: admin.";
-        model.addObject("passlog", passLog);
         model.addObject("CA", CA);
         String login = req.getParameter("login");
         if (login != null && login.length() > 0) {
@@ -52,7 +49,6 @@ public class AdminController {
                     String re = req.getParameter("re");
                     if (ca.equals(re)) {
                         uh.set(u);
-                        isLogAdm = true;
                         String emailSubject = "You have just logged in as Administrator!";
                         StringBuilder sb = new StringBuilder();
                         sb.append("Hi!").append("\n").append("You have just logged in as Administrator").append("\n")
@@ -77,12 +73,11 @@ public class AdminController {
                 return new ModelAndView("admin");
             }
         }
-        model.addObject("isLogAdm", isLogAdm);
         model.addObject("login", login);
         return model;
     }
 
-    private static String captcha() {
+    private String captcha() {
         String s = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 10; i++) {

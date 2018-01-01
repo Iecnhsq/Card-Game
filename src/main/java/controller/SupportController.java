@@ -23,6 +23,7 @@ public class SupportController {
     @RequestMapping(value = "/support.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView support(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("support");
+        supportService.online(model);
         String problem = req.getParameter("problem");
         if (problem == null || problem.length() <= 10) {
             return new ModelAndView("support");
@@ -59,9 +60,6 @@ public class SupportController {
                 }
             }
         }
-        supportService.statusServer(model);
-        supportService.dateNow(model);
-        supportService.online(model);
         return model;
     }
 

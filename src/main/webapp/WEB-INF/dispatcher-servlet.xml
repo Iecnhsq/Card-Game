@@ -65,6 +65,7 @@
     <bean id="registerService" class="service.RegisterService"/>
     <bean id="indexService" class="service.IndexService"/>
     <bean id="supportService" class="service.SupportService"/>
+    <bean id="recoveryService" class="service.RecoveryForgotPassService"/>
     
     <bean id="battelsHolder" class="holders.BattlesHolder"/>
     <bean id="onlineHolder" class="holders.OnlineHolder"/>

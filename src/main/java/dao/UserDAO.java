@@ -42,16 +42,6 @@ public class UserDAO {
         s.close();
     }
 
-    public User getUserMail(String email) {
-        Session s = HibernateUtil.getSESSIONFACTORY().openSession();
-        User out = null;
-        s.beginTransaction();
-        out = (User) s.createQuery("FROM User WHERE email='" + email + "'").uniqueResult();
-        s.getTransaction().commit();
-        s.close();
-        return null;
-    }
-
     public boolean isExists(String login) {
         Session s = HibernateUtil.getSESSIONFACTORY().openSession();
         User u = (User) s.createQuery("FROM User WHERE login='" + login + "'").uniqueResult();

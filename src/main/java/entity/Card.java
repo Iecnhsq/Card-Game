@@ -169,12 +169,10 @@ public abstract class Card implements Serializable, Cloneable {
         if (!Objects.equals(this.charge, other.charge)) {
             return false;
         }
-        if (!Objects.equals(this.poison, other.poison)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.poison, other.poison);
     }
 
+    @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
@@ -186,4 +184,5 @@ public abstract class Card implements Serializable, Cloneable {
     public void setSpell(String spell) {
         this.spell = spell;
     }
+    
 }

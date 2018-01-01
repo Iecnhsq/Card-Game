@@ -25,6 +25,8 @@ public class LoginController {
 
     @RequestMapping(value = "/login.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView login(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView model = new ModelAndView("login");
+        lserv.online(model);
         String login = req.getParameter("login");
         if (!lserv.loginEntered(login)) {
             return new ModelAndView("login");
@@ -49,7 +51,7 @@ public class LoginController {
                 }
             }
         }
-        return new ModelAndView("login");
+        return model;
     }
 
 }
