@@ -22,89 +22,10 @@
     min-width: 170px;
 }
 .allCards{
-    margin-top: 10px;
-    width: 720px;
-    float: left;
-    display: inline-block;
-    padding: 10px;
-    border: 2px #A9A9A9 solid;
-    border-radius: 8px;
-    background-color: rgba(84,82,71,.2);
+
 }
 .deckCardscard{
-    margin-top: 10px;
-    margin-left: 5px;
-    width: 250px;
-    float: left;
-    display: inline-block;
-    padding: 10px;
-    border: 2px #A9A9A9 solid;
-    border-radius: 8px;
-    background-color: rgba(84,82,71,.2);
-}
-.t1{
-    width: 100px;
-    height: 150px;
-    float: left;
-    display: inline-block;
-    margin: 2px;
-    position: relative;
-    margin-left: 35px;
-    margin-bottom: 8px;
-    background-image: url(src/img/cards/MINION.png);
-    background-size: 100% 100%;
-    color: white;
-}
-.t2{
-    width: 100px;
-    height: 150px;
-    float: left;
-    display: inline-block;
-    margin: 2px;
-    position: relative;
-    margin-left: 10px;
-    margin-bottom: 7px;
-    background-image: url(src/img/cards/MINION.png);
-    background-size: 100% 100%;
-}
 
-#name{
-    left: 33px;
-    position: absolute;
-    height: 20px;
-    width: 0px;
-    bottom: 35px;
-    font-size: 10pt !important;
-}
-#HP{
-    width: 20px;
-    height: 20px;
-    bottom: 7px;
-    right: -1px;
-    position: absolute;
-}
-#lvl{
-    width: 20px;
-    height: 20px;
-    top: 6px;
-    right: 68px;
-    position: absolute;
-}
-#dmg{
-    width: 20px;
-    height: 20px;
-    bottom: 3px;
-    left: 10px;
-    position: absolute;
-}
-#attribute{
-    width: 88px;
-    height: 40px;
-    position: absolute;
-    z-index: -1;
-    bottom: 101px;
-    padding-left: 6px;
-    padding-right: 6px;
 }
 span{
     padding-left: 23px;
@@ -112,10 +33,7 @@ span{
     color: yellow;
 }
 .deckCards{
-    margin-top: 10px;
-    margin-left: 5px;
     float: left;
-    display: inline-block;
     padding: 10px;
     border: 2px #A9A9A9 solid;
     border-radius: 8px;
@@ -149,7 +67,7 @@ span{
 .help { background: #9FDAEE; border: 1px solid #2BB0D7;	}
 
 .class_set{
-    float: left; 
+    float: left;
     margin: 5px 10px 5px 10px;
     padding: 6px;
 }

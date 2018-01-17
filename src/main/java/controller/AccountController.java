@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import service.AccountService;
 
 @Controller
 public class AccountController {
@@ -19,6 +20,8 @@ public class AccountController {
     private UserDAO udao;
     @Autowired
     private UserHolder uh;
+    @Autowired
+    private AccountService accservice;
 
     @RequestMapping(value = "/account.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView account(HttpServletRequest req, HttpServletResponse resp) {
@@ -84,4 +87,5 @@ public class AccountController {
             }
         }
     }
+    
 }
