@@ -111,6 +111,11 @@ public class WaitController {
                             }
                         }
                     } else {
+                        model.addObject("classs", u.getClasss());
+                        model.addObject("lvl", u.getLvl());
+                        model.addObject("pts", u.getPoints());
+                        model.addObject("mon", u.getMoney());
+                        model.addObject("rDate", u.getDate());
                         model.addObject("level", u.getLvl());
                         model.addObject("pOnline", pOnline);
                         model.addObject("login", login);

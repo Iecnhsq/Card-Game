@@ -4,8 +4,7 @@
 <%@include file="../jspf/isloginheadnav.jspf" %>
 <div class="wrap">
     <h1 style="text-align: center">Waiting for battles...</h1>
-    <a class="online">${pOnline} !</a>
-    <p>
+    <p style="text-align: center">
         Who expects: <b>${login}</b><br>
         Your class: <b>${classs}</b><br>
         Your level: <b>${level}</b>

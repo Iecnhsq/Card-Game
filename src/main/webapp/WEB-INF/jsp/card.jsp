@@ -18,64 +18,62 @@
         </div>
     <%@include file="../jspf/classCardSet.jspf" %>
 </div>
-<div class="wrap">
+<div style="margin: 20px auto; width: 1044px">
     <div style="clear: both"></div>
     <div class="allCards">
         <c:forEach items="${level0Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
         <hr>
         <c:forEach items="${level1Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
         <hr>
         <c:forEach items="${level2Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
         <hr>
         <c:forEach items="${level3Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
         <hr>
         <c:forEach items="${level4Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
         <hr>
         <c:forEach items="${level5Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
         <hr>
         <c:forEach items="${level6Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
         <hr>
         <c:forEach items="${level7Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
         <hr>
         <c:forEach items="${level8Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
         <hr>
         <c:forEach items="${level9Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
         <hr>
         <c:forEach items="${level10Cards}" var="c">
-            <%@include file="../jspf/cardModel.jspf" %>
+            <a href="card.html?id=${c.id}"><%@include file="../jspf/cardModel.jspf" %></a>
         </c:forEach>
     </div>
     <div class="deckCardscard">
         <c:forEach items="${deckCards}" var="c">
             <a href="card.html?id=-${c.id}">
                 <form action="http://localhost:8084/CardGame/">
-                    <form action="http://localhost:8084/CardGame/">
-                        <%@include file="../jspf/cardModel.jspf" %>
-                    </form>
+                    <%@include file="../jspf/cardModel.jspf" %>
                 </form>
             </a>
         </c:forEach>
-        <a href="/CardGame/card.html?getCards=1" style="margin-left: 45px">Get Cards</a>
+        <a href="/CardGame/card.html?getCards=1" style="margin-left: 80px">Get Cards</a>
     </div>
     <div style="clear: both"></div>
 </div>

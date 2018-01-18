@@ -98,3 +98,72 @@ form{
     float: right;
     padding: 10px;
 }
+.allCards{
+    float: left;
+    width: 650px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(48, 48, 48, 0.4);
+}
+.deckCardscard{
+    float: right;
+    width: 330px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(48, 48, 48, 0.4);
+}
+.class_set{
+    float: left;
+    margin: 5px 10px 5px 10px;
+    padding: 6px;
+}
+.Hunter{
+    border: 2px solid #aad372;
+    border-radius: 5px
+}
+.Mage{
+    border: 2px solid #68ccef;
+    border-radius: 5px
+}
+.Priest{
+    border: 2px solid #fff;
+    border-radius: 5px
+}
+.Thief{
+    border: 2px solid #fff468;
+    border-radius: 5px
+}
+.Shaman{
+    border: 2px solid #2359ff;
+    border-radius: 5px
+}
+.Warrior{
+    border: 2px solid #c69b6d;
+    border-radius: 5px
+}
+.tooltip {
+    border-bottom: 1px dotted #000000; color: #000000; outline: none;
+    cursor: help; text-decoration: none;
+    position: relative;
+}
+.tooltip span {
+    margin-left: -999em;
+    position: absolute;
+}
+.tooltip:hover span {
+    border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+    font-family: Calibri, Tahoma, Geneva, sans-serif;
+    position: absolute; left: 1em; top: 2em; z-index: 99;
+    margin-left: 0; width: 250px;
+}
+.tooltip:hover img {
+    border: 0; margin: -10px 0 0 -55px;
+    float: left; position: absolute;
+}
+.tooltip:hover em {
+    font-family: Candara, Tahoma, Geneva, sans-serif; font-size: 1.2em; font-weight: bold;
+    display: block; padding: 0.2em 0 0.6em 0;
+}
+* html a:hover { background: transparent; }
+.help { background: #9FDAEE; border: 1px solid #2BB0D7;	}
