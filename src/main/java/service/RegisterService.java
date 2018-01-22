@@ -19,7 +19,7 @@ public class RegisterService {
     private JavaMailSender mailSender;
 
     public boolean registerUserInDb(String login, String pass, String city, String phone, String email) {
-        User u = new User(new Random().nextInt(), login, pass, new Date(), 0, 0, new Gson().toJson(new Deck()), "Mage", 0, city, phone, email);
+        User u = new User(new Random().nextInt(), login, pass, new Date(), 0, 0, new Gson().toJson(new Deck()), "Mage", 0, city, phone, email,'n');
         udao.addUser(u);
         return true;
     }

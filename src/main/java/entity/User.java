@@ -3,6 +3,7 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -26,11 +27,12 @@ public class User implements Serializable {
     private String city;
     private String phone;
     private String email;
+    private Character prem;
 
     public User() {
     }
 
-    public User(int id, String login, String pass, Date date, int lvl, int points, String cards, String classs, int money, String city, String phone, String email) {
+    public User(int id, String login, String pass, Date date, int lvl, int points, String cards, String classs, int money, String city, String phone, String email, Character prem) {
         this.id = id;
         this.login = login;
         this.pass = pass;
@@ -43,6 +45,7 @@ public class User implements Serializable {
         this.city = city;
         this.phone = phone;
         this.email = email;
+        this.prem = prem;
     }
 
     public int getId() {
@@ -141,21 +144,30 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public Character getPrem() {
+        return prem;
+    }
+
+    public void setPrem(Character prem) {
+        this.prem = prem;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + this.id;
-        hash = 97 * hash + Objects.hashCode(this.login);
-        hash = 97 * hash + Objects.hashCode(this.pass);
-        hash = 97 * hash + Objects.hashCode(this.date);
-        hash = 97 * hash + this.lvl;
-        hash = 97 * hash + this.points;
-        hash = 97 * hash + Objects.hashCode(this.cards);
-        hash = 97 * hash + Objects.hashCode(this.classs);
-        hash = 97 * hash + this.money;
-        hash = 97 * hash + Objects.hashCode(this.city);
-        hash = 97 * hash + Objects.hashCode(this.phone);
-        hash = 97 * hash + Objects.hashCode(this.email);
+        int hash = 7;
+        hash = 89 * hash + this.id;
+        hash = 89 * hash + Objects.hashCode(this.login);
+        hash = 89 * hash + Objects.hashCode(this.pass);
+        hash = 89 * hash + Objects.hashCode(this.date);
+        hash = 89 * hash + this.lvl;
+        hash = 89 * hash + this.points;
+        hash = 89 * hash + Objects.hashCode(this.cards);
+        hash = 89 * hash + Objects.hashCode(this.classs);
+        hash = 89 * hash + this.money;
+        hash = 89 * hash + Objects.hashCode(this.city);
+        hash = 89 * hash + Objects.hashCode(this.phone);
+        hash = 89 * hash + Objects.hashCode(this.email);
+        hash = 89 * hash + Objects.hashCode(this.prem);
         return hash;
     }
 
@@ -204,7 +216,15 @@ public class User implements Serializable {
         if (!Objects.equals(this.email, other.email)) {
             return false;
         }
-        return Objects.equals(this.date, other.date);
+        if (!Objects.equals(this.date, other.date)) {
+            return false;
+        }
+        if (!Objects.equals(this.prem, other.prem)) {
+            return false;
+        }
+        return true;
     }
+
+
 
 }

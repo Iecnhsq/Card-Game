@@ -71,7 +71,7 @@ public class WaitController {
                         inBattle = wService.inBattle(login, inB);
                     }
                 } catch (Exception e) {
-                    System.out.println("Error: " + e);
+                    System.out.println("Error: " + e+"You didnt have battleId");
                 }
                 if (!inBattle) {
                     Set<String> keylogin = wh.keySet();
