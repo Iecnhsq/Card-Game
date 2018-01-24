@@ -7,5 +7,10 @@
         <meta name="description" content="Lord Of Magic Cards" />
         <meta name="keywords" content="Card, Game, Card Game, Lord Of Magic Cards" />
         <title>Lord Of Magic Cards</title>
+        <style><%@include file="/src/style/cssnoislogin.css" %></style>
         <link rel="shortcut icon" href="src/img/favicon.png" type="image/png">
         <script src="src/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="src/js/playaudio.js" type="text/javascript"></script>
+        <script src="src/js/checkinfo.js" type="text/javascript"></script>
+    </head>
+    <body>

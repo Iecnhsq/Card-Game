@@ -1,7 +1,6 @@
 package spell;
 
 import battle.Battle;
-import entity.Card;
 import ourlists.OnTableList;
 
 public class BuffEnemyCreatureImp implements BuffEnemyCreature {
@@ -12,19 +11,15 @@ public class BuffEnemyCreatureImp implements BuffEnemyCreature {
         OnTableList p1OnTable = batt.p1OnTable;
         if (!batt.p1MadeTurn && !batt.p2MadeTurn) {
             batt.p2OnTable = takeAwayOneDamageOnTableEnemyCards(p2OnTable, amount);
-            
-
         } else if (batt.p1MadeTurn && !batt.p2MadeTurn) {
             batt.p1OnTable = takeAwayOneDamageOnTableEnemyCards(p1OnTable, amount);
-            
         }
     }
 
     private OnTableList takeAwayOneDamageOnTableEnemyCards(OnTableList onTable, int amount) {
-        for (Card c : onTable) {
-            c.setDamage(c.getDamage()- amount);
-        }
-
+        onTable.forEach((c) -> {
+            c.setDamage(c.getDamage() - amount);
+        });
         return onTable;
     }
 }

@@ -1,7 +1,6 @@
 package spell;
 
 import battle.Battle;
-import entity.Card;
 import ourlists.OnTableList;
 
 public class AttackHPBuffFriendlyCreatureImp implements AttackHPBuffFriendlyCreature {
@@ -13,7 +12,7 @@ public class AttackHPBuffFriendlyCreatureImp implements AttackHPBuffFriendlyCrea
         OnTableList p2OnTable = batt.p2OnTable;
         OnTableList p1OnTable = batt.p1OnTable;
         if (!batt.p1MadeTurn && !batt.p2MadeTurn) {
-            addHpDmg(p1OnTable, amount);        
+            addHpDmg(p1OnTable, amount);
         } else if (batt.p1MadeTurn && !batt.p2MadeTurn) {
             addHpDmg(p2OnTable, amount);
         }
@@ -24,11 +23,12 @@ public class AttackHPBuffFriendlyCreatureImp implements AttackHPBuffFriendlyCrea
     }
 
     private void addHpDmg(OnTableList OnTable, int amount) {
-        for (Card c : OnTable) {
-            if (c.getId() == id) {
-                c.setHealth(c.getHealth() + amount);
-                c.setDamage(c.getDamage() + amount);
-            }
-        }
+        OnTable.stream().filter((c) -> (c.getId() == id)).map((c) -> {
+            c.setHealth(c.getHealth() + amount);
+            return c;
+        }).forEachOrdered((c) -> {
+            c.setDamage(c.getDamage() + amount);
+        });
     }
+    
 }

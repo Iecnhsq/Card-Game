@@ -9,7 +9,7 @@ public class OnTableList extends CopyOnWriteArrayList<Card> {
 
     public List<Card> getTauntCards() {
         List<Card> tauntCards = new LinkedList<>();
-        this.stream().filter((c) -> (c.getTaunt())).forEachOrdered((c) -> {
+        this.parallelStream().filter((c) -> (c.getTaunt())).forEachOrdered((c) -> {
             tauntCards.add(c);
         });
         return tauntCards;

@@ -18,6 +18,8 @@ public class RegisterController {
 
     @RequestMapping(value = "/register.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView register(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView model = new ModelAndView("register");
+        regService.online(model);
         String loginInSession = (String) req.getSession().getAttribute("login");
         if (regService.isLoginInSessionExists(loginInSession)) {
             try {

@@ -5,8 +5,10 @@ import dao.UserDAO;
 import entity.Card;
 import entity.User;
 import holders.CardHolder;
+import holders.OnlineHolder;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
 
 public class LoginService {
 
@@ -16,13 +18,15 @@ public class LoginService {
     private CardDAO cdao;
     @Autowired
     private UserDAO udao;
+    @Autowired
+    private OnlineHolder oh;
 
     private List<Card> getCardsInDB(String cardClassName) {
         return cdao.getCards(cardClassName);
     }
 
     public void getAllCardsInDB() {
-        
+
         final String basicCard = "BasicCard";
         final String hunter = "Hunter";
         final String mage = "Mage";
@@ -55,17 +59,29 @@ public class LoginService {
         ch.putClass(className, CardClass);
     }
 
-    public boolean matchPassword(String userPass, String parameterPass){
+    public boolean matchPassword(String userPass, String parameterPass) {
         return userPass.equals(parameterPass);
     }
-    public boolean userExists(User u){
-        return u!=null;
+
+    public boolean userExists(User u) {
+        return u != null;
     }
-    public boolean loginEntered(String login){
-        return login!=null;
+
+    public boolean loginEntered(String login) {
+        return login != null;
     }
-    public User getUserInDB(String login){
+
+    public User getUserInDB(String login) {
         return udao.getUserByLogin(login);
+    }
+
+    public void online(ModelAndView model) {
+        int Online = oh.size();
+        String pOnline = "No Players online";
+        if (Online > 0) {
+            pOnline = "Players online: " + Online;
+        }
+        model.addObject("pOnline", pOnline);
     }
 
 }

@@ -21,16 +21,16 @@ public class BattleService {
     private SpellId spellId;
 
     public void setDeckCards(Battle b) {
-        b.p1Deck = setDeckP1(b);
+        b.p1Deck = setDeck(b.p1.getCards());
         System.out.println("deck in battle:" + b.p1Deck.size());
-        b.p2Deck = setDeckP2(b);
-        b.p1OnHand = set2cardsP1toHand(b);
-        b.p2OnHand = set2cardsP2toHand(b);
+        b.p2Deck = setDeck(b.p2.getCards());
+        b.p1OnHand = set2cardsToHand(b.p1Deck);
+        b.p2OnHand = set2cardsToHand(b.p2Deck);
     }
 
-    private List<Card> setDeckP1(Battle b) {
+    private List<Card> setDeck(String deckPCard) {
         List<Card> l = new CopyOnWriteArrayList<>();
-        Deck d = new Gson().fromJson(b.p1.getCards(), Deck.class);
+        Deck d = new Gson().fromJson(deckPCard, Deck.class);
         d.deck.forEach((Integer i) -> {
             Card c;
             try {
@@ -43,52 +43,52 @@ public class BattleService {
         return l;
     }
 
-    private List<Card> setDeckP2(Battle b) {
-        List<Card> l = new CopyOnWriteArrayList<>();
-        Deck d = new Gson().fromJson(b.p2.getCards(), Deck.class);
-        d.deck.forEach((i) -> {
-            Card c;
-            try {
-                c = (Card) ch.getCardById(i).clone();
-                l.add(c);
-            } catch (CloneNotSupportedException ex) {
-                System.out.println("Clone error: " + ex);
-            }
-        });
-        return l;
-    }
+//    private List<Card> setDeckP2(Battle b) {
+//        List<Card> l = new CopyOnWriteArrayList<>();
+//        Deck d = new Gson().fromJson(b.p2.getCards(), Deck.class);
+//        d.deck.forEach((i) -> {
+//            Card c;
+//            try {
+//                c = (Card) ch.getCardById(i).clone();
+//                l.add(c);
+//            } catch (CloneNotSupportedException ex) {
+//                System.out.println("Clone error: " + ex);
+//            }
+//        });
+//        return l;
+//    }
 
-    private List<Card> set2cardsP1toHand(Battle b) {
-        List<Card> l = new CopyOnWriteArrayList<>();
-        for (Integer i = 0; i < 2; i++) {
-            l.add(b.p1Deck.remove(new Random().nextInt(b.p1Deck.size())));
-        }
-        return l;
-    }
-
-    private List<Card> set2cardsP2toHand(Battle b) {
+    private List<Card> set2cardsToHand(List<Card> pDeck ) {
         List<Card> l = new CopyOnWriteArrayList<>();
         for (Integer i = 0; i < 2; i++) {
-            l.add(b.p2Deck.remove(new Random().nextInt(b.p2Deck.size())));
+            l.add(pDeck.remove(new Random().nextInt(pDeck.size())));
         }
         return l;
     }
 
-    public Card add1CardToP1Hand(Battle b) {
-        if (b.p1Deck.size() > 0) {
-            return b.p1Deck.remove(new Random().nextInt(b.p1Deck.size()));
+//    private List<Card> set2cardsP2toHand(Battle b) {
+//        List<Card> l = new CopyOnWriteArrayList<>();
+//        for (Integer i = 0; i < 2; i++) {
+//            l.add(b.p2Deck.remove(new Random().nextInt(b.p2Deck.size())));
+//        }
+//        return l;
+//    }
+
+    public Card add1CardToHand(List<Card> pDeck) {
+        if (pDeck.size() > 0) {
+            return pDeck.remove(new Random().nextInt(pDeck.size()));
         } else {
-            return b.p1Deck.remove(0);
+            return pDeck.remove(0);
         }
     }
 
-    public Card add1CardToP2Hand(Battle b) {
-        if (b.p2Deck.size() > 0) {
-            return b.p2Deck.remove(new Random().nextInt(b.p2Deck.size()));
-        } else {
-            return b.p2Deck.remove(0);
-        }
-    }
+//    public Card add1CardToP2Hand(Battle b) {
+//        if (b.p2Deck.size() > 0) {
+//            return b.p2Deck.remove(new Random().nextInt(b.p2Deck.size()));
+//        } else {
+//            return b.p2Deck.remove(0);
+//        }
+//    }
 
     public int addPoint(int health, int damage, int points) {
         int point = 0;
@@ -123,8 +123,8 @@ public class BattleService {
             b.p2Mana = 10;
         }
         if (!b.p1Deck.isEmpty()) {
-            b.p1OnHand.add(add1CardToP1Hand(b));
-            b.p2OnHand.add(add1CardToP2Hand(b));
+            b.p1OnHand.add(add1CardToHand(b.p1Deck));
+            b.p2OnHand.add(add1CardToHand(b.p2Deck));
         }
         b.p1OnTable.forEach((c) -> {
             b.p1ActiveCards.put(c.getId(), c);
@@ -499,26 +499,21 @@ public class BattleService {
     public boolean doSpell(String spell, Battle b) {
         if (spell != null) {
             SpellSet spellSet = new Gson().fromJson(spell, SpellSet.class);
-            for (int i : spellSet.spellSet.keySet()) {
+            spellSet.spellSet.keySet().forEach((i) -> {
                 Integer amount = spellSet.spellSet.get(i);
                 spellId.spellId.get(i).doSpell(amount, b);
-                
-            }
+            });
         }
         return true;
     }
 
     public void clearDefeatedCard(OnTableList onTablep1, OnTableList onTablep2) {
-        for (Card c : onTablep1) {
-            if (c.getHealth() < 1) {
-                onTablep1.remove(c);
-            }
-        }
-        for (Card c : onTablep2) {
-            if (c.getHealth() < 1) {
-                onTablep2.remove(c);
-            }
-        }
+        onTablep1.stream().filter((c) -> (c.getHealth() < 1)).forEachOrdered((c) -> {
+            onTablep1.remove(c);
+        });
+        onTablep2.stream().filter((c) -> (c.getHealth() < 1)).forEachOrdered((c) -> {
+            onTablep2.remove(c);
+        });
     }
 
 }

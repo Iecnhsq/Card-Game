@@ -6,8 +6,6 @@ import holders.OnlineHolder;
 import holders.UserHolder;
 import holders.WaitHolder;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +33,6 @@ public class MainController {
     @RequestMapping("/main.html")
     public ModelAndView main(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView model = new ModelAndView("main");
-        Date dNow = new Date();
-        SimpleDateFormat sdt = new SimpleDateFormat("yyyy.MM.dd 'at' H:mm:ss");
-        String outDate = sdt.format(dNow);  
         String login = (String) req.getSession().getAttribute("login");
         boolean isLogin = false;
         boolean isAdmP = false;
@@ -67,16 +62,9 @@ public class MainController {
                 model.addObject("rDate", u.getDate());
             }
         }
-        int Online = oh.size();
-        String pOnline = "No Players online";
-        if (Online > 0) {
-            pOnline = "Players online: " + Online;
-        }
-        model.addObject("pOnline", pOnline);
         model.addObject("login", login);
         model.addObject("isLogin", isLogin);
         model.addObject("isAdmP", isAdmP);
-        model.addObject("outDate", outDate);
         return model;
     }
 

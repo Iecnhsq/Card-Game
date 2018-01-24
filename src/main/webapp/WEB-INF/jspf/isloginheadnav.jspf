@@ -1,0 +1,28 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+<div class="wrap">
+    <div style="clear: both"></div>
+    <div style="float: left">
+        <c:if test="${isAdmP}">
+            <a href="admin.html" onclick="playAudio();" style="color: red">Admin Panel</a><br>
+        </c:if>
+        <a href="account.html" onclick="playAudio();">Account</a><br>
+        <a href="class.html" onclick="playAudio();">${classs}</a><br>
+        <a href="card.html" onclick="playAudio();">Change Deck</a><br>
+        <c:if test="${card.size()>=10}">
+            <a href="wait.html" id="sO" onclick="playAudio();">Search opponent!</a><br>
+        </c:if>
+        <c:if test="${card.size()<10}">
+            <a href="#" title="Alas, your deck is not complete... :(" onclick="playAudio();">Search opponent!</a><br>
+        </c:if>
+        <a href="main.html?exit=true" onclick="playAudio();">Exit</a>
+    </div>
+    <div style="float: right">
+        <a>Registered : <b>${rDate}</b></a><br>
+        <a>LVL : <b>${lvl}</b></a><br>
+        <a>Points: <b>${pts}</b></a><br>
+        <a>Money : <b>${mon}</b></a><br>
+        <a>Class : <b>${classs}</b></a>
+    </div>
+    <div style="clear: both"></div>
+</div>

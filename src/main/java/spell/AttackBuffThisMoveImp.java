@@ -1,4 +1,3 @@
-
 package spell;
 
 import battle.Battle;
@@ -6,8 +5,8 @@ import entity.Card;
 import java.util.Map;
 import ourlists.OnTableList;
 
+public class AttackBuffThisMoveImp implements AttackBuffThisMove {
 
-public class AttackBuffThisMoveImp implements AttackBuffThisMove{
     private static Integer id = null;
 
     @Override
@@ -27,11 +26,11 @@ public class AttackBuffThisMoveImp implements AttackBuffThisMove{
         id = idCard;
     }
 
-    private void addMove(OnTableList OnTable,Map<Integer, Card> ActiveCards ) {
+    private void addMove(OnTableList OnTable, Map<Integer, Card> ActiveCards) {
         for (Card c : OnTable) {
             int thisId = c.getId();
             if (thisId == id) {
-               ActiveCards.put(thisId, OnTable.remove(thisId));
+                ActiveCards.put(thisId, OnTable.remove(thisId));
             }
         }
     }

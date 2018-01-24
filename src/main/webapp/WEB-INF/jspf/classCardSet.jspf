@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8" %>
 <div style="margin: 10px auto; width: 750px; text-align: left">
-    <fieldset class="${heroClass}">
+    <fieldset class="${heroClass}" style="border: none">
         <c:forEach items="${cardClass}" var="ch">
             <a href="card.html?id=${ch.id}" class="tooltip">
                 <span class="custom help">

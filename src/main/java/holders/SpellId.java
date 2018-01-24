@@ -11,19 +11,15 @@ import spell.Spell;
 
 public class SpellId {
 
-    public Map<Integer, Spell> spellId=addAllSpell();
-    
+    public Map<Integer, Spell> spellId = addAllSpell();
 
-    
-    
-
-private Map<Integer,Spell> addAllSpell(){
-    Map<Integer, Spell> m = new ConcurrentHashMap<>();
-    m.put(1,new DamageAllEnemysImp());
-    m.put(2,new HealOneFriendlyCreatureImp());
-    m.put(3,new AttackBuffThisMoveImp());
-    m.put(4,new BuffEnemyCreatureImp());
-    m.put(5,new AttackHPBuffFriendlyCreatureImp());
-    return  m;
-}
+    private Map<Integer, Spell> addAllSpell() {
+        Map<Integer, Spell> m = new ConcurrentHashMap<>();
+        m.put(1, new DamageAllEnemysImp());
+        m.put(2, new HealOneFriendlyCreatureImp());
+        m.put(3, new AttackBuffThisMoveImp());
+        m.put(4, new BuffEnemyCreatureImp());
+        m.put(5, new AttackHPBuffFriendlyCreatureImp());
+        return m;
+    }
 }

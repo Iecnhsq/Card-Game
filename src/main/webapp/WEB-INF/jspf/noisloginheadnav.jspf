@@ -1,0 +1,13 @@
+<%@ page pageEncoding="UTF-8" %>
+    <div class="form_2">
+        <p style="font-size: 30pt"><a href="index.html">Lord of<br>Magic Cards</a></p>
+        <a href="login.html" onclick="playAudio();">Login</a><br>
+        <a href="register.html" onclick="playAudio();">Registration</a><br>
+        <a href="forgotpass.html" onclick="playAudio();">Forgot Password?</a><br>   
+        <hr>
+        <a href="about.html" onclick="playAudio();">About</a><br>
+        <a href="news.html" onclick="playAudio();">News</a><br>
+        <a href="support.html" onclick="playAudio();">Support</a><br><br>
+    </div>
+    <div style="clear:both;"></div>
+</div>

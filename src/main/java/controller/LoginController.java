@@ -25,17 +25,19 @@ public class LoginController {
 
     @RequestMapping(value = "/login.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView login(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView model = new ModelAndView("login");
+        lserv.online(model);
         String login = req.getParameter("login");
         if (!lserv.loginEntered(login)) {
-            return new ModelAndView("index");
+            return new ModelAndView("login");
         } else {
             String pass = req.getParameter("pass");
             User u = lserv.getUserInDB(login);
             if (!lserv.userExists(u)) {
-                return new ModelAndView("index");
+                return new ModelAndView("login");
             } else {
                 if (!lserv.matchPassword(u.getPass(), pass)) {
-                    return new ModelAndView("index");
+                    return new ModelAndView("login");
                 } else {
                     req.getSession().setAttribute("login", login);
                     oh.put(u.getLogin(), u);
@@ -49,9 +51,7 @@ public class LoginController {
                 }
             }
         }
-//        ModelAndView model = new ModelAndView("login");
-//        return model;
-        return new ModelAndView("index");
+        return model;
     }
 
 }
