@@ -61,6 +61,7 @@ public class FinishController {
                     newPointsP1 = fserv.updatePoints(p1, b.p1points / 2);
                 }
                 fserv.lvlUp(p1, p1.getPoints());
+
                 Integer p1NextLvlPoints = (int) (125 * Math.pow(1.25, p1.getLvl()));
                 b.p1CheckInFinish = true;
                 model.addObject("nameP1", p1.getLogin());
@@ -84,6 +85,7 @@ public class FinishController {
                     newPointsP2 = fserv.updatePoints(p2, b.p2points / 2);
                 }
                 fserv.lvlUp(p2, p2.getPoints());
+
                 Integer p2NextLvlPoints = (int) (125 * Math.pow(1.25, p2.getLvl()));
                 b.p2CheckInFinish = true;
                 model.addObject("nameP1", p1.getLogin());
