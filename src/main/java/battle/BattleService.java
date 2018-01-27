@@ -43,36 +43,13 @@ public class BattleService {
         return l;
     }
 
-//    private List<Card> setDeckP2(Battle b) {
-//        List<Card> l = new CopyOnWriteArrayList<>();
-//        Deck d = new Gson().fromJson(b.p2.getCards(), Deck.class);
-//        d.deck.forEach((i) -> {
-//            Card c;
-//            try {
-//                c = (Card) ch.getCardById(i).clone();
-//                l.add(c);
-//            } catch (CloneNotSupportedException ex) {
-//                System.out.println("Clone error: " + ex);
-//            }
-//        });
-//        return l;
-//    }
-
-    private List<Card> set2cardsToHand(List<Card> pDeck ) {
+    private List<Card> set2cardsToHand(List<Card> pDeck) {
         List<Card> l = new CopyOnWriteArrayList<>();
         for (Integer i = 0; i < 2; i++) {
             l.add(pDeck.remove(new Random().nextInt(pDeck.size())));
         }
         return l;
     }
-
-//    private List<Card> set2cardsP2toHand(Battle b) {
-//        List<Card> l = new CopyOnWriteArrayList<>();
-//        for (Integer i = 0; i < 2; i++) {
-//            l.add(b.p2Deck.remove(new Random().nextInt(b.p2Deck.size())));
-//        }
-//        return l;
-//    }
 
     public Card add1CardToHand(List<Card> pDeck) {
         if (pDeck.size() > 0) {
@@ -81,14 +58,6 @@ public class BattleService {
             return pDeck.remove(0);
         }
     }
-
-//    public Card add1CardToP2Hand(Battle b) {
-//        if (b.p2Deck.size() > 0) {
-//            return b.p2Deck.remove(new Random().nextInt(b.p2Deck.size()));
-//        } else {
-//            return b.p2Deck.remove(0);
-//        }
-//    }
 
     public int addPoint(int health, int damage, int points) {
         int point = 0;
