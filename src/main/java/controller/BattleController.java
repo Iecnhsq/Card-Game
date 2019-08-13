@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class BattleController {
 
-    public static final Logger LOGGER = Logger.getLogger(BattleController.class);
+    private static final Logger LOGGER = Logger.getLogger(BattleController.class);
     @Autowired
     private BattleService bs;
     @Autowired

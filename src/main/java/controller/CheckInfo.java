@@ -4,6 +4,7 @@ import dao.UserDAO;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class CheckInfo {
         String pass = req.getParameter("pass");
         String pass2 = req.getParameter("pass2");
         try (PrintWriter out = resp.getWriter()) {
-            if (pass == null ? pass2 != null : !pass.equals(pass2)) {
+            if (!Objects.equals(pass, pass2)) {
                 out.print("<div style='display:inline; color: red'>Password are not equals!</div>");
             } else {
                 out.print("<div style='display:inline; color: green'>Password are equals!</div>");

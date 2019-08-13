@@ -23,9 +23,7 @@ public class HealOneFriendlyCreatureImp implements HealOneFriendlyCreature {
     }
 
     private void addHeals(OnTableList OnTable, int amount) {
-        OnTable.stream().filter((c) -> (c.getId() == id)).forEachOrdered((c) -> {
-            c.setHealth(c.getHealth() + amount);
-        });
+        OnTable.stream().filter((c) -> (c.getId() == id)).forEachOrdered((c) -> c.setHealth(c.getHealth() + amount));
     }
 
 }

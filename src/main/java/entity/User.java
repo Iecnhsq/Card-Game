@@ -219,10 +219,7 @@ public class User implements Serializable {
         if (!Objects.equals(this.date, other.date)) {
             return false;
         }
-        if (!Objects.equals(this.prem, other.prem)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.prem, other.prem);
     }
 
 
