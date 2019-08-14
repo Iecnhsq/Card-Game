@@ -8,6 +8,8 @@ import holders.CardHolder;
 import holders.UserHolder;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +20,7 @@ public class MainService {
     @Autowired
     private UserHolder uh;
 
-    public Set<Card> getUserCards(ModelAndView model, String cardClassName) {
+    public Set<Card> getUserCards(@NotNull ModelAndView model, String cardClassName) {
         User u = uh.getUser();
         Set<Card> cards = new LinkedHashSet<>();
         String uCard = u.getCards();
