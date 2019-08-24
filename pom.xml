@@ -148,11 +148,13 @@
             </plugin>
         </plugins>
     </build>
-    <description>Card-Game
+    <description>
+        Card-Game
         
         Lord Of Magic Cards
 
         All graphic files in this project are presented for informational purposes only.
 
-        IT Academy CONTACT 2017</description>
+        IT Academy CONTACT 2017
+    </description>
 </project>
